@@ -25,6 +25,7 @@ namespace KeyCheckGui
         private string IMAGES_URL = "res/images";
         private string MY_IMAGES_URL = "res/images/my";
         private string MY_PNG_IMAGES_URL = "res/images/my/png";
+        
 
         public Content(StatisticsProduct[] products, Func<string, string> getData)
         {
@@ -81,8 +82,8 @@ namespace KeyCheckGui
         {
             foreach(var data in items.Values)
             {
-                _tests = _tests.Union(data.Tests).ToList();
-                _facts = _facts.Union(data.Facts).ToList();
+                _tests = _tests.Union(data.Tests, new TestDataComparer()).ToList();
+                _facts = _facts.Union(data.Facts, new FactDataComparer()).ToList();
             }
         }
 
@@ -117,15 +118,15 @@ namespace KeyCheckGui
             if (_pngImages.ContainsKey(pngId))
                 return _pngImages[pngId];
             else
-                return "Has not png image for " + pngId;
+                return null;// "Has not png image for " + pngId;
         }
 
         public string GetSvgImageLink(string id)
         {
-            if(_svgImages.ContainsKey(id))
+            if (_svgImages.ContainsKey(id))
                 return _svgImages[id];
             else
-                return "Has not svgmage for " + id;
+                return null;// "Has not svgmage for " + id;
         }
 
 
@@ -133,13 +134,14 @@ namespace KeyCheckGui
         public class ProductContent
         {
             internal StatisticsProduct id;
-            internal List<TestData> Tests => _tests.items;
-            internal List<Fact> Facts => _facts.items;
+            internal List<TestData> Tests => _tests != null ? _tests.items : new List<TestData>();
+            internal List<Fact> Facts => _facts != null ? _facts.items : new List<Fact>();
             private string _testJson;
             private string _factJson;
             private TestsObject _tests;
             private FactsObject _facts;
 
+            private string USER_NOT_FOUND = "User not found";
             private string TESTS_URL => $"game/course/knowledge/tests/object/{id}";
             private string FACTS_URL => $"game/course/knowledge/facts/object/{id}";
 
@@ -159,6 +161,10 @@ namespace KeyCheckGui
 
             private T GetObject<T>(string json)
             {
+                if(json == USER_NOT_FOUND)
+                {
+                    return default;
+                }
                 return JsonSerializer.Deserialize<T>(json);
             }
         }
