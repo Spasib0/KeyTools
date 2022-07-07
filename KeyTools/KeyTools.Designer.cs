@@ -29,7 +29,7 @@ namespace KeyCheckGui
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        protected void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -50,7 +50,6 @@ namespace KeyCheckGui
             this.chekKeyGroup = new System.Windows.Forms.GroupBox();
             this.productBox = new System.Windows.Forms.ComboBox();
             this.tabKeyDevices = new System.Windows.Forms.TabPage();
-            this.loadDataButton = new System.Windows.Forms.Button();
             this.elementInfo = new System.Windows.Forms.GroupBox();
             this.processorGroup = new System.Windows.Forms.GroupBox();
             this.processorInfo = new System.Windows.Forms.Label();
@@ -78,6 +77,7 @@ namespace KeyCheckGui
             this.modelLabel = new System.Windows.Forms.Label();
             this.devicesGridView = new System.Windows.Forms.DataGridView();
             this.tabDataTools = new System.Windows.Forms.TabPage();
+            this.loadDataButton = new System.Windows.Forms.Button();
             this.imagesCountLabel = new System.Windows.Forms.Label();
             this.serverTestsLabel = new System.Windows.Forms.Label();
             this.serverFactsLabel = new System.Windows.Forms.Label();
@@ -87,6 +87,9 @@ namespace KeyCheckGui
             this.checkDataButton = new System.Windows.Forms.Button();
             this.checkableDataList = new System.Windows.Forms.TextBox();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.lessonsPage = new System.Windows.Forms.TabPage();
+            this.getMylessonsButton = new System.Windows.Forms.Button();
+            this.avbalibleLessonsGroup = new System.Windows.Forms.GroupBox();
             this.keyResultGroup.SuspendLayout();
             this.keyGroup.SuspendLayout();
             this.serverGroup.SuspendLayout();
@@ -101,6 +104,8 @@ namespace KeyCheckGui
             this.tabDataTools.SuspendLayout();
             this.dataForCheckGroup.SuspendLayout();
             this.tabControl.SuspendLayout();
+            this.lessonsPage.SuspendLayout();
+            this.avbalibleLessonsGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusLabel
@@ -281,7 +286,6 @@ namespace KeyCheckGui
             // tabKeyDevices
             // 
             this.tabKeyDevices.BackColor = System.Drawing.SystemColors.Control;
-            this.tabKeyDevices.Controls.Add(this.loadDataButton);
             this.tabKeyDevices.Controls.Add(this.elementInfo);
             this.tabKeyDevices.Controls.Add(this.devicesGridView);
             this.tabKeyDevices.Location = new System.Drawing.Point(4, 24);
@@ -290,15 +294,6 @@ namespace KeyCheckGui
             this.tabKeyDevices.Size = new System.Drawing.Size(937, 468);
             this.tabKeyDevices.TabIndex = 2;
             this.tabKeyDevices.Text = "Devices";
-            // 
-            // loadDataButton
-            // 
-            this.loadDataButton.Location = new System.Drawing.Point(539, 434);
-            this.loadDataButton.Name = "loadDataButton";
-            this.loadDataButton.Size = new System.Drawing.Size(214, 23);
-            this.loadDataButton.TabIndex = 4;
-            this.loadDataButton.Text = "Load data";
-            this.loadDataButton.UseVisualStyleBackColor = true;
             // 
             // elementInfo
             // 
@@ -309,7 +304,7 @@ namespace KeyCheckGui
             this.elementInfo.Controls.Add(this.deviceGroup);
             this.elementInfo.Location = new System.Drawing.Point(447, 7);
             this.elementInfo.Name = "elementInfo";
-            this.elementInfo.Size = new System.Drawing.Size(422, 421);
+            this.elementInfo.Size = new System.Drawing.Size(422, 455);
             this.elementInfo.TabIndex = 29;
             this.elementInfo.TabStop = false;
             this.elementInfo.Text = "Information";
@@ -633,6 +628,7 @@ namespace KeyCheckGui
             // tabDataTools
             // 
             this.tabDataTools.BackColor = System.Drawing.SystemColors.Control;
+            this.tabDataTools.Controls.Add(this.loadDataButton);
             this.tabDataTools.Controls.Add(this.imagesCountLabel);
             this.tabDataTools.Controls.Add(this.serverTestsLabel);
             this.tabDataTools.Controls.Add(this.serverFactsLabel);
@@ -644,10 +640,19 @@ namespace KeyCheckGui
             this.tabDataTools.TabIndex = 1;
             this.tabDataTools.Text = "Data tools [0]";
             // 
+            // loadDataButton
+            // 
+            this.loadDataButton.Location = new System.Drawing.Point(6, 6);
+            this.loadDataButton.Name = "loadDataButton";
+            this.loadDataButton.Size = new System.Drawing.Size(181, 42);
+            this.loadDataButton.TabIndex = 11;
+            this.loadDataButton.Text = "Load data";
+            this.loadDataButton.UseVisualStyleBackColor = true;
+            // 
             // imagesCountLabel
             // 
             this.imagesCountLabel.AutoSize = true;
-            this.imagesCountLabel.Location = new System.Drawing.Point(222, 3);
+            this.imagesCountLabel.Location = new System.Drawing.Point(193, 33);
             this.imagesCountLabel.Name = "imagesCountLabel";
             this.imagesCountLabel.Size = new System.Drawing.Size(114, 15);
             this.imagesCountLabel.TabIndex = 6;
@@ -656,7 +661,7 @@ namespace KeyCheckGui
             // serverTestsLabel
             // 
             this.serverTestsLabel.AutoSize = true;
-            this.serverTestsLabel.Location = new System.Drawing.Point(115, 3);
+            this.serverTestsLabel.Location = new System.Drawing.Point(193, 20);
             this.serverTestsLabel.Name = "serverTestsLabel";
             this.serverTestsLabel.Size = new System.Drawing.Size(101, 15);
             this.serverTestsLabel.TabIndex = 4;
@@ -665,7 +670,7 @@ namespace KeyCheckGui
             // serverFactsLabel
             // 
             this.serverFactsLabel.AutoSize = true;
-            this.serverFactsLabel.Location = new System.Drawing.Point(6, 3);
+            this.serverFactsLabel.Location = new System.Drawing.Point(193, 3);
             this.serverFactsLabel.Name = "serverFactsLabel";
             this.serverFactsLabel.Size = new System.Drawing.Size(103, 15);
             this.serverFactsLabel.TabIndex = 5;
@@ -677,16 +682,16 @@ namespace KeyCheckGui
             this.dataForCheckGroup.Controls.Add(this.checkDataTypeBox);
             this.dataForCheckGroup.Controls.Add(this.checkDataButton);
             this.dataForCheckGroup.Controls.Add(this.checkableDataList);
-            this.dataForCheckGroup.Location = new System.Drawing.Point(6, 21);
+            this.dataForCheckGroup.Location = new System.Drawing.Point(6, 51);
             this.dataForCheckGroup.Name = "dataForCheckGroup";
-            this.dataForCheckGroup.Size = new System.Drawing.Size(278, 441);
+            this.dataForCheckGroup.Size = new System.Drawing.Size(278, 411);
             this.dataForCheckGroup.TabIndex = 10;
             this.dataForCheckGroup.TabStop = false;
             this.dataForCheckGroup.Text = "Select type and set checkable data";
             // 
             // loadFromJsonButton
             // 
-            this.loadFromJsonButton.Location = new System.Drawing.Point(6, 357);
+            this.loadFromJsonButton.Location = new System.Drawing.Point(7, 327);
             this.loadFromJsonButton.Name = "loadFromJsonButton";
             this.loadFromJsonButton.Size = new System.Drawing.Size(266, 36);
             this.loadFromJsonButton.TabIndex = 3;
@@ -704,7 +709,7 @@ namespace KeyCheckGui
             // 
             // checkDataButton
             // 
-            this.checkDataButton.Location = new System.Drawing.Point(6, 399);
+            this.checkDataButton.Location = new System.Drawing.Point(6, 369);
             this.checkDataButton.Name = "checkDataButton";
             this.checkDataButton.Size = new System.Drawing.Size(266, 36);
             this.checkDataButton.TabIndex = 0;
@@ -717,12 +722,13 @@ namespace KeyCheckGui
             this.checkableDataList.Multiline = true;
             this.checkableDataList.Name = "checkableDataList";
             this.checkableDataList.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.checkableDataList.Size = new System.Drawing.Size(266, 300);
+            this.checkableDataList.Size = new System.Drawing.Size(266, 269);
             this.checkableDataList.TabIndex = 1;
             // 
             // tabControl
             // 
             this.tabControl.Controls.Add(this.tabKeyDevices);
+            this.tabControl.Controls.Add(this.lessonsPage);
             this.tabControl.Controls.Add(this.tabDataTools);
             this.tabControl.Enabled = false;
             this.tabControl.Location = new System.Drawing.Point(13, 141);
@@ -730,6 +736,36 @@ namespace KeyCheckGui
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(945, 496);
             this.tabControl.TabIndex = 35;
+            // 
+            // lessonsPage
+            // 
+            this.lessonsPage.BackColor = System.Drawing.SystemColors.Control;
+            this.lessonsPage.Controls.Add(this.avbalibleLessonsGroup);
+            this.lessonsPage.Location = new System.Drawing.Point(4, 24);
+            this.lessonsPage.Name = "lessonsPage";
+            this.lessonsPage.Size = new System.Drawing.Size(937, 468);
+            this.lessonsPage.TabIndex = 3;
+            this.lessonsPage.Text = "Lessons";
+            // 
+            // getMylessonsButton
+            // 
+            this.getMylessonsButton.Location = new System.Drawing.Point(6, 22);
+            this.getMylessonsButton.Name = "getMylessonsButton";
+            this.getMylessonsButton.Size = new System.Drawing.Size(100, 23);
+            this.getMylessonsButton.TabIndex = 0;
+            this.getMylessonsButton.Text = "Get my lessons";
+            this.getMylessonsButton.UseVisualStyleBackColor = true;
+            this.getMylessonsButton.Click += OnGetMyLessonsClick;
+            // 
+            // groupBox1
+            // 
+            this.avbalibleLessonsGroup.Controls.Add(this.getMylessonsButton);
+            this.avbalibleLessonsGroup.Location = new System.Drawing.Point(3, 3);
+            this.avbalibleLessonsGroup.Name = "avbalibleLessonsGroup";
+            this.avbalibleLessonsGroup.Size = new System.Drawing.Size(246, 462);
+            this.avbalibleLessonsGroup.TabIndex = 1;
+            this.avbalibleLessonsGroup.TabStop = false;
+            this.avbalibleLessonsGroup.Text = "AvalibleLessons";
             // 
             // KeyTools
             // 
@@ -770,6 +806,8 @@ namespace KeyCheckGui
             this.dataForCheckGroup.ResumeLayout(false);
             this.dataForCheckGroup.PerformLayout();
             this.tabControl.ResumeLayout(false);
+            this.lessonsPage.ResumeLayout(false);
+            this.avbalibleLessonsGroup.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -829,5 +867,8 @@ namespace KeyCheckGui
         internal System.Windows.Forms.Button clearDevicesButton;
         internal System.Windows.Forms.ComboBox checkDataTypeBox;
         internal System.Windows.Forms.Button loadFromJsonButton;
+        internal System.Windows.Forms.TabPage lessonsPage;
+        internal System.Windows.Forms.Button getMylessonsButton;
+        private System.Windows.Forms.GroupBox avbalibleLessonsGroup;
     }
 }

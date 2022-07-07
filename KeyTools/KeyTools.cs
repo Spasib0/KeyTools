@@ -17,7 +17,7 @@ namespace KeyCheckGui
     {
         public static HttpClient Client => userClient;
 
-        public Content Content { get => currentData.Content; }
+        public Content Content { get => _currentData.Content; }
 
         private static readonly HttpClient userClient = new HttpClient();
 
@@ -31,7 +31,7 @@ namespace KeyCheckGui
 
         private readonly SavedData savedData = new SavedData();
 
-        private readonly KeyToolsDataControl currentData;
+        private readonly KeyToolsDataControl _currentData;
 
         private AuthDialog authDialog;
 
@@ -49,7 +49,7 @@ namespace KeyCheckGui
             InitializeComponent();
             InitServersBox();
             productBox.Items.AddRange(Enum.GetNames(typeof(StatisticsProduct)));
-            currentData = new KeyToolsDataControl(this);
+            _currentData = new KeyToolsDataControl(this);
             UpdateAuth();
         }
 
@@ -109,7 +109,7 @@ namespace KeyCheckGui
 
         private void OnCheckKey(object sender, EventArgs e)
         {
-            var toSend = JsonSerializer.Serialize(new KeyRequest(Product, Key, currentData.SelectedHardware));
+            var toSend = JsonSerializer.Serialize(new KeyRequest(Product, Key, _currentData.SelectedHardware));
             var response = userClient.PostAsync(KeyUrl, new StringContent(toSend, Encoding.UTF8, "application/json")).Result;
 
             if (!response.IsSuccessStatusCode)
@@ -177,7 +177,7 @@ namespace KeyCheckGui
             {
                 var userData = JsonSerializer.DeserializeAsync<UserData>(response.Content.ReadAsStreamAsync().Result).Result;
 
-                currentData.UpdateDevices(userData.user.hardwares);
+                _currentData.UpdateDevices(userData.user.hardwares);
 
                 SwitchUpdateDeviceButton(false);
             }
@@ -195,8 +195,9 @@ namespace KeyCheckGui
             keyField.Enabled = state;
         }
 
-        internal void SetSelectedDeviceToken(string token)
+        internal void SetSelectedDeviceToken()
         {
+            var token = _currentData.SelectedHardware.token;
             userClient.DefaultRequestHeaders.Clear();
             userClient.DefaultRequestHeaders.Add("Authorization", token);
             userClient.DefaultRequestHeaders.Add("auth-type", "OAUTH");

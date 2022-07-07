@@ -9,16 +9,11 @@ namespace KeyCheckGui
     {
         public UserHardware SelectedHardware => gridAdapter.Selected;
         public Content Content { get => content; }
-
         private readonly KeyTools controlData;
         private UserHardware[] hardwares;
-       
         private readonly HardwareGridAdapter gridAdapter = new HardwareGridAdapter();
         private ICheckableData dataForCheck;
-
-
         private Content content;
-
 
         private string devicesCountText => string.Format("Devices  [{0}]", controlData.devicesGridView.RowCount);
         private string serverTestsCountText => string.Format("Tests count: {0}", content.TestsCount);
@@ -49,12 +44,12 @@ namespace KeyCheckGui
         {
             controlData.tabControl.TabPages[0].Text = devicesCountText;
             controlData.tabControl.Enabled = state;
-            SetCheckableDataTabState(false);
+            SetCheckableDataTabState(state);
         }
 
         private void SetCheckableDataTabState(bool state)
         {
-            (controlData.tabControl.TabPages[1] as Control).Enabled = state;
+            (controlData.tabControl.TabPages[2] as Control).Enabled = state;
             controlData.checkDataTypeBox.DataSource = Enum.GetValues(typeof(CheckableDataType));
         }
 
@@ -84,7 +79,7 @@ namespace KeyCheckGui
             controlData.serverTestsLabel.Text = serverTestsCountText;
             controlData.serverFactsLabel.Text = serverFactsCountText;
             controlData.imagesCountLabel.Text = serverImagesCountText;
-            controlData.tabControl.TabPages[1].Text = deviceDataText;
+            controlData.tabControl.TabPages[2].Text = deviceDataText;
         }
 
         private void SetEvents()
@@ -99,11 +94,10 @@ namespace KeyCheckGui
         private void OnLoadDataButton_Click(object sender, EventArgs e)
         {
             StatisticsProduct[] products = new StatisticsProduct[] { StatisticsProduct.cards_app_school, StatisticsProduct.logopedia }; //Enum.GetValues(typeof(StatisticsProduct)).Cast<StatisticsProduct>().ToArray();
-            controlData.SetSelectedDeviceToken(gridAdapter.Selected.token);
+            controlData.SetSelectedDeviceToken();
             content = new Content(products, controlData.DownloadJson);
             //Dictionary<StatisticsProduct, Content.ProductContent> keyValuePairs = content.items; //todo вкл/выкл доступные продукты (а потом объеденение)
             UpdateLabels();
-            SetCheckableDataTabState(true);
         }
 
         private void OnChekDataTypeBox_SelectedIndexChanged(object sender, EventArgs e)
