@@ -11,7 +11,7 @@ namespace KeyCheckGui
         public Content Content { get => content; }
         private readonly KeyTools controlData;
         private UserHardware[] hardwares;
-        private readonly HardwareGridAdapter gridAdapter = new HardwareGridAdapter();
+        private readonly HardwareGridAdapter gridAdapter;
         private ICheckableData dataForCheck;
         private Content content;
 
@@ -24,13 +24,13 @@ namespace KeyCheckGui
         public KeyToolsDataControl(KeyTools data)
         {
             controlData = data;
+            gridAdapter = new HardwareGridAdapter(controlData.devicesGridView);
             SetEvents();
         }
 
         public void UpdateDevices(UserHardware[] hardwares)
         {
             this.hardwares = hardwares;
-            
             FillDevices();
             SetEnabled(true);
         }
@@ -38,6 +38,11 @@ namespace KeyCheckGui
         public void Clear()
         {
             SetEnabled(false);
+        }
+
+        public void ClearDevices()
+        {
+            gridAdapter.Clear();
         }
 
         private void SetEnabled(bool state)
@@ -55,7 +60,7 @@ namespace KeyCheckGui
 
         private void FillDevices()
         {
-            gridAdapter.SetData(controlData.devicesGridView, hardwares, SetDeviceInfo);
+            gridAdapter.SetData(hardwares, SetDeviceInfo);
         }
 
         private void SetDeviceInfo(UserHardware hardware)
@@ -71,7 +76,8 @@ namespace KeyCheckGui
             controlData.graphicsNameInfo.Text = hardware.graphicsDeviceName;
             controlData.graphicsSizeInfo.Text = hardware.graphicsMemorySize;
             controlData.graphicsVersionInfo.Text = hardware.graphicsDeviceVersion;
-            controlData.productBox.SelectedIndex = controlData.productBox.FindString(hardware.product);
+            //controlData.productBox.SelectedIndex = controlData.productBox.FindString(hardware.product);
+            controlData.productBox.SelectedIndex = controlData.productBox.Items.IndexOf(SelectedHardware.product);
         }
 
         private void UpdateLabels()
@@ -95,7 +101,7 @@ namespace KeyCheckGui
         {
             StatisticsProduct[] products = new StatisticsProduct[] { StatisticsProduct.cards_app_school, StatisticsProduct.logopedia }; //Enum.GetValues(typeof(StatisticsProduct)).Cast<StatisticsProduct>().ToArray();
             controlData.SetSelectedDeviceToken();
-            content = new Content(products, controlData.DownloadJson);
+            content = new Content(products, controlData.GetRequest);
             //Dictionary<StatisticsProduct, Content.ProductContent> keyValuePairs = content.items; //todo вкл/выкл доступные продукты (а потом объеденение)
             UpdateLabels();
         }

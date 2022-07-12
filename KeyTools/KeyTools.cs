@@ -34,6 +34,7 @@ namespace KeyCheckGui
         private readonly KeyToolsDataControl _currentData;
 
         private AuthDialog authDialog;
+        private string currentProductToken;
 
         private string Key => keyField.Text;
         private string Product => productBox.Text;
@@ -93,7 +94,7 @@ namespace KeyCheckGui
         {
             _tokens[CurrentServer] = token;
             //////////////////////////////////////////////
-            keyField.Text = "naura";
+            keyField.Text = "Moderator";
             updateDevicesButton.Select();
             //////////////////////////////////////////////
             UpdateAuth();
@@ -109,6 +110,11 @@ namespace KeyCheckGui
 
         private void OnCheckKey(object sender, EventArgs e)
         {
+            CheckKey();
+        }
+
+        private void CheckKey()
+        {
             var toSend = JsonSerializer.Serialize(new KeyRequest(Product, Key, _currentData.SelectedHardware));
             var response = userClient.PostAsync(KeyUrl, new StringContent(toSend, Encoding.UTF8, "application/json")).Result;
 
@@ -122,6 +128,7 @@ namespace KeyCheckGui
                 var res = response.Content.ReadAsStringAsync().Result;
                 var keyResponse = JsonSerializer.Deserialize<KeyResponse>(res);
                 SetCheckResult(keyResponse.value, keyResponse.details);
+                currentProductToken = keyResponse.auth.token;
             }
         }
 
@@ -166,6 +173,7 @@ namespace KeyCheckGui
         private void OnUpdateDevicesClick(object sender, EventArgs e)
         {
             var response = userClient.GetAsync(UserDataUrl).Result;
+            
             SetButtonState(checkButton, response.IsSuccessStatusCode);
 
             if (!response.IsSuccessStatusCode)
@@ -186,6 +194,8 @@ namespace KeyCheckGui
         private void OnClearDevicesButton_Click(object sender, EventArgs e)
         {
             SwitchUpdateDeviceButton(true);
+            ClearDevices();
+
         }
 
         private void SwitchUpdateDeviceButton(bool state)
@@ -193,6 +203,23 @@ namespace KeyCheckGui
             updateDevicesButton.Visible = state;
             clearDevicesButton.Visible = !state;
             keyField.Enabled = state;
+        }
+
+        private void ClearDevices()
+        {
+            _currentData.ClearDevices();
+        }
+
+        internal void SetSelectedProductToken()
+        {
+            if(currentProductToken == null)
+            {
+                CheckKey();
+            }
+
+            userClient.DefaultRequestHeaders.Clear();
+            userClient.DefaultRequestHeaders.Add("Authorization", currentProductToken);
+            userClient.DefaultRequestHeaders.Add("auth-type", "OAUTH");
         }
 
         internal void SetSelectedDeviceToken()
@@ -203,42 +230,34 @@ namespace KeyCheckGui
             userClient.DefaultRequestHeaders.Add("auth-type", "OAUTH");
         }
 
-        internal string DownloadJson(string url)
+        private void TabControlSelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (tabControl.SelectedIndex)
+            {
+                case 1:
+                    SetSelectedProductToken();
+                    break;
+                default:
+                    SetSelectedDeviceToken();
+                    break;
+            }
+        }
+
+        internal string GetRequest(string url)
         {
             var request = userClient.GetAsync(CurrentServer + url).Result;
             using var reader = new StreamReader(request.Content.ReadAsStreamAsync().Result);
             return reader.ReadToEnd();
         }
 
-
-        private class KeyRequest
+        internal string PutRequest(string url, string data)
         {
-            public KeyRequest(string productName, string key, UserHardware userHardware)
-            {
-                username = key;
-                password = "";
-                product = productName;
-                version = 0;
-                hardware = new Hardware(userHardware);
-                master = false;
-                isTeacher = false;
-            }
-
-            public string username { get; set; }
-            public string password { get; set; }
-            public string product { get; set; }
-            public int version { get; set; }
-            public Hardware hardware { get; set; }
-            public bool master { get; set; }
-            public bool isTeacher { get; set; }
+            var request = userClient.PutAsync(CurrentServer + url, new StringContent(data, Encoding.UTF8, "application/json")).Result;
+            using var reader = new StreamReader(request.Content.ReadAsStreamAsync().Result);
+            return reader.ReadToEnd();
         }
 
-        private class KeyResponse
-        {
-            public string value { get; set; }
-            public string details { get; set; }
-            public int delay { get; set; }
-        }
+     
     }
 }
 

@@ -88,8 +88,10 @@ namespace KeyCheckGui
             this.checkableDataList = new System.Windows.Forms.TextBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.lessonsPage = new System.Windows.Forms.TabPage();
-            this.getMylessonsButton = new System.Windows.Forms.Button();
             this.avbalibleLessonsGroup = new System.Windows.Forms.GroupBox();
+            this.getMylessonsButton = new System.Windows.Forms.Button();
+            this.moderatorGroup = new System.Windows.Forms.GroupBox();
+            this.getAllWorldLessons = new System.Windows.Forms.Button();
             this.keyResultGroup.SuspendLayout();
             this.keyGroup.SuspendLayout();
             this.serverGroup.SuspendLayout();
@@ -106,6 +108,7 @@ namespace KeyCheckGui
             this.tabControl.SuspendLayout();
             this.lessonsPage.SuspendLayout();
             this.avbalibleLessonsGroup.SuspendLayout();
+            this.moderatorGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusLabel
@@ -736,10 +739,12 @@ namespace KeyCheckGui
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(945, 496);
             this.tabControl.TabIndex = 35;
+            this.tabControl.SelectedIndexChanged += TabControlSelectedIndexChanged;
             // 
             // lessonsPage
             // 
             this.lessonsPage.BackColor = System.Drawing.SystemColors.Control;
+            this.lessonsPage.Controls.Add(this.moderatorGroup);
             this.lessonsPage.Controls.Add(this.avbalibleLessonsGroup);
             this.lessonsPage.Location = new System.Drawing.Point(4, 24);
             this.lessonsPage.Name = "lessonsPage";
@@ -747,25 +752,45 @@ namespace KeyCheckGui
             this.lessonsPage.TabIndex = 3;
             this.lessonsPage.Text = "Lessons";
             // 
+            // avbalibleLessonsGroup
+            // 
+            this.avbalibleLessonsGroup.Controls.Add(this.getMylessonsButton);
+            this.avbalibleLessonsGroup.Location = new System.Drawing.Point(3, 3);
+            this.avbalibleLessonsGroup.Name = "avbalibleLessonsGroup";
+            this.avbalibleLessonsGroup.Size = new System.Drawing.Size(217, 462);
+            this.avbalibleLessonsGroup.TabIndex = 1;
+            this.avbalibleLessonsGroup.TabStop = false;
+            this.avbalibleLessonsGroup.Text = "AvalibleLessons";
+            // 
             // getMylessonsButton
             // 
             this.getMylessonsButton.Location = new System.Drawing.Point(6, 22);
             this.getMylessonsButton.Name = "getMylessonsButton";
-            this.getMylessonsButton.Size = new System.Drawing.Size(100, 23);
+            this.getMylessonsButton.Size = new System.Drawing.Size(122, 23);
             this.getMylessonsButton.TabIndex = 0;
             this.getMylessonsButton.Text = "Get my lessons";
             this.getMylessonsButton.UseVisualStyleBackColor = true;
             this.getMylessonsButton.Click += OnGetMyLessonsClick;
             // 
-            // groupBox1
+            // moderatorGroup
             // 
-            this.avbalibleLessonsGroup.Controls.Add(this.getMylessonsButton);
-            this.avbalibleLessonsGroup.Location = new System.Drawing.Point(3, 3);
-            this.avbalibleLessonsGroup.Name = "avbalibleLessonsGroup";
-            this.avbalibleLessonsGroup.Size = new System.Drawing.Size(246, 462);
-            this.avbalibleLessonsGroup.TabIndex = 1;
-            this.avbalibleLessonsGroup.TabStop = false;
-            this.avbalibleLessonsGroup.Text = "AvalibleLessons";
+            this.moderatorGroup.Controls.Add(this.getAllWorldLessons);
+            this.moderatorGroup.Location = new System.Drawing.Point(227, 4);
+            this.moderatorGroup.Name = "moderatorGroup";
+            this.moderatorGroup.Size = new System.Drawing.Size(242, 461);
+            this.moderatorGroup.TabIndex = 2;
+            this.moderatorGroup.TabStop = false;
+            this.moderatorGroup.Text = "ModeratorTools";
+            // 
+            // getAllWorldLessons
+            // 
+            this.getAllWorldLessons.Location = new System.Drawing.Point(7, 23);
+            this.getAllWorldLessons.Name = "getAllWorldLessons";
+            this.getAllWorldLessons.Size = new System.Drawing.Size(136, 23);
+            this.getAllWorldLessons.TabIndex = 0;
+            this.getAllWorldLessons.Text = "Get All World Lessons";
+            this.getAllWorldLessons.UseVisualStyleBackColor = true;
+            this.getAllWorldLessons.Click += OnGetAllWorldLessonsClick;
             // 
             // KeyTools
             // 
@@ -808,6 +833,7 @@ namespace KeyCheckGui
             this.tabControl.ResumeLayout(false);
             this.lessonsPage.ResumeLayout(false);
             this.avbalibleLessonsGroup.ResumeLayout(false);
+            this.moderatorGroup.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -870,5 +896,7 @@ namespace KeyCheckGui
         internal System.Windows.Forms.TabPage lessonsPage;
         internal System.Windows.Forms.Button getMylessonsButton;
         private System.Windows.Forms.GroupBox avbalibleLessonsGroup;
+        private System.Windows.Forms.GroupBox moderatorGroup;
+        private System.Windows.Forms.Button getAllWorldLessons;
     }
 }

@@ -16,17 +16,10 @@ namespace KeyCheckGui
 
         public UserHardware Selected => hardwares.FirstOrDefault(item => item.id.Equals(gridView.SelectedRows[0].Cells[0].Value));
 
-        public void SetData(DataGridView gridView, UserHardware[] hardwares, Action<UserHardware> onSelect)
+        public HardwareGridAdapter(DataGridView gridView)
         {
             this.gridView = gridView;
-            this.onSelect = onSelect;
-            this.hardwares = hardwares;
-            SetGridView(hardwares);
-        }
 
-
-        private void SetGridView(UserHardware[] data)
-        {
             DataGridViewTextBoxColumn idColumn = new DataGridViewTextBoxColumn();
             idColumn.Name = "HardwareId";
             idColumn.Width = 280;
@@ -37,6 +30,18 @@ namespace KeyCheckGui
             productsColumn.Width = 130;
 
             gridView.Columns.AddRange(idColumn, productsColumn);
+        }
+
+        public void SetData(UserHardware[] hardwares, Action<UserHardware> onSelect)
+        {
+            this.onSelect = onSelect;
+            this.hardwares = hardwares;
+            SetGridView(hardwares);
+        }
+
+        private void SetGridView(UserHardware[] data)
+        {
+            
             SetHardwaresData(data);
 
 
@@ -55,6 +60,10 @@ namespace KeyCheckGui
             }
         }
 
+        public void Clear()
+        {
+            gridView.Rows.Clear();
+        }
 
         private void ComboBox_DropDownClosed(object sender, EventArgs e)
         {
@@ -70,7 +79,7 @@ namespace KeyCheckGui
 
         private void GridView_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            if(e.StateChanged == DataGridViewElementStates.Selected)
+            if(e.StateChanged == DataGridViewElementStates.Selected && e.Row.Index > 0)
             {
                 SelectHardware(e.Row.Index);
             }
@@ -93,13 +102,11 @@ namespace KeyCheckGui
             }
         }
 
-
         private GridHardware[] GetGridHardwares(UserHardware[] data)
         {
             var ids = data.Select(item => item.id).Distinct().ToArray();
             return ids.Select(id => new GridHardware(id, data.Where(item => item.id == id).Select(item => item.product).ToArray())).ToArray();
         }
-
 
         private class GridHardware
         {
