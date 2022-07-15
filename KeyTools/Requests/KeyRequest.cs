@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace KeyCheckGui
+﻿namespace KeyCheckGui
 {
     public class KeyRequest
     {
@@ -25,6 +21,4 @@ namespace KeyCheckGui
         public bool master { get; set; }
         public bool isTeacher { get; set; }
     }
-
-
 }

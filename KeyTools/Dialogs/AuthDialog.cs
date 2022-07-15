@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KeyTools.Classes;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -12,26 +13,28 @@ namespace KeyCheckGui
     {
         private string login;
         private string password;
-        private Action<string> onAuth;
-        private readonly SavedData savedData;
+        private KeyToolsClient _client;
+        private Action<string> _onAuth;
+        private readonly SavedData _savedData;
         
         private string Url => Text + AUTH_URL;
         private const string AUTH_ERROR = "Не удалось авторизоваться";
         private const string AUTH_URL = "pub/admin/login";
 
-        public AuthDialog(string serverName, Action<string> onAuth, SavedData savedData) 
+        public AuthDialog(KeyToolsClient client, Action<string> onAuth, SavedData savedData) 
         {
             InitializeComponent();
-            this.onAuth = onAuth;
-            this.savedData = savedData;
+            _client = client;
+            _onAuth = onAuth;
+            _savedData = savedData;
             
-            SetData(serverName);
+            SetData(client.CurrentServer);
         }
 
         private void SetData(string serverName)
         {
             Text = serverName;
-            login = savedData["login"];
+            login = _savedData["login"];
             loginField.Text = login;
 
             if (saveCheckBox.Checked = !string.IsNullOrEmpty(login))
@@ -58,7 +61,7 @@ namespace KeyCheckGui
             var request = new LoginRequest(login, password);
             var toSend = JsonSerializer.Serialize(request);
 
-            var responce = KeyTools.Client.PostAsync(Url, new StringContent(toSend, Encoding.UTF8, "application/json")).Result;
+            var responce = _client.PostAsync(Url, new StringContent(toSend, Encoding.UTF8, "application/json")).Result; //todo убрать в KeyToolsClient
 
             if (!responce.IsSuccessStatusCode)
             {
@@ -67,11 +70,11 @@ namespace KeyCheckGui
             else
             {
                 var loginResponce = JsonSerializer.Deserialize<LoginResponse>(responce.Content.ReadAsStringAsync().Result);
-                onAuth(loginResponce.token);
+                _onAuth(loginResponce.token);
 
                 if (saveCheckBox.Checked)
                 {
-                    savedData["login"] = loginField.Text;
+                    _savedData["login"] = loginField.Text;
                 }
 
                 Close();

@@ -101,7 +101,7 @@ namespace KeyCheckGui
         {
             StatisticsProduct[] products = new StatisticsProduct[] { StatisticsProduct.cards_app_school, StatisticsProduct.logopedia }; //Enum.GetValues(typeof(StatisticsProduct)).Cast<StatisticsProduct>().ToArray();
             controlData.SetSelectedDeviceToken();
-            content = new Content(products, controlData.GetRequest);
+            content = new Content(products, controlData.Client.GetRequest);
             //Dictionary<StatisticsProduct, Content.ProductContent> keyValuePairs = content.items; //todo вкл/выкл доступные продукты (а потом объеденение)
             UpdateLabels();
         }

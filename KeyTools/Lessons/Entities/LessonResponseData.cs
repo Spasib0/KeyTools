@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace KeyCheckGui
+namespace KeyTools.Lessons.Entities
 {
     public class LessonResponseData : BaseLessonResponseData
     {

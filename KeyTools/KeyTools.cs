@@ -1,11 +1,7 @@
-﻿using KeyCheckGui.Dialogs;
+﻿using KeyTools.Classes;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -15,11 +11,11 @@ namespace KeyCheckGui
 {
     public partial class KeyTools : Form
     {
-        public static HttpClient Client => userClient;
+        public KeyToolsClient Client => _userClient;
 
         public Content Content { get => _currentData.Content; }
 
-        private static readonly HttpClient userClient = new HttpClient();
+        private KeyToolsClient _userClient;
 
         private readonly string[] _servers = new string[] { "https://nau-mag.com/", "https://savanto.me/" };
         private string CurrentServer => serversList.Text;
@@ -48,10 +44,12 @@ namespace KeyCheckGui
         public KeyTools()
         {
             InitializeComponent();
+            _userClient = new KeyToolsClient(serversList);
             InitServersBox();
             productBox.Items.AddRange(Enum.GetNames(typeof(StatisticsProduct)));
             _currentData = new KeyToolsDataControl(this);
             UpdateAuth();
+            lessonsTests.SetClient(_userClient);
         }
 
         private void InitServersBox()
@@ -102,10 +100,10 @@ namespace KeyCheckGui
 
         private void UpdateClientHeaders()
         {
-            userClient.DefaultRequestHeaders.Clear();
+            _userClient.DefaultRequestHeaders.Clear();
 
             if (TokenAvalible)
-                userClient.DefaultRequestHeaders.Add("Authorization", _tokens[CurrentServer]);
+                _userClient.DefaultRequestHeaders.Add("Authorization", _tokens[CurrentServer]);
         }
 
         private void OnCheckKey(object sender, EventArgs e)
@@ -116,7 +114,7 @@ namespace KeyCheckGui
         private void CheckKey()
         {
             var toSend = JsonSerializer.Serialize(new KeyRequest(Product, Key, _currentData.SelectedHardware));
-            var response = userClient.PostAsync(KeyUrl, new StringContent(toSend, Encoding.UTF8, "application/json")).Result;
+            var response = _userClient.PostAsync(KeyUrl, new StringContent(toSend, Encoding.UTF8, "application/json")).Result; //todo убрать внутрь клиента
 
             if (!response.IsSuccessStatusCode)
             {
@@ -156,7 +154,7 @@ namespace KeyCheckGui
         {
             if (authDialog == null || !authDialog.CanFocus)
             {
-                authDialog = new AuthDialog(CurrentServer, OnAuth, savedData);
+                authDialog = new AuthDialog(Client, OnAuth, savedData);
                 authDialog.Show();
             }
             else
@@ -172,7 +170,7 @@ namespace KeyCheckGui
 
         private void OnUpdateDevicesClick(object sender, EventArgs e)
         {
-            var response = userClient.GetAsync(UserDataUrl).Result;
+            var response = _userClient.GetAsync(UserDataUrl).Result;//todo убрать внутрь клиента
             
             SetButtonState(checkButton, response.IsSuccessStatusCode);
 
@@ -217,17 +215,17 @@ namespace KeyCheckGui
                 CheckKey();
             }
 
-            userClient.DefaultRequestHeaders.Clear();
-            userClient.DefaultRequestHeaders.Add("Authorization", currentProductToken);
-            userClient.DefaultRequestHeaders.Add("auth-type", "OAUTH");
+            _userClient.DefaultRequestHeaders.Clear();
+            _userClient.DefaultRequestHeaders.Add("Authorization", currentProductToken);
+            _userClient.DefaultRequestHeaders.Add("auth-type", "OAUTH");
         }
 
         internal void SetSelectedDeviceToken()
         {
             var token = _currentData.SelectedHardware.token;
-            userClient.DefaultRequestHeaders.Clear();
-            userClient.DefaultRequestHeaders.Add("Authorization", token);
-            userClient.DefaultRequestHeaders.Add("auth-type", "OAUTH");
+            _userClient.DefaultRequestHeaders.Clear();
+            _userClient.DefaultRequestHeaders.Add("Authorization", token);
+            _userClient.DefaultRequestHeaders.Add("auth-type", "OAUTH");
         }
 
         private void TabControlSelectedIndexChanged(object sender, EventArgs e)
@@ -242,22 +240,6 @@ namespace KeyCheckGui
                     break;
             }
         }
-
-        internal string GetRequest(string url)
-        {
-            var request = userClient.GetAsync(CurrentServer + url).Result;
-            using var reader = new StreamReader(request.Content.ReadAsStreamAsync().Result);
-            return reader.ReadToEnd();
-        }
-
-        internal string PutRequest(string url, string data)
-        {
-            var request = userClient.PutAsync(CurrentServer + url, new StringContent(data, Encoding.UTF8, "application/json")).Result;
-            using var reader = new StreamReader(request.Content.ReadAsStreamAsync().Result);
-            return reader.ReadToEnd();
-        }
-
-     
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace KeyCheckGui
+namespace KeyTools.Lessons.Entities
 {
     public class OriginalPair : Pair
     {

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace KeyCheckGui
+namespace KeyTools.Lessons.Entities
 {
     public class PupilSlideData : ICreateInstanceDelegate<PupilSlideData>
     {

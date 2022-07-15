@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KeyCheckGui
+namespace KeyTools.Lessons.Entities
 {
     public class SerializablePicturesData<T> : SerializablePicturesData where T : class, ICreateInstanceDelegate<T>
     {

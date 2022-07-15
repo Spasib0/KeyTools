@@ -2,7 +2,7 @@
 using System;
 using System.Globalization;
 
-namespace KeyCheckGui
+namespace KeyTools.Lessons.Entities
 {
     public class BaseLessonResponseData
     {

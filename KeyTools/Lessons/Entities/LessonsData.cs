@@ -3,12 +3,13 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KeyCheckGui
+namespace KeyTools.Lessons.Entities
 {
     public class LessonsData
     {
+        public int Count => _data.Count;
         private List<LessonResponseData> _data;
-
+        
         public LessonsData(string responce)
         {
             var objData = (JArray)JsonConvert.DeserializeObject(responce);

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace KeyCheckGui
+namespace KeyTools.Lessons.Entities
 {
     public class MediaLessonResponseData : BaseLessonResponseData
     {
