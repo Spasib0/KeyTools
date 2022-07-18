@@ -1,7 +1,8 @@
 ﻿using KeyTools.Classes;
+using KeyTools.Lessons.Requests;
 using Newtonsoft.Json;
 using System;
-
+using System.Net.Http;
 
 namespace KeyTools.Lessons.Entities
 {
@@ -9,24 +10,32 @@ namespace KeyTools.Lessons.Entities
     {
         private KeyToolsClient _client;
 
-        private const string KEY_LESSONS_URL = "game/lessons/author/my";
-        private const string ALL_WORLD_LESSONS_URL = "game/lessons/new";
+        private const string PUT = "PUT";
 
         public LessonsClient(KeyToolsClient client)
         {
             _client = client;
         }
 
-        public LessonsData GetKeyLessons()
+        public string Call(ILessonsRequest request)
         {
-            var response = _client.GetRequest(KEY_LESSONS_URL);
-            return new LessonsData(response);
+            switch (request.Method)
+            {
+                case PUT:
+                    return Put(request as PutLessonRequest);
+                default:
+                    return Get(request);
+            }
         }
 
-        public LessonsData GetAllWorldLessons()
+        private string Get(ILessonsRequest request)
         {
-            var response = _client.PutRequest(ALL_WORLD_LESSONS_URL, JsonConvert.SerializeObject(ModeratorSearchRequest.SearchAllLessons(true, 99)));
-            return new LessonsData(response);
+            return _client.GetRequest(request.Url);
+        }
+
+        private string Put(PutLessonRequest request)
+        {
+            return _client.PutRequest(request.Url, request.Data);
         }
     }
 }

@@ -234,6 +234,7 @@ namespace KeyCheckGui
             {
                 case 1:
                     SetSelectedProductToken();
+                    lessonsTests.CheckModeratorRole();
                     break;
                 default:
                     SetSelectedDeviceToken();
