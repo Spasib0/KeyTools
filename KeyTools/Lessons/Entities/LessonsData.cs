@@ -8,6 +8,7 @@ namespace KeyTools.Lessons.Entities
     public class LessonsData
     {
         public int Count => _data.Count;
+        public string[] StringIds => _data.Select(lesson => lesson.id.ToString()).ToArray();
         private List<LessonResponseData> _data;
         
         public LessonsData(string responce)

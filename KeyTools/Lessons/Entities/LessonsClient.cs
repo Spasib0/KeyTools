@@ -1,8 +1,5 @@
 ﻿using KeyTools.Classes;
 using KeyTools.Lessons.Requests;
-using Newtonsoft.Json;
-using System;
-using System.Net.Http;
 
 namespace KeyTools.Lessons.Entities
 {

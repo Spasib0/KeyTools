@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -11,23 +9,26 @@ namespace KeyCheckGui
     {
         private DataGridView gridView;
         private UserHardware[] hardwares;
-        //private GridHardware[] gridHardwares;
         private Action<UserHardware> onSelect;
 
-        public UserHardware Selected => hardwares.FirstOrDefault(item => item.id.Equals(gridView.SelectedRows[0].Cells[0].Value));
+        public UserHardware Selected => hardwares?.FirstOrDefault(item => item.id.Equals(gridView.SelectedRows[0].Cells[0].Value));
 
         public HardwareGridAdapter(DataGridView gridView)
         {
             this.gridView = gridView;
 
-            DataGridViewTextBoxColumn idColumn = new DataGridViewTextBoxColumn();
-            idColumn.Name = "HardwareId";
-            idColumn.Width = 280;
-            idColumn.ReadOnly = true;
+            DataGridViewTextBoxColumn idColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "HardwareId",
+                Width = 280,
+                ReadOnly = true
+            };
 
-            DataGridViewComboBoxColumn productsColumn = new DataGridViewComboBoxColumn();
-            productsColumn.Name = "Products";
-            productsColumn.Width = 130;
+            DataGridViewComboBoxColumn productsColumn = new DataGridViewComboBoxColumn
+            {
+                Name = "Products",
+                Width = 130
+            };
 
             gridView.Columns.AddRange(idColumn, productsColumn);
         }
@@ -43,8 +44,6 @@ namespace KeyCheckGui
         {
             
             SetHardwaresData(data);
-
-
 
             gridView.CellClick += new DataGridViewCellEventHandler(OnClickCell);
             gridView.RowStateChanged += GridView_RowStateChanged;
@@ -63,11 +62,12 @@ namespace KeyCheckGui
         public void Clear()
         {
             gridView.Rows.Clear();
+            hardwares = null;
         }
 
         private void ComboBox_DropDownClosed(object sender, EventArgs e)
         {
-            var curentCell = gridView.CurrentCell as DataGridViewComboBoxCell;
+            DataGridViewComboBoxCell curentCell = gridView.CurrentCell as DataGridViewComboBoxCell;
             int index = gridView.CurrentCell.RowIndex;
 
             if(curentCell != null)

@@ -1,6 +1,4 @@
-﻿using KeyCheckGui.Dialogs;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Windows.Forms;
 
 namespace KeyCheckGui
@@ -37,11 +35,13 @@ namespace KeyCheckGui
 
         public void Clear()
         {
+            controlData.tabControl.SelectedIndex = 0;
             SetEnabled(false);
         }
 
         public void ClearDevices()
         {
+            Clear();
             gridAdapter.Clear();
         }
 
@@ -76,7 +76,6 @@ namespace KeyCheckGui
             controlData.graphicsNameInfo.Text = hardware.graphicsDeviceName;
             controlData.graphicsSizeInfo.Text = hardware.graphicsMemorySize;
             controlData.graphicsVersionInfo.Text = hardware.graphicsDeviceVersion;
-            //controlData.productBox.SelectedIndex = controlData.productBox.FindString(hardware.product);
             controlData.productBox.SelectedIndex = controlData.productBox.Items.IndexOf(SelectedHardware.product);
         }
 

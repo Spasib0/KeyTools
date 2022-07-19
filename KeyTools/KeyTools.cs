@@ -206,6 +206,7 @@ namespace KeyCheckGui
         private void ClearDevices()
         {
             _currentData.ClearDevices();
+            UpdateAuth();
         }
 
         internal void SetSelectedProductToken()
