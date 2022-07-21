@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace KeyTools.Lessons.Entities
+namespace KeyTools.Lessons.Requests
 {
     [Serializable]
     public class SearchLessonsRequest : BaseSearchLessonsRequest

@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿
+using KeyTools.Lessons.Entities;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace KeyTools.Lessons.Entities
+namespace KeyTools.Responces
 {
     public class LessonResponseData : BaseLessonResponseData
     {
@@ -23,7 +25,7 @@ namespace KeyTools.Lessons.Entities
             origin = "";
             forks = 0;
             views = 0;
-            checkedTime = new DateTime(2000, 1, 1, 12, 0, 0, DateTimeKind.Utc);
+            checkedTime = BaseResponse.CUSTOM_DATE_TIME;
             content = CardsAppLessonData.CreateNewLesson();
         }
 
@@ -37,7 +39,7 @@ namespace KeyTools.Lessons.Entities
             origin = "";
             forks = 0;
             views = 0;
-            checkedTime = new DateTime(2000, 1, 1, 12, 0, 0, DateTimeKind.Utc);
+            checkedTime = BaseResponse.CUSTOM_DATE_TIME;
             this.content = content; // тут умышленно ссылка передаётся
         }
 
@@ -92,7 +94,7 @@ namespace KeyTools.Lessons.Entities
 
         public static LessonResponseData FromHddData(long id, CardsAppLessonData content)
         {
-            return new LessonResponseData(id, "", "", "", false, "", 0, 0, new DateTime(2000, 1, 1, 12, 0, 0, DateTimeKind.Utc), content);
+            return new LessonResponseData(id, "", "", "", false, "", 0, 0, BaseResponse.CUSTOM_DATE_TIME, content);
         }
 
         public void SetId(long newId)

@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using KeyTools.Lessons.Entities;
+using Newtonsoft.Json.Linq;
 
-namespace KeyTools.Lessons.Entities
+namespace KeyTools.Responces
 {
     public class MediaLessonResponseData : BaseLessonResponseData
     {

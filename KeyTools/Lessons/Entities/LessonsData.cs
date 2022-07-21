@@ -1,3 +1,4 @@
+using KeyTools.Responces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace KeyTools.Lessons.Entities
     {
         public int Count => _data.Count;
         public string[] StringIds => _data.Select(lesson => lesson.id.ToString()).ToArray();
+        public List<LessonResponseData> Data => _data;
         private List<LessonResponseData> _data;
         
         public LessonsData(string responce)

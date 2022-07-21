@@ -2,7 +2,7 @@
 using System;
 using System.Globalization;
 
-namespace KeyTools.Lessons.Entities
+namespace KeyTools.Responces
 {
     public class BaseLessonResponseData
     {
@@ -31,7 +31,7 @@ namespace KeyTools.Lessons.Entities
             origin = jLessonResponseObj.Value<string>("origin");
             forks = jLessonResponseObj.Value<int>("forks");
             views = jLessonResponseObj.Value<int>("views");
-            checkedTime = jLessonResponseObj.Value<string>("checked") != null ? DateTime.Parse(jLessonResponseObj.Value<string>("checked"),/* DATE_TIME_FORMAT,*/ CultureInfo.InvariantCulture) : new DateTime(2000, 1, 1, 12, 0, 0, DateTimeKind.Utc);
+            checkedTime = jLessonResponseObj.Value<string>("checked") != null ? DateTime.Parse(jLessonResponseObj.Value<string>("checked"), CultureInfo.InvariantCulture) : BaseResponse.CUSTOM_DATE_TIME;
         }
     }
 }

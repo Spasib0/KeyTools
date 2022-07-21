@@ -28,8 +28,6 @@ namespace KeyCheckGui
             data = DataView.Content.GetImagesUsage(DataView.checkableDataList.Lines);
             var checkedImagesIdsDialog = new CheckedImagesIdsDialog(data);
             checkedImagesIdsDialog.Show();
-            //DataView.resultTypeBox.DataSource = data.Result.Keys.ToList();
-            //DataView.resultTypeBox.SelectedIndexChanged += UpdateResultList;
         }
 
         private void UpdateCheckableGroup()
