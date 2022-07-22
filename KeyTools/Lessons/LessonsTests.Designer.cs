@@ -54,7 +54,7 @@ namespace KeyCheckGui
             this.testKeyLessons.TabIndex = 0;
             this.testKeyLessons.Text = "Test Key Lessons";
             this.testKeyLessons.UseVisualStyleBackColor = true;
-            this.testKeyLessons.Click += new System.EventHandler(this.OnGetKeyLessonsClick);
+            this.testKeyLessons.Click += new System.EventHandler(this.TestKeyLessonsClick);
             // 
             // allWorldLessons
             // 

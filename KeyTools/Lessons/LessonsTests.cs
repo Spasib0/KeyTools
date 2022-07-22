@@ -6,6 +6,7 @@ using KeyTools.Responces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -38,12 +39,23 @@ namespace KeyCheckGui
             SetModeratorTests(data.IsModerator);
         }
 
-        private void OnGetKeyLessonsClick(object sender, EventArgs e)
+        private void TestKeyLessonsClick(object sender, EventArgs e)
         {
             var lessons = new LessonsData(_client.Call(new SchoolLessonsRequest()));
-            SetHasContentLinksInfo(hasContentLinksTest.Test(lessons.Data));
+            TestHasLessonsContenLinks(lessons.Data);
+            TestUpdateRandomLesson(lessons.StringIds[new Random().Next(lessons.Data.Count - 1)]);
 
             SetComboBox(keyLessonsComboBox, lessons.StringIds); //todo убрать
+        }
+
+        private void TestUpdateRandomLesson(string lessonId)
+        {
+            var lesson = GetLessonById(lessonId);
+        }
+
+        private void TestHasLessonsContenLinks(List<LessonResponseData> data)
+        {
+            SetHasContentLinksInfo(hasContentLinksTest.Test(data));
         }
 
         private void SetHasContentLinksInfo(bool state)
@@ -60,10 +72,10 @@ namespace KeyCheckGui
 
 
 
-        private void OnGetLessonByIdClick(object sender, EventArgs e)
+        private LessonResponseData GetLessonById(string id)
         {
-            var lessonObj = (JObject)JsonConvert.DeserializeObject(_client.Call(new LessonByIdRequest(keyLessonsComboBox.SelectedItem.ToString())));
-            var lesson = new SaveLessonResponse(lessonObj).data;
+            var lessonObj = (JObject)JsonConvert.DeserializeObject(_client.Call(new LessonByIdRequest(id)));
+            return new SaveLessonResponse(lessonObj).data;
         }
 
         private LessonLinkedMedia GetLessonLinkedMedia(string id)
@@ -76,7 +88,6 @@ namespace KeyCheckGui
         {
             var lessons = new LessonsData(_client.Call(new AllModeratorLessonsRequest()));
             allWorldLessonsCountLabel.Text = lessons.Count.ToString();
-            
         }
 
         private void OnGetAuthorLessonsClick(object sender, EventArgs e)

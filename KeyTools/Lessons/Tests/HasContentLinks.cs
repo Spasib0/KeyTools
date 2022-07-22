@@ -57,8 +57,25 @@ namespace KeyTools.Lessons.Tests
                     }
                 }
             }
-            
-            return missingImages.Count > 0 || missingSounds.Count > 0;
+
+            var isPassed = missingImages.Count == 0 && missingSounds.Count == 0;
+
+            if (!isPassed)
+            {
+                logger.Add($"Lesson {data.id} has missing content links:\n");
+
+                if(missingImages.Count > 0)
+                {
+                    logger.Add($"\tMissing Images: \n\t\t{string.Join("\n\t\t", missingImages)}");
+                }
+
+                if (missingSounds.Count > 0)
+                {
+                    logger.Add($"\tMissing Sounds: \n\t\t{string.Join("\n\t\t", missingSounds)}");
+                }
+            }
+
+            return isPassed;
         }
     }
 }
