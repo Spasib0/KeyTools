@@ -1,4 +1,5 @@
-﻿using KeyTools.Classes;
+﻿using KeyCheckGui;
+using KeyTools.Classes;
 using KeyTools.Lessons.Entities;
 using KeyTools.Responces;
 using System;
@@ -8,34 +9,24 @@ using System.Windows.Forms;
 
 namespace KeyTools.Lessons.Tests
 {
-    class HasContentLinks
+    internal class HasContentLinks : LoggedTest
     {
-        private Func<string, LessonLinkedMedia> _getLessonLinks;
+        private Func<string, LessonLinkedMedia> getLessonLinks => LessonsTests.Client.GetLessonLinkedMedia;
         private const string LOG_NAME = "HasContentLinks";
-        private Logger logger;
 
-        public HasContentLinks(Func<string, LessonLinkedMedia> getLessonLinks, LinkLabel logLink)
-        {
-            _getLessonLinks = getLessonLinks;
-            logLink.Click += OpenLog;
-        }
+        public HasContentLinks(LinkLabel logLink) : base(logLink, LOG_NAME) { }
 
         public bool Test(List<LessonResponseData> lessons)
         {
-            logger = new Logger(LOG_NAME);
             var isPassed = lessons.All(lesson => TestLesson(lesson));
-            logger.Save();
+            Logger.Save();
             return isPassed;
         }
 
-        private void OpenLog(object sender, EventArgs e)
-        {
-            logger.Open();
-        }
 
         private bool TestLesson(LessonResponseData data)
         {
-            var lessonLinks = _getLessonLinks(data.id.ToString());
+            var lessonLinks = getLessonLinks(data.id.ToString());
             List<string> missingImages = new List<string>();
             List<string> missingSounds = new List<string>();
 
@@ -62,16 +53,16 @@ namespace KeyTools.Lessons.Tests
 
             if (!isPassed)
             {
-                logger.Add($"Lesson {data.id} has missing content links:\n");
+                Logger.Add($"Lesson {data.id} has missing content links:\n");
 
                 if(missingImages.Count > 0)
                 {
-                    logger.Add($"\tMissing Images: \n\t\t{string.Join("\n\t\t", missingImages)}");
+                    Logger.Add($"\tMissing Images: \n\t\t{string.Join("\n\t\t", missingImages)}");
                 }
 
                 if (missingSounds.Count > 0)
                 {
-                    logger.Add($"\tMissing Sounds: \n\t\t{string.Join("\n\t\t", missingSounds)}");
+                    Logger.Add($"\tMissing Sounds: \n\t\t{string.Join("\n\t\t", missingSounds)}");
                 }
             }
 

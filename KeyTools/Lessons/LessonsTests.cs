@@ -8,14 +8,20 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace KeyCheckGui
 {
     public partial class LessonsTests : UserControl
     {
+        public static LessonsClient Client;
         private LessonsClient _client;
+        private string[] currentProducts;
+        private LessonsData keyLessons;
         private HasContentLinks hasContentLinksTest;
+        private UpdateLesson updateLessonTest;
+        
 
         public LessonsTests()
         {
@@ -25,12 +31,20 @@ namespace KeyCheckGui
 
         private void InitTests()
         {
-            hasContentLinksTest = new HasContentLinks(GetLessonLinkedMedia, keyLessonsTestLogLink);
+            hasContentLinksTest = new HasContentLinks(keyLessonsTestLogLink);
+            updateLessonTest = new UpdateLesson(updateLessonLink);
         }
 
         public void SetClient(KeyToolsClient client)
         {
             _client = new LessonsClient(client);
+            Client = _client;
+        }
+
+        public void Update(string[] products)
+        {
+            Client.SetProducts(products);
+            CheckModeratorRole();
         }
 
         public void CheckModeratorRole()
@@ -41,27 +55,35 @@ namespace KeyCheckGui
 
         private void TestKeyLessonsClick(object sender, EventArgs e)
         {
-            var lessons = new LessonsData(_client.Call(new SchoolLessonsRequest()));
-            TestHasLessonsContenLinks(lessons.Data);
-            TestUpdateRandomLesson(lessons.StringIds[new Random().Next(lessons.Data.Count - 1)]);
+            keyLessons = new LessonsData(Client.Call(new SchoolLessonsRequest()));
+            TestHasLessonsContenLinks(keyLessons.Data);
+            //TestUpdateRandomLesson(lessons.StringIds[new Random().Next(lessons.Data.Count - 1)]);
+            
 
-            SetComboBox(keyLessonsComboBox, lessons.StringIds); //todo убрать
+            SetComboBox(keyLessonsComboBox, keyLessons.StringIds); //todo убрать
         }
 
-        private void TestUpdateRandomLesson(string lessonId)
+        private void TestHasLessonsContenLinks(List<LessonResponseData> lessons)
         {
-            var lesson = GetLessonById(lessonId);
+            SetHasContentLinksInfo(hasContentLinksTest.Test(lessons));
         }
 
-        private void TestHasLessonsContenLinks(List<LessonResponseData> data)
+        private void OnUpdateLesson(object sender, EventArgs e)
         {
-            SetHasContentLinksInfo(hasContentLinksTest.Test(data));
+            SetUpdateLessonInfo(updateLessonTest.Test(keyLessons.Data.Where(lesson => lesson.id.ToString().Equals(keyLessonsComboBox.SelectedItem)).ToList()));
         }
 
+        //todo в какой-то другой класс можно
         private void SetHasContentLinksInfo(bool state)
         {
             SetTestLabel(keyLesonsTestIcon, state);
             keyLessonsTestLogLink.Visible = !state;
+        }
+
+        private void SetUpdateLessonInfo(bool state)
+        {
+            SetTestLabel(updateLessonTestIcon, state);
+            updateLessonLink.Visible = !state;
         }
 
         private void SetTestLabel(Label label, bool state)
@@ -70,29 +92,27 @@ namespace KeyCheckGui
             label.ForeColor = state ? Color.Green : Color.Red;
         }
 
-
-
         private LessonResponseData GetLessonById(string id)
         {
-            var lessonObj = (JObject)JsonConvert.DeserializeObject(_client.Call(new LessonByIdRequest(id)));
+            var lessonObj = (JObject)JsonConvert.DeserializeObject(Client.Call(new LessonByIdRequest(id)));
             return new SaveLessonResponse(lessonObj).data;
         }
 
         private LessonLinkedMedia GetLessonLinkedMedia(string id)
         {
-            var lessonObj = (JObject)JsonConvert.DeserializeObject(_client.Call(new LessonWithContent(id)));
+            var lessonObj = (JObject)JsonConvert.DeserializeObject(Client.Call(new LessonWithContent(id)));
             return new LessonLinkedMedia(new SaveMediaLessonResponse(lessonObj).data.content.media);
         }
 
         private void OnAllWorldLessonsClick(object sender, EventArgs e)
         {
-            var lessons = new LessonsData(_client.Call(new AllModeratorLessonsRequest()));
+            var lessons = new LessonsData(Client.Call(new AllModeratorLessonsRequest()));
             allWorldLessonsCountLabel.Text = lessons.Count.ToString();
         }
 
         private void OnGetAuthorLessonsClick(object sender, EventArgs e)
         {
-            var lessons = new LessonsData(_client.Call(new AuthorLessonsRequest()));
+            var lessons = new LessonsData(Client.Call(new AuthorLessonsRequest()));
             authorLessonsCountLabel.Text = lessons.Count.ToString();
             
         }

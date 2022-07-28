@@ -35,13 +35,15 @@ namespace KeyCheckGui
             this.keyLessonsTestLogLink = new System.Windows.Forms.LinkLabel();
             this.getLessonWithContentButton = new System.Windows.Forms.Button();
             this.lessonByIdLabel = new System.Windows.Forms.Label();
-            this.getLessonByIdButton = new System.Windows.Forms.Button();
+            this.updateLessonByIdButton = new System.Windows.Forms.Button();
             this.keyLessonsComboBox = new System.Windows.Forms.ComboBox();
             this.authorLessonsCountLabel = new System.Windows.Forms.Label();
             this.getAuthorLessonsButton = new System.Windows.Forms.Button();
             this.keyLesonsTestIcon = new System.Windows.Forms.Label();
             this.moderatorTestsGroupBox = new System.Windows.Forms.GroupBox();
             this.allWorldLessonsCountLabel = new System.Windows.Forms.Label();
+            this.updateLessonTestIcon = new System.Windows.Forms.Label();
+            this.updateLessonLink = new System.Windows.Forms.LinkLabel();
             this.userTestsGroupBox.SuspendLayout();
             this.moderatorTestsGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -68,10 +70,12 @@ namespace KeyCheckGui
             // 
             // userTestsGroupBox
             // 
+            this.userTestsGroupBox.Controls.Add(this.updateLessonLink);
+            this.userTestsGroupBox.Controls.Add(this.updateLessonTestIcon);
             this.userTestsGroupBox.Controls.Add(this.keyLessonsTestLogLink);
             this.userTestsGroupBox.Controls.Add(this.getLessonWithContentButton);
             this.userTestsGroupBox.Controls.Add(this.lessonByIdLabel);
-            this.userTestsGroupBox.Controls.Add(this.getLessonByIdButton);
+            this.userTestsGroupBox.Controls.Add(this.updateLessonByIdButton);
             this.userTestsGroupBox.Controls.Add(this.keyLessonsComboBox);
             this.userTestsGroupBox.Controls.Add(this.authorLessonsCountLabel);
             this.userTestsGroupBox.Controls.Add(this.getAuthorLessonsButton);
@@ -113,22 +117,23 @@ namespace KeyCheckGui
             this.lessonByIdLabel.TabIndex = 6;
             this.lessonByIdLabel.Text = "None";
             // 
-            // getLessonByIdButton
+            // updateLessonByIdButton
             // 
-            this.getLessonByIdButton.Location = new System.Drawing.Point(212, 346);
-            this.getLessonByIdButton.Name = "getLessonByIdButton";
-            this.getLessonByIdButton.Size = new System.Drawing.Size(171, 23);
-            this.getLessonByIdButton.TabIndex = 5;
-            this.getLessonByIdButton.Text = "Get Lesson by Id";
-            this.getLessonByIdButton.UseVisualStyleBackColor = true;
+            this.updateLessonByIdButton.Location = new System.Drawing.Point(7, 192);
+            this.updateLessonByIdButton.Name = "updateLessonByIdButton";
+            this.updateLessonByIdButton.Size = new System.Drawing.Size(110, 23);
+            this.updateLessonByIdButton.TabIndex = 5;
+            this.updateLessonByIdButton.Text = "Update Lesson by Id";
+            this.updateLessonByIdButton.UseVisualStyleBackColor = true;
+            this.updateLessonByIdButton.Click += OnUpdateLesson;
             // 
             // keyLessonsComboBox
             // 
             this.keyLessonsComboBox.Enabled = false;
             this.keyLessonsComboBox.FormattingEnabled = true;
-            this.keyLessonsComboBox.Location = new System.Drawing.Point(212, 300);
+            this.keyLessonsComboBox.Location = new System.Drawing.Point(7, 163);
             this.keyLessonsComboBox.Name = "keyLessonsComboBox";
-            this.keyLessonsComboBox.Size = new System.Drawing.Size(121, 23);
+            this.keyLessonsComboBox.Size = new System.Drawing.Size(110, 23);
             this.keyLessonsComboBox.Sorted = true;
             this.keyLessonsComboBox.TabIndex = 4;
             this.keyLessonsComboBox.Text = "Lesson Id";
@@ -180,6 +185,26 @@ namespace KeyCheckGui
             this.allWorldLessonsCountLabel.TabIndex = 2;
             this.allWorldLessonsCountLabel.Text = "None";
             // 
+            // updateLessonLabel
+            // 
+            this.updateLessonTestIcon.AutoSize = true;
+            this.updateLessonTestIcon.Location = new System.Drawing.Point(124, 163);
+            this.updateLessonTestIcon.Name = "updateLessonLabel";
+            this.updateLessonTestIcon.Size = new System.Drawing.Size(36, 15);
+            this.updateLessonTestIcon.TabIndex = 9;
+            this.updateLessonTestIcon.Text = "None";
+            // 
+            // updateLessonLink
+            // 
+            this.updateLessonLink.AutoSize = true;
+            this.updateLessonLink.Location = new System.Drawing.Point(167, 163);
+            this.updateLessonLink.Name = "updateLessonLink";
+            this.updateLessonLink.Size = new System.Drawing.Size(56, 15);
+            this.updateLessonLink.TabIndex = 10;
+            this.updateLessonLink.TabStop = true;
+            this.updateLessonLink.Text = "Open log";
+            this.updateLessonLink.Visible = false;
+            // 
             // LessonsTests
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -206,10 +231,12 @@ namespace KeyCheckGui
         private System.Windows.Forms.Label authorLessonsCountLabel;
         private System.Windows.Forms.Button getAuthorLessonsButton;
         private System.Windows.Forms.ComboBox keyLessonsComboBox;
-        private System.Windows.Forms.Button getLessonByIdButton;
+        private System.Windows.Forms.Button updateLessonByIdButton;
         private System.Windows.Forms.Label lessonByIdLabel;
         private System.Windows.Forms.Button getLessonWithContentButton;
         private System.Windows.Forms.LinkLabel keyLessonsTestLogLink;
         private System.Windows.Forms.Label keyLesonsTestIcon;
+        private System.Windows.Forms.Label updateLessonTestIcon;
+        private System.Windows.Forms.LinkLabel updateLessonLink;
     }
 }

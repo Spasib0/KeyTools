@@ -17,6 +17,7 @@ namespace KeyCheckGui
 
         private KeyToolsClient _userClient;
 
+
         private readonly string[] _servers = new string[] { "https://nau-mag.com/", "https://savanto.me/" };
         private string CurrentServer => serversList.Text;
 
@@ -235,7 +236,7 @@ namespace KeyCheckGui
             {
                 case 1:
                     SetSelectedProductToken();
-                    lessonsTests.CheckModeratorRole();
+                    lessonsTests.Update(_currentData.SelectedHardwareProducts);
                     break;
                 default:
                     SetSelectedDeviceToken();

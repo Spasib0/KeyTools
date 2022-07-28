@@ -10,8 +10,10 @@ namespace KeyCheckGui
         private DataGridView gridView;
         private UserHardware[] hardwares;
         private Action<UserHardware> onSelect;
+        private GridHardware[] gridHardwares;
 
         public UserHardware Selected => hardwares?.FirstOrDefault(item => item.id.Equals(gridView.SelectedRows[0].Cells[0].Value));
+        public string[] SelectedProducts => gridHardwares.FirstOrDefault(item => item.Id.Equals(Selected.id)).GetProducts();
 
         public HardwareGridAdapter(DataGridView gridView)
         {
@@ -105,8 +107,11 @@ namespace KeyCheckGui
         private GridHardware[] GetGridHardwares(UserHardware[] data)
         {
             var ids = data.Select(item => item.id).Distinct().ToArray();
-            return ids.Select(id => new GridHardware(id, data.Where(item => item.id == id).Select(item => item.product).ToArray())).ToArray();
+            gridHardwares = ids.Select(id => new GridHardware(id, data.Where(item => item.id == id).Select(item => item.product).ToArray())).ToArray();
+            return gridHardwares;
         }
+
+
 
         private class GridHardware
         {

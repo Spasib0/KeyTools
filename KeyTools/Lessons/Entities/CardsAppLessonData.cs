@@ -182,5 +182,10 @@ namespace KeyTools.Lessons.Entities
         {
             id = newId;
         }
+
+        public void SetProducts(string[] newProducts)
+        {
+            products = newProducts.ToList();
+        }
     }
 }

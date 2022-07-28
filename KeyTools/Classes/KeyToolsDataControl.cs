@@ -6,6 +6,7 @@ namespace KeyCheckGui
     public class KeyToolsDataControl
     {
         public UserHardware SelectedHardware => gridAdapter.Selected;
+        public string[] SelectedHardwareProducts => gridAdapter.SelectedProducts;
         public Content Content { get => content; }
         private readonly KeyTools controlData;
         private UserHardware[] hardwares;

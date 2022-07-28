@@ -29,7 +29,7 @@ namespace KeyTools.Classes
 
         public void Open()
         {
-            Process.Start("notepad.exe",_path);
+            Process.Start("notepad.exe", _path);
         }
     }
 }
