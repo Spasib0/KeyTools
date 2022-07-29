@@ -1,27 +1,39 @@
 ﻿using KeyCheckGui;
+using KeyTools.Lessons.Entities;
 using KeyTools.Responces;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace KeyTools.Lessons.Tests
 {
-    internal class UpdateLesson : LoggedTest
+    internal class UpdateLesson : LinkedLog
     {
-        private Func<LessonResponseData, string> updateLesson => LessonsTests.Client.UpdateLesson;
+        private Func<LessonResponseData, JObject> updateLesson => LessonsTests.Client.UpdateLesson;
         private const string LOG_NAME = "UpdateLesson";
 
         public UpdateLesson(LinkLabel logLink) : base(logLink, LOG_NAME) { }
 
         public bool Test(List<LessonResponseData> lessons)
         {
-            foreach(var lesson in lessons)
+            var isPassed = lessons.Select(lesson => TestUpdateLesson(lesson)).ToArray().All(item => item);
+            Logger.Save();
+            return isPassed;
+        }
+
+        private bool TestUpdateLesson(LessonResponseData lesson)
+        {
+            var JResponce = updateLesson(lesson);
+
+            if (JResponce["value"].ToString() != "ok")
             {
-                var responce = updateLesson(lesson);
+                Logger.Add($"№ {lesson.id} - details: {JResponce["details"]}\n");
+                return false;
             }
 
-            return false;
+            return true;
         }
     }
 }

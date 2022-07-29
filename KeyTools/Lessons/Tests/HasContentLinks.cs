@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace KeyTools.Lessons.Tests
 {
-    internal class HasContentLinks : LoggedTest
+    internal class HasContentLinks : LinkedLog
     {
         private Func<string, LessonLinkedMedia> getLessonLinks => LessonsTests.Client.GetLessonLinkedMedia;
         private const string LOG_NAME = "HasContentLinks";

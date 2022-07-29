@@ -1,5 +1,6 @@
 ﻿using KeyTools.Classes;
 using KeyTools.Lessons.Entities;
+using KeyTools.Lessons.Infos;
 using KeyTools.Lessons.Requests;
 using KeyTools.Lessons.Tests;
 using KeyTools.Responces;
@@ -17,22 +18,28 @@ namespace KeyCheckGui
     {
         public static LessonsClient Client;
         private LessonsClient _client;
-        private string[] currentProducts;
         private LessonsData keyLessons;
         private HasContentLinks hasContentLinksTest;
         private UpdateLesson updateLessonTest;
+        private AuthorLessons authorLessonsInfo;
         
 
         public LessonsTests()
         {
             InitializeComponent();
             InitTests();
+            InitInfos();
         }
 
         private void InitTests()
         {
             hasContentLinksTest = new HasContentLinks(keyLessonsTestLogLink);
             updateLessonTest = new UpdateLesson(updateLessonLink);
+        }
+
+        private void InitInfos()
+        {
+            authorLessonsInfo = new AuthorLessons(authorLessonsLink);
         }
 
         public void SetClient(KeyToolsClient client)
@@ -56,16 +63,26 @@ namespace KeyCheckGui
         private void TestKeyLessonsClick(object sender, EventArgs e)
         {
             keyLessons = new LessonsData(Client.Call(new SchoolLessonsRequest()));
-            TestHasLessonsContenLinks(keyLessons.Data);
-            //TestUpdateRandomLesson(lessons.StringIds[new Random().Next(lessons.Data.Count - 1)]);
-            
+            TestHasLessonsContenLinks();
+            TestUpdateRandomLesson();
+            SetAuthorLessonsInfo();
 
             SetComboBox(keyLessonsComboBox, keyLessons.StringIds); //todo убрать
         }
 
-        private void TestHasLessonsContenLinks(List<LessonResponseData> lessons)
+        private void TestUpdateRandomLesson()
         {
-            SetHasContentLinksInfo(hasContentLinksTest.Test(lessons));
+            SetUpdateLessonInfo(updateLessonTest.Test(keyLessons.Data));
+        }
+
+        private void TestHasLessonsContenLinks()
+        {
+            SetHasContentLinksInfo(hasContentLinksTest.Test(keyLessons.Data));
+        }
+
+        private void SetAuthorLessonsInfo()
+        {
+            SetAuthorsLessonsInfoLink(authorLessonsInfo.Check());
         }
 
         private void OnUpdateLesson(object sender, EventArgs e)
@@ -86,6 +103,11 @@ namespace KeyCheckGui
             updateLessonLink.Visible = !state;
         }
 
+        private void SetAuthorsLessonsInfoLink(bool state)
+        {
+            updateLessonLink.Enabled = state;
+        }
+
         private void SetTestLabel(Label label, bool state)
         {
             label.Text = state ? "OK" : "FAIL";
@@ -98,12 +120,6 @@ namespace KeyCheckGui
             return new SaveLessonResponse(lessonObj).data;
         }
 
-        private LessonLinkedMedia GetLessonLinkedMedia(string id)
-        {
-            var lessonObj = (JObject)JsonConvert.DeserializeObject(Client.Call(new LessonWithContent(id)));
-            return new LessonLinkedMedia(new SaveMediaLessonResponse(lessonObj).data.content.media);
-        }
-
         private void OnAllWorldLessonsClick(object sender, EventArgs e)
         {
             var lessons = new LessonsData(Client.Call(new AllModeratorLessonsRequest()));
@@ -114,7 +130,6 @@ namespace KeyCheckGui
         {
             var lessons = new LessonsData(Client.Call(new AuthorLessonsRequest()));
             authorLessonsCountLabel.Text = lessons.Count.ToString();
-            
         }
 
         private void SetComboBox(ComboBox comboBox, string[] values)

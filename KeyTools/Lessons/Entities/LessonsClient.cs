@@ -40,10 +40,16 @@ namespace KeyTools.Lessons.Entities
             return new LessonLinkedMedia(new SaveMediaLessonResponse(lessonObj).data.content.media);
         }
 
-        public string UpdateLesson(LessonResponseData lesson)
+        public JObject UpdateLesson(LessonResponseData lesson)
         {
             lesson.content.SetProducts(products);
-            return Call(new UpdateLessonRequest(lesson));
+            var objData = (JObject)JsonConvert.DeserializeObject(Call(new UpdateLessonRequest(lesson)));
+            return objData;
+        }
+
+        public LessonsData GetAuthorLessons()
+        {
+            return new LessonsData(Call(new AuthorLessonsRequest()));
         }
 
         private string Get(ILessonsRequest request)
