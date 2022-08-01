@@ -1,7 +1,7 @@
 ﻿using System;
 namespace KeyTools.Lessons.Requests
 {
-    public class GetLessonsRequest : ILessonsRequest
+    internal class GetLessonsRequest : ILessonsRequest
     {
         public string Url => _url;
         public virtual string Method => "GET";

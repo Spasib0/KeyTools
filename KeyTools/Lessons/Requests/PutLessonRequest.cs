@@ -1,7 +1,7 @@
 ﻿
 namespace KeyTools.Lessons.Requests
 {
-    public class PutLessonRequest : GetLessonsRequest, IPutLessonsRequest
+    internal class PutLessonRequest : GetLessonsRequest, IPutLessonsRequest
     {
         public override string Method => "PUT";
         public string Data => _data;

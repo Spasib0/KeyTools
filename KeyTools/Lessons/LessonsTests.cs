@@ -3,11 +3,7 @@ using KeyTools.Lessons.Entities;
 using KeyTools.Lessons.Infos;
 using KeyTools.Lessons.Requests;
 using KeyTools.Lessons.Tests;
-using KeyTools.Responces;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -20,9 +16,13 @@ namespace KeyCheckGui
         private LessonsClient _client;
         private LessonsData keyLessons;
         private HasContentLinks hasContentLinksTest;
-        private UpdateLesson updateLessonTest;
+        private CanUpdateLessons updateLessonTest;
         private AuthorLessons authorLessonsInfo;
-        
+        private KeyLessons keyLessonsInfo;
+        private HasPublishedLessons hasPublishedLessonsTest;
+        private CanForkPublished canForkPublishedTest;
+        private CanDeleteLesson canDeleteLessonTest;
+
 
         public LessonsTests()
         {
@@ -34,11 +34,15 @@ namespace KeyCheckGui
         private void InitTests()
         {
             hasContentLinksTest = new HasContentLinks(keyLessonsTestLogLink);
-            updateLessonTest = new UpdateLesson(updateLessonLink);
+            updateLessonTest = new CanUpdateLessons(updateLessonLink);
+            hasPublishedLessonsTest = new HasPublishedLessons(hasPublishedLessonsLink);
+            canForkPublishedTest = new CanForkPublished(canForkPublishedLink);
+            canDeleteLessonTest = new CanDeleteLesson(canDeleteLessonLink);
         }
 
         private void InitInfos()
         {
+            keyLessonsInfo = new KeyLessons(keyLessonsLink);
             authorLessonsInfo = new AuthorLessons(authorLessonsLink);
         }
 
@@ -62,15 +66,28 @@ namespace KeyCheckGui
 
         private void TestKeyLessonsClick(object sender, EventArgs e)
         {
-            keyLessons = new LessonsData(Client.Call(new SchoolLessonsRequest()));
+            keyLessons = keyLessonsInfo.Update();
             TestHasLessonsContenLinks();
-            TestUpdateRandomLesson();
-            SetAuthorLessonsInfo();
+            TestUpdatLessons();
+
+            if (TestHasPublishedLesson())
+            {
+                var forkId = TestCreateForkPublished();
+
+                if (forkId != "-1")
+                {
+                    TestDeleteLessonById(forkId);
+                }
+            }
+
+            CheckAuthorLessons();
+
 
             SetComboBox(keyLessonsComboBox, keyLessons.StringIds); //todo убрать
         }
 
-        private void TestUpdateRandomLesson()
+
+        private void TestUpdatLessons()
         {
             SetUpdateLessonInfo(updateLessonTest.Test(keyLessons.Data));
         }
@@ -80,44 +97,65 @@ namespace KeyCheckGui
             SetHasContentLinksInfo(hasContentLinksTest.Test(keyLessons.Data));
         }
 
-        private void SetAuthorLessonsInfo()
+        private bool TestHasPublishedLesson()
         {
-            SetAuthorsLessonsInfoLink(authorLessonsInfo.Check());
+            var isPassed = hasPublishedLessonsTest.Test(keyLessons.Data);
+            SetHasPublishedLessonsInfo(isPassed);
+            return isPassed;
         }
 
-        private void OnUpdateLesson(object sender, EventArgs e)
+        private string TestCreateForkPublished()
         {
-            SetUpdateLessonInfo(updateLessonTest.Test(keyLessons.Data.Where(lesson => lesson.id.ToString().Equals(keyLessonsComboBox.SelectedItem)).ToList()));
+            var forkId = canForkPublishedTest.Test(keyLessons.Data.FirstOrDefault(lesson => !lesson.personal).id.ToString());
+            SetTestIcon(canForkPublishedIcon, forkId != "-1");
+            return forkId;
+        }
+
+
+        private void TestDeleteLessonById(string id)
+        {
+            SetTestIcon(canDeleteLessonIcon, canDeleteLessonTest.Test(id));
+        }
+
+        private void CheckAuthorLessons()
+        {
+            SetAuthorsLessonsInfoLink(authorLessonsInfo.Update());
+        }
+
+        private void OnCreateFork(object sender, EventArgs e)
+        {
+            var res = Client.CreateFork(keyLessonsComboBox.SelectedItem.ToString());
         }
 
         //todo в какой-то другой класс можно
         private void SetHasContentLinksInfo(bool state)
         {
-            SetTestLabel(keyLesonsTestIcon, state);
+            SetTestIcon(keyLesonsTestIcon, state);
             keyLessonsTestLogLink.Visible = !state;
         }
 
         private void SetUpdateLessonInfo(bool state)
         {
-            SetTestLabel(updateLessonTestIcon, state);
+            SetTestIcon(updateLessonTestIcon, state);
             updateLessonLink.Visible = !state;
+        }
+
+        private void SetHasPublishedLessonsInfo(bool state)
+        {
+            SetTestIcon(hasPublishedLessonsIcon, state);
+            hasPublishedLessonsLink.Visible = true;
         }
 
         private void SetAuthorsLessonsInfoLink(bool state)
         {
             updateLessonLink.Enabled = state;
         }
+        
 
-        private void SetTestLabel(Label label, bool state)
+        private void SetTestIcon(Label label, bool state)
         {
             label.Text = state ? "OK" : "FAIL";
             label.ForeColor = state ? Color.Green : Color.Red;
-        }
-
-        private LessonResponseData GetLessonById(string id)
-        {
-            var lessonObj = (JObject)JsonConvert.DeserializeObject(Client.Call(new LessonByIdRequest(id)));
-            return new SaveLessonResponse(lessonObj).data;
         }
 
         private void OnAllWorldLessonsClick(object sender, EventArgs e)

@@ -10,5 +10,7 @@ namespace KeyTools.Responces
 
         public const string SERVER_RETURN_OK = "ok";
         public static DateTime CUSTOM_DATE_TIME = new DateTime(2000, 1, 1, 12, 0, 0, DateTimeKind.Utc);
+
+        public bool IsOk => value == SERVER_RETURN_OK;
     }
 }

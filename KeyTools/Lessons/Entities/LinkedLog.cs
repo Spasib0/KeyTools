@@ -9,6 +9,7 @@ namespace KeyTools.Lessons.Entities
         protected Logger Logger => _logger;
         private Logger _logger;
         private LinkLabel _link;
+        protected const string OPEN_LOG = "Open log";
 
         protected LinkedLog(LinkLabel link, string name)
         {
@@ -17,15 +18,12 @@ namespace KeyTools.Lessons.Entities
             _link.Click += OpenLog;
         }
 
-        protected void SetEnabled(bool state)
+        protected void SetLink(bool state = true, string text = OPEN_LOG)
         {
             _link.Enabled = state;
-        }
-
-        protected void SetLinkText(string text)
-        {
             _link.Text = text;
         }
+
 
         private void OpenLog(object sender, EventArgs e)
         {

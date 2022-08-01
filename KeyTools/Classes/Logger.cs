@@ -25,6 +25,8 @@ namespace KeyTools.Classes
             {
                 sw.Write(_data);
             }
+
+            _data = "";
         }
 
         public void Open()

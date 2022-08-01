@@ -3,6 +3,7 @@ using KeyTools.Lessons.Requests;
 using KeyTools.Responces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace KeyTools.Lessons.Entities
 {
@@ -34,6 +35,11 @@ namespace KeyTools.Lessons.Entities
             products = newProducts;
         }
 
+        public LessonsData GetKeyLessons()
+        {
+            return new LessonsData(Call(new SchoolLessonsRequest()));
+        }
+
         public LessonLinkedMedia GetLessonLinkedMedia(string id)
         {
             var lessonObj = (JObject)JsonConvert.DeserializeObject(Call(new LessonWithContent(id)));
@@ -43,13 +49,23 @@ namespace KeyTools.Lessons.Entities
         public JObject UpdateLesson(LessonResponseData lesson)
         {
             lesson.content.SetProducts(products);
-            var objData = (JObject)JsonConvert.DeserializeObject(Call(new UpdateLessonRequest(lesson)));
-            return objData;
+            var lessonObj = (JObject)JsonConvert.DeserializeObject(Call(new UpdateLessonRequest(lesson)));
+            return lessonObj;
         }
 
         public LessonsData GetAuthorLessons()
         {
             return new LessonsData(Call(new AuthorLessonsRequest()));
+        }
+
+        public JObject CreateFork(string id)
+        {
+            return (JObject)JsonConvert.DeserializeObject(Call(new CreateForkRequest(id)));
+        }
+
+        public JObject DeleteLesson(string id)
+        {
+            return (JObject)JsonConvert.DeserializeObject(Call(new DeleteLessonRequest(id)));
         }
 
         private string Get(ILessonsRequest request)

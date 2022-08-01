@@ -1,6 +1,6 @@
 ﻿namespace KeyTools.Lessons.Requests
 {
-    public class LessonByIdRequest : GetLessonsRequest
+    internal class LessonByIdRequest : GetLessonsRequest
     {
         private const string URL = "/game/lessons/";
         private string _id;

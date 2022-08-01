@@ -12,25 +12,20 @@ namespace KeyTools.Lessons.Infos
         private const string LOG_NAME = "AuthorLessons";
         public AuthorLessons(LinkLabel logLink) : base(logLink, LOG_NAME) { }
 
-        public bool Check()
+        public bool Update()
         {
             var lessons = getAuthorLessons().Data;
+            var hasLessons = lessons.Count > 0;
 
-            if(lessons.Count > 0)
+            if (hasLessons)
             {
                 Logger.Add(string.Join("\n", lessons.Select(lesson => lesson.id)));
                 Logger.Save();
-                SetLink($"{lessons.Count} lessons");
-                return true;
             }
 
-            return false;
-        }
+            SetLink(hasLessons, hasLessons ? $"{lessons.Count} lessons" : "None");
 
-        private void SetLink(string text)
-        {
-            SetLinkText(text);
-            SetEnabled(true);
+            return hasLessons;
         }
     }
 }

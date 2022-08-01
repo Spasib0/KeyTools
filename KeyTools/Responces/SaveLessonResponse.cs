@@ -12,7 +12,7 @@ namespace KeyTools.Responces
             value = jLessonResponceObj.Value<string>("value");
             details = jLessonResponceObj.Value<string>("details");
             delay = jLessonResponceObj.Value<int>("delay");
-            data = value == SERVER_RETURN_OK
+            data = IsOk && jLessonResponceObj.Value<JToken>("data") != null
                  ? new LessonResponseData(jLessonResponceObj.Value<JToken>("data"))
                  : null;
         }

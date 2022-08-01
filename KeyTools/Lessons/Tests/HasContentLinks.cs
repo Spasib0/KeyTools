@@ -18,7 +18,7 @@ namespace KeyTools.Lessons.Tests
 
         public bool Test(List<LessonResponseData> lessons)
         {
-            var isPassed = lessons.All(lesson => TestLesson(lesson));
+            var isPassed = lessons.Select(lesson => TestLesson(lesson)).ToArray().All(item=> item);
             Logger.Save();
             return isPassed;
         }

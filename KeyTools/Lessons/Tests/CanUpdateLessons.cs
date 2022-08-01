@@ -9,12 +9,12 @@ using System.Windows.Forms;
 
 namespace KeyTools.Lessons.Tests
 {
-    internal class UpdateLesson : LinkedLog
+    internal class CanUpdateLessons : LinkedLog
     {
         private Func<LessonResponseData, JObject> updateLesson => LessonsTests.Client.UpdateLesson;
         private const string LOG_NAME = "UpdateLesson";
 
-        public UpdateLesson(LinkLabel logLink) : base(logLink, LOG_NAME) { }
+        public CanUpdateLessons(LinkLabel logLink) : base(logLink, LOG_NAME) { }
 
         public bool Test(List<LessonResponseData> lessons)
         {
