@@ -3,7 +3,9 @@ using KeyTools.Lessons.Entities;
 using KeyTools.Lessons.Infos;
 using KeyTools.Lessons.Requests;
 using KeyTools.Lessons.Tests;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,6 +15,7 @@ namespace KeyCheckGui
     public partial class LessonsTests : UserControl
     {
         public static LessonsClient Client;
+
         private LessonsClient _client;
         private LessonsData keyLessons;
         private HasContentLinks hasContentLinksTest;
@@ -21,7 +24,11 @@ namespace KeyCheckGui
         private KeyLessons keyLessonsInfo;
         private HasPublishedLessons hasPublishedLessonsTest;
         private CanForkPublished canForkPublishedTest;
-        private CanDeleteLesson canDeleteLessonTest;
+        private CanDeleteLesson canDeleteLessonsTest;
+        private CanCreateNewLesson canCreateNewLessonTest;
+        private LessonsSearch lessonsSearch;
+
+        private List<LessonForDelete> lessonsForDelete;
 
 
         public LessonsTests()
@@ -29,6 +36,7 @@ namespace KeyCheckGui
             InitializeComponent();
             InitTests();
             InitInfos();
+            InitSearch();
         }
 
         private void InitTests()
@@ -37,13 +45,19 @@ namespace KeyCheckGui
             updateLessonTest = new CanUpdateLessons(updateLessonLink);
             hasPublishedLessonsTest = new HasPublishedLessons(hasPublishedLessonsLink);
             canForkPublishedTest = new CanForkPublished(canForkPublishedLink);
-            canDeleteLessonTest = new CanDeleteLesson(canDeleteLessonLink);
+            canDeleteLessonsTest = new CanDeleteLesson(canDeleteLessonLink);
+            canCreateNewLessonTest = new CanCreateNewLesson(canCreateNewLessonLink);
         }
 
         private void InitInfos()
         {
             keyLessonsInfo = new KeyLessons(keyLessonsLink);
             authorLessonsInfo = new AuthorLessons(authorLessonsLink);
+        }
+
+        private void InitSearch()
+        {
+            lessonsSearch = new LessonsSearch(lessonsSearchLink);
         }
 
         public void SetClient(KeyToolsClient client)
@@ -72,19 +86,14 @@ namespace KeyCheckGui
 
             if (TestHasPublishedLesson())
             {
-                var forkId = TestCreateForkPublished();
-
-                if (forkId != "-1")
-                {
-                    TestDeleteLessonById(forkId);
-                }
+                TestCreateForkPublished();
             }
 
+            TestCanCreateNewLesson();
+            TestDeleteLessons();
             CheckAuthorLessons();
-
-
-            SetComboBox(keyLessonsComboBox, keyLessons.StringIds); //todo убрать
         }
+
 
 
         private void TestUpdatLessons()
@@ -107,14 +116,34 @@ namespace KeyCheckGui
         private string TestCreateForkPublished()
         {
             var forkId = canForkPublishedTest.Test(keyLessons.Data.FirstOrDefault(lesson => !lesson.personal).id.ToString());
-            SetTestIcon(canForkPublishedIcon, forkId != "-1");
+            var isPassed = forkId != "-1";
+
+            SetTestIcon(canForkPublishedIcon, isPassed);
+
+            if (isPassed)
+            {
+                AddLessonForDelete(forkId, "Created fork (get)");
+            }
+
             return forkId;
         }
 
-
-        private void TestDeleteLessonById(string id)
+        private void TestDeleteLessons()
         {
-            SetTestIcon(canDeleteLessonIcon, canDeleteLessonTest.Test(id));
+            SetTestIcon(canDeleteLessonsIcon, canDeleteLessonsTest.Test(lessonsForDelete, RemoveLessonForDelete));
+        }
+
+        private void TestCanCreateNewLesson()
+        {
+            var lessonId = canCreateNewLessonTest.Test();
+            var isPassed = lessonId != "-1";
+
+            if (isPassed)
+            {
+                AddLessonForDelete(lessonId, "Created new lesson");
+            }
+
+            SetTestIcon(canCreateNewLessonIcon, isPassed);
         }
 
         private void CheckAuthorLessons()
@@ -122,9 +151,25 @@ namespace KeyCheckGui
             SetAuthorsLessonsInfoLink(authorLessonsInfo.Update());
         }
 
-        private void OnCreateFork(object sender, EventArgs e)
+        private void OnSearchLessonsClick(object sender, EventArgs e)
         {
-            var res = Client.CreateFork(keyLessonsComboBox.SelectedItem.ToString());
+            lessonsSearch.ByLabel(lessonsSearchTextBox.Text);
+        }
+
+        private void AddLessonForDelete(string id, string description)
+        {
+            if (lessonsForDelete == null)
+                lessonsForDelete = new List<LessonForDelete>();
+
+            lessonsForDelete.Add(new LessonForDelete(id, description));
+        }
+
+        private void RemoveLessonForDelete(List<LessonForDelete> lessons)
+        {
+            foreach (var lesson in lessons)
+            {
+                lessonsForDelete.Remove(lesson);
+            }
         }
 
         //todo в какой-то другой класс можно
@@ -150,7 +195,6 @@ namespace KeyCheckGui
         {
             updateLessonLink.Enabled = state;
         }
-        
 
         private void SetTestIcon(Label label, bool state)
         {
@@ -162,23 +206,6 @@ namespace KeyCheckGui
         {
             var lessons = new LessonsData(Client.Call(new AllModeratorLessonsRequest()));
             allWorldLessonsCountLabel.Text = lessons.Count.ToString();
-        }
-
-        private void OnGetAuthorLessonsClick(object sender, EventArgs e)
-        {
-            var lessons = new LessonsData(Client.Call(new AuthorLessonsRequest()));
-            authorLessonsCountLabel.Text = lessons.Count.ToString();
-        }
-
-        private void SetComboBox(ComboBox comboBox, string[] values)
-        {
-            var hasValues = values.Length > 0;
-
-            comboBox.Enabled = hasValues;
-            comboBox.Items.Clear();
-
-            if(hasValues)
-                comboBox.Items.AddRange(values);
         }
 
         private void SetModeratorTests(bool state)

@@ -178,6 +178,38 @@ namespace KeyTools.Lessons.Entities
             }
         }
 
+        public void AddElementToLesson(SerializablePicturesData serializableData, int position)
+        {
+            var newData = CopyHiddenDataAndInstantiate(serializableData);
+            AddElementByPosition(position, newData);
+            //        Debug.Log("Add fact: " + serializableData._id + " in position: " + (objectsInLesson.Count - 1) + " in lesson: " + id);
+        }
+
+        public static SerializablePicturesData CopyHiddenDataAndInstantiate(SerializablePicturesData serializableData) // todo  попробовать избавиться от этого и попытаться научиться вытаскивать SerializablePicturesData<T>.Entity в абстракцию
+        {
+            switch (serializableData.type)
+            {
+                case TEST_REQUEST_ELEMENT_TYPE:
+                    return new SerializablePicturesData<TestRequestData>(serializableData as SerializablePicturesData<TestRequestData>);
+                case PUPIL_SLIDE:
+                    return new SerializablePicturesData<PupilSlideData>(serializableData as SerializablePicturesData<PupilSlideData>);
+                default:
+                    return new SerializablePicturesData(serializableData);
+            }
+        }
+
+        private void AddElementByPosition(int position, SerializablePicturesData data)
+        {
+            if (position < 0)
+            {
+                objectsInLesson.Add(data);
+            }
+            else
+            {
+                objectsInLesson.Insert(position, data);
+            }
+        }
+
         public void SetId(long newId)
         {
             id = newId;
@@ -186,6 +218,16 @@ namespace KeyTools.Lessons.Entities
         public void SetProducts(string[] newProducts)
         {
             products = newProducts.ToList();
+        }
+
+        public void SetLabel(string newLabel)
+        {
+            label = newLabel;
+        }
+
+        public void SetLogo(string logoId)
+        {
+            logo = logoId;
         }
     }
 }

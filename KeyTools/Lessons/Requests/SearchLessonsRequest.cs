@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace KeyTools.Lessons.Requests
@@ -6,7 +7,7 @@ namespace KeyTools.Lessons.Requests
     [Serializable]
     public class SearchLessonsRequest : BaseSearchLessonsRequest
     {
-        internal string label;
+        public string label;
         internal string author;
         internal List<string> themes;
         internal List<string> tags;
@@ -19,6 +20,13 @@ namespace KeyTools.Lessons.Requests
             this.themes = new List<string>(themes);
             this.tags = tags != null ? new List<string>(tags) : new List<string>();
             this.options = options != null ? new List<string>(options) : new List<string>();
+        }
+
+        public static SearchLessonsRequest SearchByLabel(string label)
+        {
+            var request = new SearchLessonsRequest(label, "", new List<string>(), new List<string>(), new List<string>(), 0, 99);
+            var var = JsonConvert.SerializeObject(request);
+            return request;
         }
 
         public static SearchLessonsRequest SearchByRecommendedLimit(string label, string author, List<string> themes, List<string> tags, List<string> options, long offset)

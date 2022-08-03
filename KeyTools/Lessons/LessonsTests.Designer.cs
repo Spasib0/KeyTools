@@ -32,15 +32,22 @@ namespace KeyCheckGui
             this.testKeyLessons = new System.Windows.Forms.Button();
             this.allWorldLessons = new System.Windows.Forms.Button();
             this.userTestsGroupBox = new System.Windows.Forms.GroupBox();
+            this.searchLessonsGroupBox = new System.Windows.Forms.GroupBox();
+            this.lessonsSearchLink = new System.Windows.Forms.LinkLabel();
+            this.lessonsSearchButton = new System.Windows.Forms.Button();
+            this.lessonsSearchTextBox = new System.Windows.Forms.TextBox();
             this.keyLessonsInfosGroupBox = new System.Windows.Forms.GroupBox();
             this.keyLessonsLink = new System.Windows.Forms.LinkLabel();
             this.authorLessonsLink = new System.Windows.Forms.LinkLabel();
             this.keyLessonsLabel = new System.Windows.Forms.Label();
             this.authorsLessonsLabel = new System.Windows.Forms.Label();
             this.keyLessonsTestsGroupBox = new System.Windows.Forms.GroupBox();
+            this.canCreateNewLessonLink = new System.Windows.Forms.LinkLabel();
+            this.canCreateNewLessonIcon = new System.Windows.Forms.Label();
+            this.canDeleteLessonsLabel = new System.Windows.Forms.Label();
             this.canDeleteLessonLink = new System.Windows.Forms.LinkLabel();
-            this.canDeleteLessonIcon = new System.Windows.Forms.Label();
-            this.canDeleteLessonLabel = new System.Windows.Forms.Label();
+            this.canCreateNewLessonLabel = new System.Windows.Forms.Label();
+            this.canDeleteLessonsIcon = new System.Windows.Forms.Label();
             this.canForkPublishedLink = new System.Windows.Forms.LinkLabel();
             this.canForkPublishedIcon = new System.Windows.Forms.Label();
             this.canForkPublishedLabel = new System.Windows.Forms.Label();
@@ -53,15 +60,10 @@ namespace KeyCheckGui
             this.updateLessonTestIcon = new System.Windows.Forms.Label();
             this.keyLesonsTestIcon = new System.Windows.Forms.Label();
             this.keyLessonsTestLogLink = new System.Windows.Forms.LinkLabel();
-            this.getLessonWithContentButton = new System.Windows.Forms.Button();
-            this.lessonByIdLabel = new System.Windows.Forms.Label();
-            this.checkIdButton = new System.Windows.Forms.Button();
-            this.keyLessonsComboBox = new System.Windows.Forms.ComboBox();
-            this.authorLessonsCountLabel = new System.Windows.Forms.Label();
-            this.getAuthorLessonsButton = new System.Windows.Forms.Button();
             this.moderatorTestsGroupBox = new System.Windows.Forms.GroupBox();
             this.allWorldLessonsCountLabel = new System.Windows.Forms.Label();
             this.userTestsGroupBox.SuspendLayout();
+            this.searchLessonsGroupBox.SuspendLayout();
             this.keyLessonsInfosGroupBox.SuspendLayout();
             this.keyLessonsTestsGroupBox.SuspendLayout();
             this.moderatorTestsGroupBox.SuspendLayout();
@@ -89,14 +91,9 @@ namespace KeyCheckGui
             // 
             // userTestsGroupBox
             // 
+            this.userTestsGroupBox.Controls.Add(this.searchLessonsGroupBox);
             this.userTestsGroupBox.Controls.Add(this.keyLessonsInfosGroupBox);
             this.userTestsGroupBox.Controls.Add(this.keyLessonsTestsGroupBox);
-            this.userTestsGroupBox.Controls.Add(this.getLessonWithContentButton);
-            this.userTestsGroupBox.Controls.Add(this.lessonByIdLabel);
-            this.userTestsGroupBox.Controls.Add(this.checkIdButton);
-            this.userTestsGroupBox.Controls.Add(this.keyLessonsComboBox);
-            this.userTestsGroupBox.Controls.Add(this.authorLessonsCountLabel);
-            this.userTestsGroupBox.Controls.Add(this.getAuthorLessonsButton);
             this.userTestsGroupBox.Controls.Add(this.testKeyLessons);
             this.userTestsGroupBox.Location = new System.Drawing.Point(4, 4);
             this.userTestsGroupBox.Name = "userTestsGroupBox";
@@ -105,15 +102,56 @@ namespace KeyCheckGui
             this.userTestsGroupBox.TabStop = false;
             this.userTestsGroupBox.Text = "User Tests";
             // 
+            // searchLessonsGroupBox
+            // 
+            this.searchLessonsGroupBox.Controls.Add(this.lessonsSearchLink);
+            this.searchLessonsGroupBox.Controls.Add(this.lessonsSearchButton);
+            this.searchLessonsGroupBox.Controls.Add(this.lessonsSearchTextBox);
+            this.searchLessonsGroupBox.Location = new System.Drawing.Point(7, 294);
+            this.searchLessonsGroupBox.Name = "searchLessonsGroupBox";
+            this.searchLessonsGroupBox.Size = new System.Drawing.Size(474, 131);
+            this.searchLessonsGroupBox.TabIndex = 13;
+            this.searchLessonsGroupBox.TabStop = false;
+            this.searchLessonsGroupBox.Text = "Search lessons";
+            // 
+            // lessonsSearchLink
+            // 
+            this.lessonsSearchLink.AutoSize = true;
+            this.lessonsSearchLink.Enabled = false;
+            this.lessonsSearchLink.Location = new System.Drawing.Point(195, 26);
+            this.lessonsSearchLink.Name = "lessonsSearchLink";
+            this.lessonsSearchLink.Size = new System.Drawing.Size(36, 15);
+            this.lessonsSearchLink.TabIndex = 20;
+            this.lessonsSearchLink.TabStop = true;
+            this.lessonsSearchLink.Text = "None";
+            // 
+            // lessonsSearchButton
+            // 
+            this.lessonsSearchButton.Location = new System.Drawing.Point(114, 23);
+            this.lessonsSearchButton.Name = "lessonsSearchButton";
+            this.lessonsSearchButton.Size = new System.Drawing.Size(75, 23);
+            this.lessonsSearchButton.TabIndex = 1;
+            this.lessonsSearchButton.Text = "Search";
+            this.lessonsSearchButton.UseVisualStyleBackColor = true;
+            this.lessonsSearchButton.Click += OnSearchLessonsClick;
+            // 
+            // lessonsSearchTextBox
+            // 
+            this.lessonsSearchTextBox.Location = new System.Drawing.Point(7, 23);
+            this.lessonsSearchTextBox.Name = "lessonsSearchTextBox";
+            this.lessonsSearchTextBox.PlaceholderText = "lesson label";
+            this.lessonsSearchTextBox.Size = new System.Drawing.Size(100, 23);
+            this.lessonsSearchTextBox.TabIndex = 0;
+            // 
             // keyLessonsInfosGroupBox
             // 
             this.keyLessonsInfosGroupBox.Controls.Add(this.keyLessonsLink);
             this.keyLessonsInfosGroupBox.Controls.Add(this.authorLessonsLink);
             this.keyLessonsInfosGroupBox.Controls.Add(this.keyLessonsLabel);
             this.keyLessonsInfosGroupBox.Controls.Add(this.authorsLessonsLabel);
-            this.keyLessonsInfosGroupBox.Location = new System.Drawing.Point(7, 204);
+            this.keyLessonsInfosGroupBox.Location = new System.Drawing.Point(7, 217);
             this.keyLessonsInfosGroupBox.Name = "keyLessonsInfosGroupBox";
-            this.keyLessonsInfosGroupBox.Size = new System.Drawing.Size(474, 141);
+            this.keyLessonsInfosGroupBox.Size = new System.Drawing.Size(474, 71);
             this.keyLessonsInfosGroupBox.TabIndex = 12;
             this.keyLessonsInfosGroupBox.TabStop = false;
             this.keyLessonsInfosGroupBox.Text = "User lessons infos";
@@ -159,9 +197,12 @@ namespace KeyCheckGui
             // 
             // keyLessonsTestsGroupBox
             // 
+            this.keyLessonsTestsGroupBox.Controls.Add(this.canCreateNewLessonLink);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.canCreateNewLessonIcon);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.canDeleteLessonsLabel);
             this.keyLessonsTestsGroupBox.Controls.Add(this.canDeleteLessonLink);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.canDeleteLessonIcon);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.canDeleteLessonLabel);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.canCreateNewLessonLabel);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.canDeleteLessonsIcon);
             this.keyLessonsTestsGroupBox.Controls.Add(this.canForkPublishedLink);
             this.keyLessonsTestsGroupBox.Controls.Add(this.canForkPublishedIcon);
             this.keyLessonsTestsGroupBox.Controls.Add(this.canForkPublishedLabel);
@@ -176,37 +217,64 @@ namespace KeyCheckGui
             this.keyLessonsTestsGroupBox.Controls.Add(this.keyLessonsTestLogLink);
             this.keyLessonsTestsGroupBox.Location = new System.Drawing.Point(7, 52);
             this.keyLessonsTestsGroupBox.Name = "keyLessonsTestsGroupBox";
-            this.keyLessonsTestsGroupBox.Size = new System.Drawing.Size(474, 146);
+            this.keyLessonsTestsGroupBox.Size = new System.Drawing.Size(474, 159);
             this.keyLessonsTestsGroupBox.TabIndex = 11;
             this.keyLessonsTestsGroupBox.TabStop = false;
             this.keyLessonsTestsGroupBox.Text = "User lessons tests results";
             // 
+            // canCreateNewLessonLink
+            // 
+            this.canCreateNewLessonLink.AutoSize = true;
+            this.canCreateNewLessonLink.Location = new System.Drawing.Point(186, 111);
+            this.canCreateNewLessonLink.Name = "canCreateNewLessonLink";
+            this.canCreateNewLessonLink.Size = new System.Drawing.Size(56, 15);
+            this.canCreateNewLessonLink.TabIndex = 22;
+            this.canCreateNewLessonLink.TabStop = true;
+            this.canCreateNewLessonLink.Text = "Open log";
+            // 
+            // canCreateNewLessonIcon
+            // 
+            this.canCreateNewLessonIcon.AutoSize = true;
+            this.canCreateNewLessonIcon.Location = new System.Drawing.Point(143, 111);
+            this.canCreateNewLessonIcon.Name = "canCreateNewLessonIcon";
+            this.canCreateNewLessonIcon.Size = new System.Drawing.Size(36, 15);
+            this.canCreateNewLessonIcon.TabIndex = 21;
+            this.canCreateNewLessonIcon.Text = "None";
+            // 
+            // canDeleteLessonsLabel
+            // 
+            this.canDeleteLessonsLabel.Location = new System.Drawing.Point(7, 134);
+            this.canDeleteLessonsLabel.Name = "canDeleteLessonsLabel";
+            this.canDeleteLessonsLabel.Size = new System.Drawing.Size(130, 23);
+            this.canDeleteLessonsLabel.TabIndex = 17;
+            this.canDeleteLessonsLabel.Text = "Can delete lessons";
+            // 
             // canDeleteLessonLink
             // 
             this.canDeleteLessonLink.AutoSize = true;
-            this.canDeleteLessonLink.Location = new System.Drawing.Point(186, 111);
+            this.canDeleteLessonLink.Location = new System.Drawing.Point(186, 134);
             this.canDeleteLessonLink.Name = "canDeleteLessonLink";
             this.canDeleteLessonLink.Size = new System.Drawing.Size(56, 15);
             this.canDeleteLessonLink.TabIndex = 19;
             this.canDeleteLessonLink.TabStop = true;
             this.canDeleteLessonLink.Text = "Open log";
             // 
-            // canDeleteLessonIcon
+            // canCreateNewLessonLabel
             // 
-            this.canDeleteLessonIcon.AutoSize = true;
-            this.canDeleteLessonIcon.Location = new System.Drawing.Point(143, 111);
-            this.canDeleteLessonIcon.Name = "canDeleteLessonIcon";
-            this.canDeleteLessonIcon.Size = new System.Drawing.Size(36, 15);
-            this.canDeleteLessonIcon.TabIndex = 18;
-            this.canDeleteLessonIcon.Text = "None";
+            this.canCreateNewLessonLabel.Location = new System.Drawing.Point(7, 111);
+            this.canCreateNewLessonLabel.Name = "canCreateNewLessonLabel";
+            this.canCreateNewLessonLabel.Size = new System.Drawing.Size(130, 23);
+            this.canCreateNewLessonLabel.TabIndex = 20;
+            this.canCreateNewLessonLabel.Text = "Can create lesson";
             // 
-            // canDeleteLessonLabel
+            // canDeleteLessonsIcon
             // 
-            this.canDeleteLessonLabel.Location = new System.Drawing.Point(7, 111);
-            this.canDeleteLessonLabel.Name = "canDeleteLessonLabel";
-            this.canDeleteLessonLabel.Size = new System.Drawing.Size(130, 23);
-            this.canDeleteLessonLabel.TabIndex = 17;
-            this.canDeleteLessonLabel.Text = "Can delete lesson";
+            this.canDeleteLessonsIcon.AutoSize = true;
+            this.canDeleteLessonsIcon.Location = new System.Drawing.Point(143, 134);
+            this.canDeleteLessonsIcon.Name = "canDeleteLessonsIcon";
+            this.canDeleteLessonsIcon.Size = new System.Drawing.Size(36, 15);
+            this.canDeleteLessonsIcon.TabIndex = 18;
+            this.canDeleteLessonsIcon.Text = "None";
             // 
             // canForkPublishedLink
             // 
@@ -319,62 +387,6 @@ namespace KeyCheckGui
             this.keyLessonsTestLogLink.Text = "Open log";
             this.keyLessonsTestLogLink.Visible = false;
             // 
-            // getLessonWithContentButton
-            // 
-            this.getLessonWithContentButton.Location = new System.Drawing.Point(212, 389);
-            this.getLessonWithContentButton.Name = "getLessonWithContentButton";
-            this.getLessonWithContentButton.Size = new System.Drawing.Size(171, 23);
-            this.getLessonWithContentButton.TabIndex = 7;
-            this.getLessonWithContentButton.Text = "Get Lesson by Id with content";
-            this.getLessonWithContentButton.UseVisualStyleBackColor = true;
-            // 
-            // lessonByIdLabel
-            // 
-            this.lessonByIdLabel.AutoSize = true;
-            this.lessonByIdLabel.Location = new System.Drawing.Point(389, 393);
-            this.lessonByIdLabel.Name = "lessonByIdLabel";
-            this.lessonByIdLabel.Size = new System.Drawing.Size(36, 15);
-            this.lessonByIdLabel.TabIndex = 6;
-            this.lessonByIdLabel.Text = "None";
-            // 
-            // checkIdButton
-            // 
-            this.checkIdButton.Location = new System.Drawing.Point(123, 351);
-            this.checkIdButton.Name = "checkIdButton";
-            this.checkIdButton.Size = new System.Drawing.Size(110, 23);
-            this.checkIdButton.TabIndex = 5;
-            this.checkIdButton.Text = "Check Lesson by Id";
-            this.checkIdButton.UseVisualStyleBackColor = true;
-            // 
-            // keyLessonsComboBox
-            // 
-            this.keyLessonsComboBox.Enabled = false;
-            this.keyLessonsComboBox.FormattingEnabled = true;
-            this.keyLessonsComboBox.Location = new System.Drawing.Point(7, 352);
-            this.keyLessonsComboBox.Name = "keyLessonsComboBox";
-            this.keyLessonsComboBox.Size = new System.Drawing.Size(110, 23);
-            this.keyLessonsComboBox.Sorted = true;
-            this.keyLessonsComboBox.TabIndex = 4;
-            this.keyLessonsComboBox.Text = "Lesson Id";
-            // 
-            // authorLessonsCountLabel
-            // 
-            this.authorLessonsCountLabel.AutoSize = true;
-            this.authorLessonsCountLabel.Location = new System.Drawing.Point(123, 405);
-            this.authorLessonsCountLabel.Name = "authorLessonsCountLabel";
-            this.authorLessonsCountLabel.Size = new System.Drawing.Size(36, 15);
-            this.authorLessonsCountLabel.TabIndex = 3;
-            this.authorLessonsCountLabel.Text = "None";
-            // 
-            // getAuthorLessonsButton
-            // 
-            this.getAuthorLessonsButton.Location = new System.Drawing.Point(7, 401);
-            this.getAuthorLessonsButton.Name = "getAuthorLessonsButton";
-            this.getAuthorLessonsButton.Size = new System.Drawing.Size(110, 23);
-            this.getAuthorLessonsButton.TabIndex = 2;
-            this.getAuthorLessonsButton.Text = "Get Author Lessons";
-            this.getAuthorLessonsButton.UseVisualStyleBackColor = true;
-            // 
             // moderatorTestsGroupBox
             // 
             this.moderatorTestsGroupBox.Controls.Add(this.allWorldLessonsCountLabel);
@@ -404,7 +416,8 @@ namespace KeyCheckGui
             this.Name = "LessonsTests";
             this.Size = new System.Drawing.Size(937, 468);
             this.userTestsGroupBox.ResumeLayout(false);
-            this.userTestsGroupBox.PerformLayout();
+            this.searchLessonsGroupBox.ResumeLayout(false);
+            this.searchLessonsGroupBox.PerformLayout();
             this.keyLessonsInfosGroupBox.ResumeLayout(false);
             this.keyLessonsInfosGroupBox.PerformLayout();
             this.keyLessonsTestsGroupBox.ResumeLayout(false);
@@ -422,12 +435,6 @@ namespace KeyCheckGui
         private System.Windows.Forms.GroupBox userTestsGroupBox;
         private System.Windows.Forms.GroupBox moderatorTestsGroupBox;
         private System.Windows.Forms.Label allWorldLessonsCountLabel;
-        private System.Windows.Forms.Label authorLessonsCountLabel;
-        private System.Windows.Forms.Button getAuthorLessonsButton;
-        private System.Windows.Forms.ComboBox keyLessonsComboBox;
-        private System.Windows.Forms.Button checkIdButton;
-        private System.Windows.Forms.Label lessonByIdLabel;
-        private System.Windows.Forms.Button getLessonWithContentButton;
         private System.Windows.Forms.LinkLabel keyLessonsTestLogLink;
         private System.Windows.Forms.Label keyLesonsTestIcon;
         private System.Windows.Forms.Label updateLessonTestIcon;
@@ -447,7 +454,14 @@ namespace KeyCheckGui
         private System.Windows.Forms.Label canForkPublishedIcon;
         private System.Windows.Forms.Label canForkPublishedLabel;
         private System.Windows.Forms.LinkLabel canDeleteLessonLink;
-        private System.Windows.Forms.Label canDeleteLessonIcon;
-        private System.Windows.Forms.Label canDeleteLessonLabel;
+        private System.Windows.Forms.Label canDeleteLessonsIcon;
+        private System.Windows.Forms.Label canDeleteLessonsLabel;
+        private System.Windows.Forms.LinkLabel canCreateNewLessonLink;
+        private System.Windows.Forms.Label canCreateNewLessonIcon;
+        private System.Windows.Forms.Label canCreateNewLessonLabel;
+        private System.Windows.Forms.GroupBox searchLessonsGroupBox;
+        private System.Windows.Forms.Button lessonsSearchButton;
+        private System.Windows.Forms.TextBox lessonsSearchTextBox;
+        private System.Windows.Forms.LinkLabel lessonsSearchLink;
     }
 }

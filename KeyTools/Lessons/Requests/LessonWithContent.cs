@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KeyTools.Lessons.Requests
 {
-    internal class LessonWithContent : GetLessonsRequest
+    internal class LessonWithContent : GetLessonRequest
     {
         private const string URL = "/game/lessons/content/{0}/russian";
 

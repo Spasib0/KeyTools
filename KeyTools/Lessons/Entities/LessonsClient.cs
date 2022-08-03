@@ -13,6 +13,7 @@ namespace KeyTools.Lessons.Entities
         private string[] products;
 
         private const string PUT = "PUT";
+        private const string POST = "POST";
 
         public LessonsClient(KeyToolsClient client)
         {
@@ -25,6 +26,8 @@ namespace KeyTools.Lessons.Entities
             {
                 case PUT:
                     return Put(request as PutLessonRequest);
+                case POST:
+                    return Post(request as PostLessonRequest);
                 default:
                     return Get(request);
             }
@@ -63,9 +66,20 @@ namespace KeyTools.Lessons.Entities
             return (JObject)JsonConvert.DeserializeObject(Call(new CreateForkRequest(id)));
         }
 
+        public JObject CreateLesson(LessonResponseData lesson)
+        {
+
+            return (JObject)JsonConvert.DeserializeObject(Call(new CreateLessonRequest(lesson)));
+        }
+
         public JObject DeleteLesson(string id)
         {
             return (JObject)JsonConvert.DeserializeObject(Call(new DeleteLessonRequest(id)));
+        }
+
+        public LessonsData SearchByLabel(string label)
+        {
+            return new LessonsData(Call(new LessonsSearchRequest(label)));
         }
 
         private string Get(ILessonsRequest request)
@@ -76,6 +90,11 @@ namespace KeyTools.Lessons.Entities
         private string Put(PutLessonRequest request)
         {
             return _client.PutRequest(request.Url, request.Data);
+        }
+
+        private string Post(PostLessonRequest request)
+        {
+            return _client.PostRequest(request.Url, request.Data);
         }
     }
 }
