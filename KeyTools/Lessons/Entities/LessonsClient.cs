@@ -61,14 +61,18 @@ namespace KeyTools.Lessons.Entities
             return new LessonsData(Call(new AuthorLessonsRequest()));
         }
 
-        public JObject CreateFork(string id)
+        public JObject CreateForkGet(long id)
         {
-            return (JObject)JsonConvert.DeserializeObject(Call(new CreateForkRequest(id)));
+            return (JObject)JsonConvert.DeserializeObject(Call(new ForkGetRequest(id)));
+        }
+
+        public JObject CreateForkPost(long id, string data)
+        {
+            return (JObject)JsonConvert.DeserializeObject(Call(new ForkPostRequest(id, data)));
         }
 
         public JObject CreateLesson(LessonResponseData lesson)
         {
-
             return (JObject)JsonConvert.DeserializeObject(Call(new CreateLessonRequest(lesson)));
         }
 

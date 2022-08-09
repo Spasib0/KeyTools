@@ -8,15 +8,15 @@ namespace KeyTools.Lessons.Entities
 {
     public class LessonsData
     {
-        public int Count => _data.Count;
-        public string[] StringIds => _data.Select(lesson => lesson.id.ToString()).ToArray();
-        public List<LessonResponseData> Data => _data;
-        private List<LessonResponseData> _data;
+        public int Count => _lessons.Count;
+        public string[] StringIds => _lessons.Select(lesson => lesson.id.ToString()).ToArray();
+        public List<LessonResponseData> Lessons => _lessons;
+        private List<LessonResponseData> _lessons;
         
         public LessonsData(string responce)
         {
             var objData = (JArray)JsonConvert.DeserializeObject(responce);
-            _data = objData == null
+            _lessons = objData == null
                 ? new List<LessonResponseData>()
                 : objData.Select(lessonResponse => new LessonResponseData(lessonResponse)).ToList();
         }

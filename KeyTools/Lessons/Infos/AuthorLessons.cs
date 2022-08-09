@@ -14,7 +14,7 @@ namespace KeyTools.Lessons.Infos
 
         public bool Update()
         {
-            var lessons = getAuthorLessons().Data;
+            var lessons = getAuthorLessons().Lessons;
             var hasLessons = lessons.Count > 0;
 
             if (hasLessons)

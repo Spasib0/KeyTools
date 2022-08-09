@@ -81,7 +81,7 @@ namespace KeyCheckGui
 
         private void GridView_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            if(e.StateChanged == DataGridViewElementStates.Selected && e.Row.Index > 0)
+            if (e.StateChanged == DataGridViewElementStates.Selected && e.Row.Index > 0 && gridView.SelectedRows.Count > 0)
             {
                 SelectHardware(e.Row.Index);
             }

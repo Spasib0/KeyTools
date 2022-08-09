@@ -11,18 +11,25 @@ namespace KeyTools.Lessons.Entities
         private const string name = "LessonsSearch";
         public LessonsSearch(LinkLabel link) : base(link, name) { }
 
-        public void ByLabel(string label)
+        public LessonsData ByLabel(string label)
         {
-            var result = searchByLabel(label);
-            var hasLessons = result.Count > 0;
+            var lessonsData = searchByLabel(label);
+            var hasLessons = lessonsData.Count > 0;
 
             if (hasLessons)
             {
-                Logger.Add(string.Join("\n", result.Data.Select(lesson => $"{lesson.id} {lesson.content.Label}")));
+                Logger.Add(string.Join("\n", lessonsData.Lessons.Select(lesson => $"{lesson.id} {lesson.content.Label}")));
                 Logger.Save();
             }
 
-            SetLink(hasLessons, hasLessons ? $"{result.Count} lessons" : "None");
+            SetLink(hasLessons, hasLessons ? $"{lessonsData.Count} lessons" : "None");
+
+            return lessonsData;
+        }
+
+        public LessonsData Avalible()
+        {
+            return ByLabel("");
         }
     }
 }

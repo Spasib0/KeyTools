@@ -19,7 +19,7 @@ namespace KeyTools.Lessons.Infos
 
             if (hasLessons)
             {
-                Logger.Add(string.Join("\n", lessons.Data.Select(lesson => $"{lesson.id} {lesson.content.Label}")));
+                Logger.Add(string.Join("\n", lessons.Lessons.Select(lesson => $"{lesson.id} {lesson.content.Label}")));
                 Logger.Save();
             }
 

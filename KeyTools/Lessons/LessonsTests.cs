@@ -23,7 +23,8 @@ namespace KeyCheckGui
         private AuthorLessons authorLessonsInfo;
         private KeyLessons keyLessonsInfo;
         private HasPublishedLessons hasPublishedLessonsTest;
-        private CanForkPublished canForkPublishedTest;
+        private ForkGet ForkGetTest;
+        private ForkPost ForkPostTest;
         private CanDeleteLesson canDeleteLessonsTest;
         private CanCreateNewLesson canCreateNewLessonTest;
         private LessonsSearch lessonsSearch;
@@ -43,8 +44,9 @@ namespace KeyCheckGui
         {
             hasContentLinksTest = new HasContentLinks(keyLessonsTestLogLink);
             updateLessonTest = new CanUpdateLessons(updateLessonLink);
-            hasPublishedLessonsTest = new HasPublishedLessons(hasPublishedLessonsLink);
-            canForkPublishedTest = new CanForkPublished(canForkPublishedLink);
+            hasPublishedLessonsTest = new HasPublishedLessons(forkPostLink);
+            ForkGetTest = new ForkGet(forkGetLink);
+            ForkPostTest = new ForkPost(forkPostLink);
             canDeleteLessonsTest = new CanDeleteLesson(canDeleteLessonLink);
             canCreateNewLessonTest = new CanCreateNewLesson(canCreateNewLessonLink);
         }
@@ -84,10 +86,8 @@ namespace KeyCheckGui
             TestHasLessonsContenLinks();
             TestUpdatLessons();
 
-            if (TestHasPublishedLesson())
-            {
-                TestCreateForkPublished();
-            }
+            TestForkGet();
+            TestForkPost();
 
             TestCanCreateNewLesson();
             TestDeleteLessons();
@@ -98,31 +98,46 @@ namespace KeyCheckGui
 
         private void TestUpdatLessons()
         {
-            SetUpdateLessonInfo(updateLessonTest.Test(keyLessons.Data));
+            SetUpdateLessonInfo(updateLessonTest.Test(keyLessons.Lessons));
         }
 
         private void TestHasLessonsContenLinks()
         {
-            SetHasContentLinksInfo(hasContentLinksTest.Test(keyLessons.Data));
+            SetHasContentLinksInfo(hasContentLinksTest.Test(keyLessons.Lessons));
         }
 
         private bool TestHasPublishedLesson()
         {
-            var isPassed = hasPublishedLessonsTest.Test(keyLessons.Data);
+            var isPassed = hasPublishedLessonsTest.Test(keyLessons.Lessons);
             SetHasPublishedLessonsInfo(isPassed);
             return isPassed;
         }
 
-        private string TestCreateForkPublished()
+        private string TestForkGet()
         {
-            var forkId = canForkPublishedTest.Test(keyLessons.Data.FirstOrDefault(lesson => !lesson.personal).id.ToString());
+            var forkId = ForkGetTest.Test(lessonsSearch.Avalible().Lessons.FirstOrDefault(lesson => !lesson.personal));
             var isPassed = forkId != "-1";
 
-            SetTestIcon(canForkPublishedIcon, isPassed);
+            SetTestIcon(forkGetIcon, isPassed);
 
             if (isPassed)
             {
                 AddLessonForDelete(forkId, "Created fork (get)");
+            }
+
+            return forkId;
+        }
+
+        private string TestForkPost()
+        {
+            var forkId = ForkPostTest.Test(lessonsSearch.Avalible().Lessons.FirstOrDefault(lesson => !lesson.personal));
+            var isPassed = forkId != "-1";
+
+            SetTestIcon(forkPostIcon, isPassed);
+
+            if (isPassed)
+            {
+                AddLessonForDelete(forkId, "Created fork (post)");
             }
 
             return forkId;
@@ -187,8 +202,8 @@ namespace KeyCheckGui
 
         private void SetHasPublishedLessonsInfo(bool state)
         {
-            SetTestIcon(hasPublishedLessonsIcon, state);
-            hasPublishedLessonsLink.Visible = true;
+            SetTestIcon(forkPostIcon, state);
+            forkPostLink.Visible = true;
         }
 
         private void SetAuthorsLessonsInfoLink(bool state)

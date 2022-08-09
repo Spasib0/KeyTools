@@ -43,18 +43,18 @@ namespace KeyCheckGui
             this.authorsLessonsLabel = new System.Windows.Forms.Label();
             this.keyLessonsTestsGroupBox = new System.Windows.Forms.GroupBox();
             this.canCreateNewLessonLink = new System.Windows.Forms.LinkLabel();
+            this.forkPostLabel = new System.Windows.Forms.Label();
+            this.forkPostIcon = new System.Windows.Forms.Label();
             this.canCreateNewLessonIcon = new System.Windows.Forms.Label();
-            this.canDeleteLessonsLabel = new System.Windows.Forms.Label();
-            this.canDeleteLessonLink = new System.Windows.Forms.LinkLabel();
-            this.canCreateNewLessonLabel = new System.Windows.Forms.Label();
+            this.forkPostLink = new System.Windows.Forms.LinkLabel();
+            this.forkGetLink = new System.Windows.Forms.LinkLabel();
+            this.createNewLessonLabel = new System.Windows.Forms.Label();
             this.canDeleteLessonsIcon = new System.Windows.Forms.Label();
-            this.canForkPublishedLink = new System.Windows.Forms.LinkLabel();
-            this.canForkPublishedIcon = new System.Windows.Forms.Label();
-            this.canForkPublishedLabel = new System.Windows.Forms.Label();
-            this.hasPublishedLessonsLink = new System.Windows.Forms.LinkLabel();
-            this.hasPublishedLessonsIcon = new System.Windows.Forms.Label();
-            this.hasPublishedLessonsLabel = new System.Windows.Forms.Label();
-            this.canUpdateLessonsLabel = new System.Windows.Forms.Label();
+            this.forkGetIcon = new System.Windows.Forms.Label();
+            this.canDeleteLessonsLabel = new System.Windows.Forms.Label();
+            this.forkGetLabel = new System.Windows.Forms.Label();
+            this.canDeleteLessonLink = new System.Windows.Forms.LinkLabel();
+            this.updateLessonsLabel = new System.Windows.Forms.Label();
             this.updateLessonLink = new System.Windows.Forms.LinkLabel();
             this.hasLinksToContentLabel = new System.Windows.Forms.Label();
             this.updateLessonTestIcon = new System.Windows.Forms.Label();
@@ -133,7 +133,6 @@ namespace KeyCheckGui
             this.lessonsSearchButton.TabIndex = 1;
             this.lessonsSearchButton.Text = "Search";
             this.lessonsSearchButton.UseVisualStyleBackColor = true;
-            this.lessonsSearchButton.Click += OnSearchLessonsClick;
             // 
             // lessonsSearchTextBox
             // 
@@ -198,18 +197,18 @@ namespace KeyCheckGui
             // keyLessonsTestsGroupBox
             // 
             this.keyLessonsTestsGroupBox.Controls.Add(this.canCreateNewLessonLink);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.forkPostLabel);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.forkPostIcon);
             this.keyLessonsTestsGroupBox.Controls.Add(this.canCreateNewLessonIcon);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.canDeleteLessonsLabel);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.canDeleteLessonLink);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.canCreateNewLessonLabel);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.forkPostLink);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.forkGetLink);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.createNewLessonLabel);
             this.keyLessonsTestsGroupBox.Controls.Add(this.canDeleteLessonsIcon);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.canForkPublishedLink);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.canForkPublishedIcon);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.canForkPublishedLabel);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.hasPublishedLessonsLink);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.hasPublishedLessonsIcon);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.hasPublishedLessonsLabel);
-            this.keyLessonsTestsGroupBox.Controls.Add(this.canUpdateLessonsLabel);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.forkGetIcon);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.canDeleteLessonsLabel);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.forkGetLabel);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.canDeleteLessonLink);
+            this.keyLessonsTestsGroupBox.Controls.Add(this.updateLessonsLabel);
             this.keyLessonsTestsGroupBox.Controls.Add(this.updateLessonLink);
             this.keyLessonsTestsGroupBox.Controls.Add(this.hasLinksToContentLabel);
             this.keyLessonsTestsGroupBox.Controls.Add(this.updateLessonTestIcon);
@@ -232,6 +231,23 @@ namespace KeyCheckGui
             this.canCreateNewLessonLink.TabStop = true;
             this.canCreateNewLessonLink.Text = "Open log";
             // 
+            // forkPostLabel
+            // 
+            this.forkPostLabel.Location = new System.Drawing.Point(7, 88);
+            this.forkPostLabel.Name = "forkPostLabel";
+            this.forkPostLabel.Size = new System.Drawing.Size(130, 23);
+            this.forkPostLabel.TabIndex = 11;
+            this.forkPostLabel.Text = "Fork (post)";
+            // 
+            // forkPostIcon
+            // 
+            this.forkPostIcon.AutoSize = true;
+            this.forkPostIcon.Location = new System.Drawing.Point(143, 88);
+            this.forkPostIcon.Name = "forkPostIcon";
+            this.forkPostIcon.Size = new System.Drawing.Size(36, 15);
+            this.forkPostIcon.TabIndex = 12;
+            this.forkPostIcon.Text = "None";
+            // 
             // canCreateNewLessonIcon
             // 
             this.canCreateNewLessonIcon.AutoSize = true;
@@ -241,13 +257,67 @@ namespace KeyCheckGui
             this.canCreateNewLessonIcon.TabIndex = 21;
             this.canCreateNewLessonIcon.Text = "None";
             // 
+            // forkPostLink
+            // 
+            this.forkPostLink.AutoSize = true;
+            this.forkPostLink.Location = new System.Drawing.Point(186, 88);
+            this.forkPostLink.Name = "forkPostLink";
+            this.forkPostLink.Size = new System.Drawing.Size(56, 15);
+            this.forkPostLink.TabIndex = 13;
+            this.forkPostLink.TabStop = true;
+            this.forkPostLink.Text = "Open log";
+            // 
+            // forkGetLink
+            // 
+            this.forkGetLink.AutoSize = true;
+            this.forkGetLink.Location = new System.Drawing.Point(186, 65);
+            this.forkGetLink.Name = "forkGetLink";
+            this.forkGetLink.Size = new System.Drawing.Size(56, 15);
+            this.forkGetLink.TabIndex = 16;
+            this.forkGetLink.TabStop = true;
+            this.forkGetLink.Text = "Open log";
+            // 
+            // createNewLessonLabel
+            // 
+            this.createNewLessonLabel.Location = new System.Drawing.Point(7, 111);
+            this.createNewLessonLabel.Name = "createNewLessonLabel";
+            this.createNewLessonLabel.Size = new System.Drawing.Size(130, 23);
+            this.createNewLessonLabel.TabIndex = 20;
+            this.createNewLessonLabel.Text = "Create lesson";
+            // 
+            // canDeleteLessonsIcon
+            // 
+            this.canDeleteLessonsIcon.AutoSize = true;
+            this.canDeleteLessonsIcon.Location = new System.Drawing.Point(143, 134);
+            this.canDeleteLessonsIcon.Name = "canDeleteLessonsIcon";
+            this.canDeleteLessonsIcon.Size = new System.Drawing.Size(36, 15);
+            this.canDeleteLessonsIcon.TabIndex = 18;
+            this.canDeleteLessonsIcon.Text = "None";
+            // 
+            // forkGetIcon
+            // 
+            this.forkGetIcon.AutoSize = true;
+            this.forkGetIcon.Location = new System.Drawing.Point(143, 65);
+            this.forkGetIcon.Name = "forkGetIcon";
+            this.forkGetIcon.Size = new System.Drawing.Size(36, 15);
+            this.forkGetIcon.TabIndex = 15;
+            this.forkGetIcon.Text = "None";
+            // 
             // canDeleteLessonsLabel
             // 
             this.canDeleteLessonsLabel.Location = new System.Drawing.Point(7, 134);
             this.canDeleteLessonsLabel.Name = "canDeleteLessonsLabel";
             this.canDeleteLessonsLabel.Size = new System.Drawing.Size(130, 23);
             this.canDeleteLessonsLabel.TabIndex = 17;
-            this.canDeleteLessonsLabel.Text = "Can delete lessons";
+            this.canDeleteLessonsLabel.Text = "Delete lessons";
+            // 
+            // forkGetLabel
+            // 
+            this.forkGetLabel.Location = new System.Drawing.Point(7, 65);
+            this.forkGetLabel.Name = "forkGetLabel";
+            this.forkGetLabel.Size = new System.Drawing.Size(130, 23);
+            this.forkGetLabel.TabIndex = 14;
+            this.forkGetLabel.Text = "Fork (get)";
             // 
             // canDeleteLessonLink
             // 
@@ -259,85 +329,13 @@ namespace KeyCheckGui
             this.canDeleteLessonLink.TabStop = true;
             this.canDeleteLessonLink.Text = "Open log";
             // 
-            // canCreateNewLessonLabel
+            // updateLessonsLabel
             // 
-            this.canCreateNewLessonLabel.Location = new System.Drawing.Point(7, 111);
-            this.canCreateNewLessonLabel.Name = "canCreateNewLessonLabel";
-            this.canCreateNewLessonLabel.Size = new System.Drawing.Size(130, 23);
-            this.canCreateNewLessonLabel.TabIndex = 20;
-            this.canCreateNewLessonLabel.Text = "Can create lesson";
-            // 
-            // canDeleteLessonsIcon
-            // 
-            this.canDeleteLessonsIcon.AutoSize = true;
-            this.canDeleteLessonsIcon.Location = new System.Drawing.Point(143, 134);
-            this.canDeleteLessonsIcon.Name = "canDeleteLessonsIcon";
-            this.canDeleteLessonsIcon.Size = new System.Drawing.Size(36, 15);
-            this.canDeleteLessonsIcon.TabIndex = 18;
-            this.canDeleteLessonsIcon.Text = "None";
-            // 
-            // canForkPublishedLink
-            // 
-            this.canForkPublishedLink.AutoSize = true;
-            this.canForkPublishedLink.Location = new System.Drawing.Point(186, 88);
-            this.canForkPublishedLink.Name = "canForkPublishedLink";
-            this.canForkPublishedLink.Size = new System.Drawing.Size(56, 15);
-            this.canForkPublishedLink.TabIndex = 16;
-            this.canForkPublishedLink.TabStop = true;
-            this.canForkPublishedLink.Text = "Open log";
-            // 
-            // canForkPublishedIcon
-            // 
-            this.canForkPublishedIcon.AutoSize = true;
-            this.canForkPublishedIcon.Location = new System.Drawing.Point(143, 88);
-            this.canForkPublishedIcon.Name = "canForkPublishedIcon";
-            this.canForkPublishedIcon.Size = new System.Drawing.Size(36, 15);
-            this.canForkPublishedIcon.TabIndex = 15;
-            this.canForkPublishedIcon.Text = "None";
-            // 
-            // canForkPublishedLabel
-            // 
-            this.canForkPublishedLabel.Location = new System.Drawing.Point(7, 88);
-            this.canForkPublishedLabel.Name = "canForkPublishedLabel";
-            this.canForkPublishedLabel.Size = new System.Drawing.Size(130, 23);
-            this.canForkPublishedLabel.TabIndex = 14;
-            this.canForkPublishedLabel.Text = "Can fork published";
-            // 
-            // hasPublishedLessonsLink
-            // 
-            this.hasPublishedLessonsLink.AutoSize = true;
-            this.hasPublishedLessonsLink.Location = new System.Drawing.Point(186, 65);
-            this.hasPublishedLessonsLink.Name = "hasPublishedLessonsLink";
-            this.hasPublishedLessonsLink.Size = new System.Drawing.Size(56, 15);
-            this.hasPublishedLessonsLink.TabIndex = 13;
-            this.hasPublishedLessonsLink.TabStop = true;
-            this.hasPublishedLessonsLink.Text = "Open log";
-            this.hasPublishedLessonsLink.Visible = false;
-            // 
-            // hasPublishedLessonsIcon
-            // 
-            this.hasPublishedLessonsIcon.AutoSize = true;
-            this.hasPublishedLessonsIcon.Location = new System.Drawing.Point(143, 65);
-            this.hasPublishedLessonsIcon.Name = "hasPublishedLessonsIcon";
-            this.hasPublishedLessonsIcon.Size = new System.Drawing.Size(36, 15);
-            this.hasPublishedLessonsIcon.TabIndex = 12;
-            this.hasPublishedLessonsIcon.Text = "None";
-            // 
-            // hasPublishedLessonsLabel
-            // 
-            this.hasPublishedLessonsLabel.Location = new System.Drawing.Point(7, 65);
-            this.hasPublishedLessonsLabel.Name = "hasPublishedLessonsLabel";
-            this.hasPublishedLessonsLabel.Size = new System.Drawing.Size(130, 23);
-            this.hasPublishedLessonsLabel.TabIndex = 11;
-            this.hasPublishedLessonsLabel.Text = "Has published lessons";
-            // 
-            // canUpdateLessonsLabel
-            // 
-            this.canUpdateLessonsLabel.Location = new System.Drawing.Point(6, 42);
-            this.canUpdateLessonsLabel.Name = "canUpdateLessonsLabel";
-            this.canUpdateLessonsLabel.Size = new System.Drawing.Size(131, 23);
-            this.canUpdateLessonsLabel.TabIndex = 9;
-            this.canUpdateLessonsLabel.Text = "Can update lessons: ";
+            this.updateLessonsLabel.Location = new System.Drawing.Point(6, 42);
+            this.updateLessonsLabel.Name = "updateLessonsLabel";
+            this.updateLessonsLabel.Size = new System.Drawing.Size(131, 23);
+            this.updateLessonsLabel.TabIndex = 9;
+            this.updateLessonsLabel.Text = "Update lesson: ";
             // 
             // updateLessonLink
             // 
@@ -441,24 +439,24 @@ namespace KeyCheckGui
         private System.Windows.Forms.LinkLabel updateLessonLink;
         private System.Windows.Forms.Label hasLinksToContentLabel;
         private System.Windows.Forms.GroupBox keyLessonsTestsGroupBox;
-        private System.Windows.Forms.Label canUpdateLessonsLabel;
+        private System.Windows.Forms.Label updateLessonsLabel;
         private System.Windows.Forms.GroupBox keyLessonsInfosGroupBox;
         private System.Windows.Forms.Label authorsLessonsLabel;
         private System.Windows.Forms.LinkLabel authorLessonsLink;
         private System.Windows.Forms.Label keyLessonsLabel;
         private System.Windows.Forms.LinkLabel keyLessonsLink;
-        private System.Windows.Forms.Label hasPublishedLessonsLabel;
-        private System.Windows.Forms.Label hasPublishedLessonsIcon;
-        private System.Windows.Forms.LinkLabel hasPublishedLessonsLink;
-        private System.Windows.Forms.LinkLabel canForkPublishedLink;
-        private System.Windows.Forms.Label canForkPublishedIcon;
-        private System.Windows.Forms.Label canForkPublishedLabel;
+        private System.Windows.Forms.Label forkPostLabel;
+        private System.Windows.Forms.Label forkPostIcon;
+        private System.Windows.Forms.LinkLabel forkPostLink;
+        private System.Windows.Forms.LinkLabel forkGetLink;
+        private System.Windows.Forms.Label forkGetIcon;
+        private System.Windows.Forms.Label forkGetLabel;
         private System.Windows.Forms.LinkLabel canDeleteLessonLink;
         private System.Windows.Forms.Label canDeleteLessonsIcon;
         private System.Windows.Forms.Label canDeleteLessonsLabel;
         private System.Windows.Forms.LinkLabel canCreateNewLessonLink;
         private System.Windows.Forms.Label canCreateNewLessonIcon;
-        private System.Windows.Forms.Label canCreateNewLessonLabel;
+        private System.Windows.Forms.Label createNewLessonLabel;
         private System.Windows.Forms.GroupBox searchLessonsGroupBox;
         private System.Windows.Forms.Button lessonsSearchButton;
         private System.Windows.Forms.TextBox lessonsSearchTextBox;
