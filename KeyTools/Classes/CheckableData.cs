@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace KeyCheckGui
+namespace KeyTools.Classes
 {
     abstract class CheckableData : ICheckableData
     {

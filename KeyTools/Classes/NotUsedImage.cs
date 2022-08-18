@@ -1,4 +1,4 @@
-﻿namespace KeyCheckGui
+﻿namespace KeyTools.Classes
 {
     public class NotUsedImage : ResultItem
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace KeyCheckGui
+namespace KeyTools.Classes
 {
     public class FactsObject
     {

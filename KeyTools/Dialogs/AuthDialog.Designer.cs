@@ -1,5 +1,4 @@
-﻿
-namespace KeyCheckGui
+﻿namespace KeyTools.Dialogs
 {
     partial class AuthDialog
     {

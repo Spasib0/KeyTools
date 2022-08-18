@@ -3,14 +3,13 @@ using KeyTools.Lessons.Entities;
 using KeyTools.Lessons.Infos;
 using KeyTools.Lessons.Requests;
 using KeyTools.Lessons.Tests;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace KeyCheckGui
+namespace KeyTools.Lessons
 {
     public partial class LessonsTests : UserControl
     {
@@ -28,9 +27,9 @@ namespace KeyCheckGui
         private CanDeleteLesson canDeleteLessonsTest;
         private CanCreateNewLesson canCreateNewLessonTest;
         private LessonsSearch lessonsSearch;
+        
 
         private List<LessonForDelete> lessonsForDelete;
-
 
         public LessonsTests()
         {
@@ -77,7 +76,7 @@ namespace KeyCheckGui
         public void CheckModeratorRole()
         {
             var data = System.Text.Json.JsonSerializer.Deserialize<UserKeyData>(_client.Call(new UserDataRequest()));
-            SetModeratorTests(data.IsModerator);
+            SetModeratorControl(data.IsModerator);
         }
 
         private void TestKeyLessonsClick(object sender, EventArgs e)
@@ -94,8 +93,6 @@ namespace KeyCheckGui
             CheckAuthorLessons();
         }
 
-
-
         private void TestUpdatLessons()
         {
             SetUpdateLessonInfo(updateLessonTest.Test(keyLessons.Lessons));
@@ -104,13 +101,6 @@ namespace KeyCheckGui
         private void TestHasLessonsContenLinks()
         {
             SetHasContentLinksInfo(hasContentLinksTest.Test(keyLessons.Lessons));
-        }
-
-        private bool TestHasPublishedLesson()
-        {
-            var isPassed = hasPublishedLessonsTest.Test(keyLessons.Lessons);
-            SetHasPublishedLessonsInfo(isPassed);
-            return isPassed;
         }
 
         private string TestForkGet()
@@ -200,12 +190,6 @@ namespace KeyCheckGui
             updateLessonLink.Visible = !state;
         }
 
-        private void SetHasPublishedLessonsInfo(bool state)
-        {
-            SetTestIcon(forkPostIcon, state);
-            forkPostLink.Visible = true;
-        }
-
         private void SetAuthorsLessonsInfoLink(bool state)
         {
             updateLessonLink.Enabled = state;
@@ -217,15 +201,9 @@ namespace KeyCheckGui
             label.ForeColor = state ? Color.Green : Color.Red;
         }
 
-        private void OnAllWorldLessonsClick(object sender, EventArgs e)
+        private void SetModeratorControl(bool state)
         {
-            var lessons = new LessonsData(Client.Call(new AllModeratorLessonsRequest()));
-            allWorldLessonsCountLabel.Text = lessons.Count.ToString();
-        }
-
-        private void SetModeratorTests(bool state)
-        {
-            moderatorTestsGroupBox.Enabled = state;
+            moderatorGroupBox.Enabled = state;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace KeyCheckGui
+namespace KeyTools.Classes
 {
     public class HardwareGridAdapter
     {

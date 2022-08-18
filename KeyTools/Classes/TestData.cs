@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KeyCheckGui
+namespace KeyTools.Classes
 {
 
 	public class TestData

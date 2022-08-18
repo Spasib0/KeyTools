@@ -1,5 +1,4 @@
-﻿
-namespace KeyTools.Lessons.Requests
+﻿namespace KeyTools.Lessons.Requests
 {
     class DeleteLessonRequest : GetLessonRequest
     {

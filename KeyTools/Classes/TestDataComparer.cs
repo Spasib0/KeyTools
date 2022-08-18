@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace KeyCheckGui
+namespace KeyTools.Classes
 {
     internal class TestDataComparer : IEqualityComparer<TestData>
     {

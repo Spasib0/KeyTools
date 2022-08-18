@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace KeyCheckGui
+namespace KeyTools.Classes
 {
     public interface IResultItem
     {

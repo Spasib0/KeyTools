@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace KeyCheckGui
+namespace KeyTools.Classes
 {
     public interface IResultData
     {

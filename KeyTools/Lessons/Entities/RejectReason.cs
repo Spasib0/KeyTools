@@ -5,8 +5,9 @@ namespace KeyTools.Lessons.Entities
 {
     public class RejectReason
     {
-        private const string PUBLISHED = "Занятие опубликовано";
-        private const string PUBLISHED_AFTER_REJECT = "Занятие опубликовано после отклонения";
+        private const string PUBLISHED = "Published with KeyTools";
+        private const string PUBLISHED_AFTER_REJECT = "Published after rejected with KeyTools";
+        private const string REJECTED = "Rejected with KeyTools";
 
         public string review;
         public bool forbidden;
@@ -37,9 +38,9 @@ namespace KeyTools.Lessons.Entities
             trash = jLessonResponseObj.Value<bool>("trash");
         }
 
-        //    public static RejectReason NotReviewed() => new RejectReason(LanguageControl.languagecontrol.GetbyIndex(NOT_REVIEWED), false, false);
         public static RejectReason Published() => new RejectReason(PUBLISHED, false, false);
         public static RejectReason PublishedAfterReject() => new RejectReason(PUBLISHED_AFTER_REJECT, false, false);
         public static RejectReason Empty() => new RejectReason("", false, false);
+        public static RejectReason Reject() => new RejectReason(REJECTED, false, false);
     }
 }

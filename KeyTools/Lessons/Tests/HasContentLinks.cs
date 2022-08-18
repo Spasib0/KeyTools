@@ -1,5 +1,4 @@
-﻿using KeyCheckGui;
-using KeyTools.Classes;
+﻿using KeyTools.Classes;
 using KeyTools.Lessons.Entities;
 using KeyTools.Responces;
 using System;

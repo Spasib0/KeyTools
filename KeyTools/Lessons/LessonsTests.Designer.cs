@@ -1,5 +1,6 @@
-﻿
-namespace KeyCheckGui
+﻿using KeyTools.Lessons.Entities;
+
+namespace KeyTools.Lessons
 {
     partial class LessonsTests
     {
@@ -30,7 +31,6 @@ namespace KeyCheckGui
         private void InitializeComponent()
         {
             this.testKeyLessons = new System.Windows.Forms.Button();
-            this.allWorldLessons = new System.Windows.Forms.Button();
             this.userTestsGroupBox = new System.Windows.Forms.GroupBox();
             this.searchLessonsGroupBox = new System.Windows.Forms.GroupBox();
             this.lessonsSearchLink = new System.Windows.Forms.LinkLabel();
@@ -60,13 +60,13 @@ namespace KeyCheckGui
             this.updateLessonTestIcon = new System.Windows.Forms.Label();
             this.keyLesonsTestIcon = new System.Windows.Forms.Label();
             this.keyLessonsTestLogLink = new System.Windows.Forms.LinkLabel();
-            this.moderatorTestsGroupBox = new System.Windows.Forms.GroupBox();
-            this.allWorldLessonsCountLabel = new System.Windows.Forms.Label();
+            this.moderatorGroupBox = new System.Windows.Forms.GroupBox();
+            this.moderatorControl = new ModeratorControl();
             this.userTestsGroupBox.SuspendLayout();
             this.searchLessonsGroupBox.SuspendLayout();
             this.keyLessonsInfosGroupBox.SuspendLayout();
             this.keyLessonsTestsGroupBox.SuspendLayout();
-            this.moderatorTestsGroupBox.SuspendLayout();
+            this.moderatorGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // testKeyLessons
@@ -78,16 +78,6 @@ namespace KeyCheckGui
             this.testKeyLessons.Text = "Check key lessons";
             this.testKeyLessons.UseVisualStyleBackColor = true;
             this.testKeyLessons.Click += new System.EventHandler(this.TestKeyLessonsClick);
-            // 
-            // allWorldLessons
-            // 
-            this.allWorldLessons.Location = new System.Drawing.Point(6, 22);
-            this.allWorldLessons.Name = "allWorldLessons";
-            this.allWorldLessons.Size = new System.Drawing.Size(120, 23);
-            this.allWorldLessons.TabIndex = 1;
-            this.allWorldLessons.Text = "All World Lessons";
-            this.allWorldLessons.UseVisualStyleBackColor = true;
-            this.allWorldLessons.Click += new System.EventHandler(this.OnAllWorldLessonsClick);
             // 
             // userTestsGroupBox
             // 
@@ -385,31 +375,28 @@ namespace KeyCheckGui
             this.keyLessonsTestLogLink.Text = "Open log";
             this.keyLessonsTestLogLink.Visible = false;
             // 
-            // moderatorTestsGroupBox
+            // moderatorGroupBox
             // 
-            this.moderatorTestsGroupBox.Controls.Add(this.allWorldLessonsCountLabel);
-            this.moderatorTestsGroupBox.Controls.Add(this.allWorldLessons);
-            this.moderatorTestsGroupBox.Location = new System.Drawing.Point(497, 7);
-            this.moderatorTestsGroupBox.Name = "moderatorTestsGroupBox";
-            this.moderatorTestsGroupBox.Size = new System.Drawing.Size(437, 461);
-            this.moderatorTestsGroupBox.TabIndex = 3;
-            this.moderatorTestsGroupBox.TabStop = false;
-            this.moderatorTestsGroupBox.Text = "Moderator Tests";
+            this.moderatorGroupBox.Controls.Add(this.moderatorControl);
+            this.moderatorGroupBox.Location = new System.Drawing.Point(497, 7);
+            this.moderatorGroupBox.Name = "moderatorGroupBox";
+            this.moderatorGroupBox.Size = new System.Drawing.Size(437, 461);
+            this.moderatorGroupBox.TabIndex = 3;
+            this.moderatorGroupBox.TabStop = false;
+            this.moderatorGroupBox.Text = "Moderator";
             // 
-            // allWorldLessonsCountLabel
+            // moderatorControl
             // 
-            this.allWorldLessonsCountLabel.AutoSize = true;
-            this.allWorldLessonsCountLabel.Location = new System.Drawing.Point(132, 26);
-            this.allWorldLessonsCountLabel.Name = "allWorldLessonsCountLabel";
-            this.allWorldLessonsCountLabel.Size = new System.Drawing.Size(36, 15);
-            this.allWorldLessonsCountLabel.TabIndex = 2;
-            this.allWorldLessonsCountLabel.Text = "None";
+            this.moderatorControl.Location = new System.Drawing.Point(6, 22);
+            this.moderatorControl.Name = "moderatorControl";
+            this.moderatorControl.Size = new System.Drawing.Size(352, 371);
+            this.moderatorControl.TabIndex = 0;
             // 
             // LessonsTests
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.moderatorTestsGroupBox);
+            this.Controls.Add(this.moderatorGroupBox);
             this.Controls.Add(this.userTestsGroupBox);
             this.Name = "LessonsTests";
             this.Size = new System.Drawing.Size(937, 468);
@@ -420,8 +407,7 @@ namespace KeyCheckGui
             this.keyLessonsInfosGroupBox.PerformLayout();
             this.keyLessonsTestsGroupBox.ResumeLayout(false);
             this.keyLessonsTestsGroupBox.PerformLayout();
-            this.moderatorTestsGroupBox.ResumeLayout(false);
-            this.moderatorTestsGroupBox.PerformLayout();
+            this.moderatorGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -429,10 +415,8 @@ namespace KeyCheckGui
         #endregion
 
         private System.Windows.Forms.Button testKeyLessons;
-        private System.Windows.Forms.Button allWorldLessons;
         private System.Windows.Forms.GroupBox userTestsGroupBox;
-        private System.Windows.Forms.GroupBox moderatorTestsGroupBox;
-        private System.Windows.Forms.Label allWorldLessonsCountLabel;
+        private System.Windows.Forms.GroupBox moderatorGroupBox;
         private System.Windows.Forms.LinkLabel keyLessonsTestLogLink;
         private System.Windows.Forms.Label keyLesonsTestIcon;
         private System.Windows.Forms.Label updateLessonTestIcon;
@@ -461,5 +445,6 @@ namespace KeyCheckGui
         private System.Windows.Forms.Button lessonsSearchButton;
         private System.Windows.Forms.TextBox lessonsSearchTextBox;
         private System.Windows.Forms.LinkLabel lessonsSearchLink;
+        private ModeratorControl moderatorControl;
     }
 }

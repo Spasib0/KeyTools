@@ -1,11 +1,7 @@
-﻿using KeyTools.Lessons.Entities;
-using Newtonsoft.Json;
-
-namespace KeyTools.Lessons.Requests
+﻿namespace KeyTools.Lessons.Requests
 {
-    internal class AllModeratorLessonsRequest : PutLessonRequest
+    class AllModeratorLessonsRequest : ModeratorLessonsRequest
     {
-        private const string URL = "/game/lessons/new";
-        public AllModeratorLessonsRequest() : base(URL, JsonConvert.SerializeObject(ModeratorSearchRequest.SearchAllLessons(true, 99))) { }
+        public AllModeratorLessonsRequest(bool personal) : base(ModeratorSearchRequest.SearchAllLessons(personal, 99)) { }
     }
 }

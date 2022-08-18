@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace KeyCheckGui
+namespace KeyTools
 {
     partial class KeyTools
     {
@@ -88,7 +88,7 @@ namespace KeyCheckGui
             this.checkableDataList = new System.Windows.Forms.TextBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.lessonsPage = new System.Windows.Forms.TabPage();
-            this.lessonsTests = new KeyCheckGui.LessonsTests();
+            this.lessonsTests = new Lessons.LessonsTests();
             this.keyResultGroup.SuspendLayout();
             this.keyGroup.SuspendLayout();
             this.serverGroup.SuspendLayout();
@@ -746,10 +746,10 @@ namespace KeyCheckGui
             this.lessonsPage.TabIndex = 3;
             this.lessonsPage.Text = "Lessons";
             // 
-            // lessonsTests1
+            // lessonsTests
             // 
             this.lessonsTests.Location = new System.Drawing.Point(0, 0);
-            this.lessonsTests.Name = "lessonsTests1";
+            this.lessonsTests.Name = "lessonsTests";
             this.lessonsTests.Size = new System.Drawing.Size(937, 468);
             this.lessonsTests.TabIndex = 0;
             // 
@@ -853,6 +853,6 @@ namespace KeyCheckGui
         internal System.Windows.Forms.ComboBox checkDataTypeBox;
         internal System.Windows.Forms.Button loadFromJsonButton;
         internal System.Windows.Forms.TabPage lessonsPage;
-        private KeyCheckGui.LessonsTests lessonsTests;
+        private Lessons.LessonsTests lessonsTests;
     }
 }

@@ -1,5 +1,4 @@
-﻿using KeyTools.Lessons.Entities;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 namespace KeyTools.Responces
 {

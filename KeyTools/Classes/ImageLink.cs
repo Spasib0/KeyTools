@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace KeyCheckGui.Dialogs
+namespace KeyTools.Classes
 {
     internal class ImageLink
     {

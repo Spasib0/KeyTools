@@ -1,5 +1,4 @@
-﻿
-using KeyTools.Lessons.Entities;
+﻿using KeyTools.Lessons.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

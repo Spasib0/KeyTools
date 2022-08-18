@@ -1,4 +1,6 @@
 ﻿using KeyTools.Classes;
+using KeyTools.Dialogs;
+using KeyTools.Responces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,7 +9,7 @@ using System.Text;
 using System.Text.Json;
 using System.Windows.Forms;
 
-namespace KeyCheckGui
+namespace KeyTools
 {
     public partial class KeyTools : Form
     {

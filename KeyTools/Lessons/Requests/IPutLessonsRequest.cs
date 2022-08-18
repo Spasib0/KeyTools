@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-
-namespace KeyTools.Lessons.Requests
+﻿namespace KeyTools.Lessons.Requests
 {
     public interface IPutLessonsRequest
     {

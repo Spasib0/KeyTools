@@ -1,4 +1,4 @@
-﻿namespace KeyCheckGui
+﻿namespace KeyTools.Classes
 {
     //Enum.GetValues(typeof(StatisticsProduct)).Cast<StatisticsProduct>().ToArray();
     public enum StatisticsProduct

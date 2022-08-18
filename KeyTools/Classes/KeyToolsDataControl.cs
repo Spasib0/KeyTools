@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace KeyCheckGui
+namespace KeyTools.Classes
 {
     public class KeyToolsDataControl
     {
@@ -95,8 +95,6 @@ namespace KeyCheckGui
             controlData.checkDataTypeBox.SelectedIndexChanged += OnChekDataTypeBox_SelectedIndexChanged;
         }
 
-
-
         private void OnLoadDataButton_Click(object sender, EventArgs e)
         {
             StatisticsProduct[] products = new StatisticsProduct[] { StatisticsProduct.cards_app_school, StatisticsProduct.logopedia }; //Enum.GetValues(typeof(StatisticsProduct)).Cast<StatisticsProduct>().ToArray();
@@ -111,7 +109,6 @@ namespace KeyCheckGui
             dataForCheck = Setup(controlData, (CheckableDataType) controlData.checkDataTypeBox.SelectedItem);
         }
 
-
         public ICheckableData Setup(KeyTools dataView, CheckableDataType type) { 
             switch (type)
             {
@@ -121,7 +118,6 @@ namespace KeyCheckGui
                     return null;
             }
         }
-
 
         private void OnCheckData_Click(object sender, EventArgs e)
         {

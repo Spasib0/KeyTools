@@ -13,12 +13,19 @@ namespace KeyTools.Lessons.Entities
         public List<LessonResponseData> Lessons => _lessons;
         private List<LessonResponseData> _lessons;
         
-        public LessonsData(string responce)
+        public LessonsData(string response)
         {
-            var objData = (JArray)JsonConvert.DeserializeObject(responce);
+            var objData = (JArray)JsonConvert.DeserializeObject(response);
             _lessons = objData == null
-                ? new List<LessonResponseData>()
+                ? TryParseLesson(response)
                 : objData.Select(lessonResponse => new LessonResponseData(lessonResponse)).ToList();
+        }
+
+        private List<LessonResponseData> TryParseLesson(string response)
+        {
+            var lesson = new LessonResponseData(((JToken)JsonConvert.DeserializeObject(response)).Value<JToken>("data"));
+
+            return lesson == null ? new List<LessonResponseData>() : new List<LessonResponseData>{ lesson };
         }
     }
 }

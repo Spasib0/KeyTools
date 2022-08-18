@@ -1,11 +1,12 @@
-﻿using System;
+﻿using KeyTools.Classes;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace KeyCheckGui.Dialogs
+namespace KeyTools.Dialogs
 {
     public partial class CheckedImagesIdsDialog : Form
     {

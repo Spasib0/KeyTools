@@ -3,7 +3,6 @@ using KeyTools.Lessons.Requests;
 using KeyTools.Responces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 
 namespace KeyTools.Lessons.Entities
 {
@@ -45,14 +44,14 @@ namespace KeyTools.Lessons.Entities
 
         public LessonLinkedMedia GetLessonLinkedMedia(string id)
         {
-            var lessonObj = (JObject)JsonConvert.DeserializeObject(Call(new LessonWithContent(id)));
+            var lessonObj = (JObject) JsonConvert.DeserializeObject(Call(new LessonWithContent(id)));
             return new LessonLinkedMedia(new SaveMediaLessonResponse(lessonObj).data.content.media);
         }
 
         public JObject UpdateLesson(LessonResponseData lesson)
         {
             lesson.content.SetProducts(products);
-            var lessonObj = (JObject)JsonConvert.DeserializeObject(Call(new UpdateLessonRequest(lesson)));
+            var lessonObj = (JObject) JsonConvert.DeserializeObject(Call(new UpdateLessonRequest(lesson)));
             return lessonObj;
         }
 
@@ -63,7 +62,7 @@ namespace KeyTools.Lessons.Entities
 
         public JObject CreateForkGet(long id)
         {
-            return (JObject)JsonConvert.DeserializeObject(Call(new ForkGetRequest(id)));
+            return (JObject) JsonConvert.DeserializeObject(Call(new ForkGetRequest(id)));
         }
 
         public JObject CreateForkPost(long id, string data)
@@ -73,12 +72,12 @@ namespace KeyTools.Lessons.Entities
 
         public JObject CreateLesson(LessonResponseData lesson)
         {
-            return (JObject)JsonConvert.DeserializeObject(Call(new CreateLessonRequest(lesson)));
+            return (JObject) JsonConvert.DeserializeObject(Call(new CreateLessonRequest(lesson)));
         }
 
         public JObject DeleteLesson(string id)
         {
-            return (JObject)JsonConvert.DeserializeObject(Call(new DeleteLessonRequest(id)));
+            return (JObject) JsonConvert.DeserializeObject(Call(new DeleteLessonRequest(id)));
         }
 
         public LessonsData SearchByLabel(string label)
@@ -86,14 +85,21 @@ namespace KeyTools.Lessons.Entities
             return new LessonsData(Call(new LessonsSearchRequest(label)));
         }
 
+        public JObject ChangeLessonPublishedState(RejectLesson data)
+        {
+            return (JObject) JsonConvert.DeserializeObject(Call(new PublishStateLessonRequest(data)));
+        }
+
         private string Get(ILessonsRequest request)
         {
+            ;
             return _client.GetRequest(request.Url);
         }
 
         private string Put(PutLessonRequest request)
         {
-            return _client.PutRequest(request.Url, request.Data);
+            var res = _client.PutRequest(request.Url, request.Data);
+            return res;
         }
 
         private string Post(PostLessonRequest request)

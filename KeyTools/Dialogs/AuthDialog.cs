@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 
 
-namespace KeyCheckGui
+namespace KeyTools.Dialogs
 {
     public partial class AuthDialog : Form
     {

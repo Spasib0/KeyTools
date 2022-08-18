@@ -1,5 +1,4 @@
-﻿using KeyCheckGui;
-using KeyTools.Lessons.Entities;
+﻿using KeyTools.Lessons.Entities;
 using System;
 using System.Linq;
 using System.Windows.Forms;

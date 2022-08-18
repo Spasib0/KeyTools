@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 
-namespace KeyCheckGui
+namespace KeyTools.Classes
 {
     public class Content
     {

@@ -1,4 +1,4 @@
-﻿using KeyCheckGui.Dialogs;
+﻿using KeyTools.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Windows.Forms;
 
-namespace KeyCheckGui
+namespace KeyTools.Classes
 {
     internal class ImageIdCheckableData : CheckableData
     {

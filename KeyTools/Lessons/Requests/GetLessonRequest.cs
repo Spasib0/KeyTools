@@ -1,5 +1,4 @@
-﻿using System;
-namespace KeyTools.Lessons.Requests
+﻿namespace KeyTools.Lessons.Requests
 {
     internal class GetLessonRequest : ILessonsRequest
     {

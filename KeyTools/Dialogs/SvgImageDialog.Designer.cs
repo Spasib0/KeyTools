@@ -1,5 +1,5 @@
 ﻿
-namespace KeyCheckGui.Dialogs
+namespace KeyTools.Dialogs
 {
     partial class SvgImageDialog
     {

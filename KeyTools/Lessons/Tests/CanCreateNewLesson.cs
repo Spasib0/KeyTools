@@ -1,10 +1,8 @@
-﻿using KeyCheckGui;
-using KeyTools.Lessons.Entities;
+﻿using KeyTools.Lessons.Entities;
 using KeyTools.Responces;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
 namespace KeyTools.Lessons.Tests
