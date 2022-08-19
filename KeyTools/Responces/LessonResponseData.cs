@@ -7,6 +7,7 @@ namespace KeyTools.Responces
 {
     public class LessonResponseData : BaseLessonResponseData
     {
+        public long Id => id;
         public CardsAppLessonData content;
 
         public static LessonResponseData CreateNewLesson()
@@ -56,6 +57,8 @@ namespace KeyTools.Responces
             this.checkedTime = checkedTime;
             this.content = content; // тут умышленно ссылка передаётся. Выше в иерархии вызовов делаются новые экземпляры content
         }
+
+        public LessonResponseData(string data) : this(((JToken)JsonConvert.DeserializeObject(data)).Value<JToken>("data")) { }
 
         public LessonResponseData(JToken jLessonResponseObj) : base(jLessonResponseObj)
         {

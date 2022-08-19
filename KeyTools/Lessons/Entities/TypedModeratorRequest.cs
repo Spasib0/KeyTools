@@ -9,14 +9,14 @@ namespace KeyTools.Lessons.Entities
 
         private ModeratorRequestType SelectedType => (ModeratorRequestType)_typeComboBox.SelectedItem;
         private ComboBox _typeComboBox;
-        private ComboBox _lessonComboBox;
+        private TextBox _lessonTextBox;
 
         
 
-        public TypedModeratorRequest(ComboBox typeComboBox, ComboBox lessonComboBox)
+        public TypedModeratorRequest(ComboBox typeComboBox, TextBox lessonComboBox)
         {
             _typeComboBox = typeComboBox;
-            _lessonComboBox = lessonComboBox;
+            _lessonTextBox = lessonComboBox;
         }
 
         public ILessonsRequest Get(ModeratorRequestType type)
@@ -25,7 +25,7 @@ namespace KeyTools.Lessons.Entities
 
             {
                 case ModeratorRequestType.ById:
-                    return new LessonByIdRequest(_lessonComboBox.Text);
+                    return new LessonByIdRequest(_lessonTextBox.Text);
                 case ModeratorRequestType.AllPublic:
                     return new AllModeratorLessonsRequest(false);
                 case ModeratorRequestType.AllPersonal:

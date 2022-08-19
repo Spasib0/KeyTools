@@ -50,15 +50,17 @@ namespace KeyTools.Lessons.Entities
             this.staticAuthorLabel = new System.Windows.Forms.Label();
             this.lessonLabel = new System.Windows.Forms.Label();
             this.staticLessonLabel = new System.Windows.Forms.Label();
-            this.changePersonalStateIcon = new System.Windows.Forms.Label();
+            this.personalStateIcon = new System.Windows.Forms.Label();
             this.publishButton = new System.Windows.Forms.Button();
-            this.changePersonalStateLink = new System.Windows.Forms.LinkLabel();
+            this.personalStateLink = new System.Windows.Forms.LinkLabel();
+            this.lessonIdLabel = new System.Windows.Forms.Label();
+            this.lessonsComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // updatedLabel
             // 
             this.updatedLabel.AutoSize = true;
-            this.updatedLabel.Location = new System.Drawing.Point(124, 69);
+            this.updatedLabel.Location = new System.Drawing.Point(127, 98);
             this.updatedLabel.Name = "updatedLabel";
             this.updatedLabel.Size = new System.Drawing.Size(36, 15);
             this.updatedLabel.TabIndex = 69;
@@ -66,7 +68,7 @@ namespace KeyTools.Lessons.Entities
             // 
             // staticUpdatedLabel
             // 
-            this.staticUpdatedLabel.Location = new System.Drawing.Point(-1, 69);
+            this.staticUpdatedLabel.Location = new System.Drawing.Point(2, 98);
             this.staticUpdatedLabel.Name = "staticUpdatedLabel";
             this.staticUpdatedLabel.Size = new System.Drawing.Size(119, 23);
             this.staticUpdatedLabel.TabIndex = 68;
@@ -74,17 +76,18 @@ namespace KeyTools.Lessons.Entities
             // 
             // rejectButton
             // 
-            this.rejectButton.Location = new System.Drawing.Point(112, 276);
+            this.rejectButton.Location = new System.Drawing.Point(98, 255);
             this.rejectButton.Name = "rejectButton";
-            this.rejectButton.Size = new System.Drawing.Size(107, 23);
+            this.rejectButton.Size = new System.Drawing.Size(91, 23);
             this.rejectButton.TabIndex = 67;
             this.rejectButton.Text = "Reject";
             this.rejectButton.UseVisualStyleBackColor = true;
+            this.rejectButton.Click += OnRejectClick;
             // 
             // reviewLabel
             // 
             this.reviewLabel.AutoSize = true;
-            this.reviewLabel.Location = new System.Drawing.Point(124, 204);
+            this.reviewLabel.Location = new System.Drawing.Point(127, 233);
             this.reviewLabel.Name = "reviewLabel";
             this.reviewLabel.Size = new System.Drawing.Size(36, 15);
             this.reviewLabel.TabIndex = 66;
@@ -92,7 +95,7 @@ namespace KeyTools.Lessons.Entities
             // 
             // staticReviewText
             // 
-            this.staticReviewText.Location = new System.Drawing.Point(-1, 204);
+            this.staticReviewText.Location = new System.Drawing.Point(2, 233);
             this.staticReviewText.Name = "staticReviewText";
             this.staticReviewText.Size = new System.Drawing.Size(119, 23);
             this.staticReviewText.TabIndex = 65;
@@ -101,7 +104,7 @@ namespace KeyTools.Lessons.Entities
             // checkedTimeLabel
             // 
             this.checkedTimeLabel.AutoSize = true;
-            this.checkedTimeLabel.Location = new System.Drawing.Point(124, 184);
+            this.checkedTimeLabel.Location = new System.Drawing.Point(127, 213);
             this.checkedTimeLabel.Name = "checkedTimeLabel";
             this.checkedTimeLabel.Size = new System.Drawing.Size(36, 15);
             this.checkedTimeLabel.TabIndex = 64;
@@ -109,7 +112,7 @@ namespace KeyTools.Lessons.Entities
             // 
             // staticCheckedLabel
             // 
-            this.staticCheckedLabel.Location = new System.Drawing.Point(-1, 184);
+            this.staticCheckedLabel.Location = new System.Drawing.Point(2, 213);
             this.staticCheckedLabel.Name = "staticCheckedLabel";
             this.staticCheckedLabel.Size = new System.Drawing.Size(119, 23);
             this.staticCheckedLabel.TabIndex = 63;
@@ -118,7 +121,7 @@ namespace KeyTools.Lessons.Entities
             // viewsLabel
             // 
             this.viewsLabel.AutoSize = true;
-            this.viewsLabel.Location = new System.Drawing.Point(124, 161);
+            this.viewsLabel.Location = new System.Drawing.Point(127, 190);
             this.viewsLabel.Name = "viewsLabel";
             this.viewsLabel.Size = new System.Drawing.Size(36, 15);
             this.viewsLabel.TabIndex = 62;
@@ -126,7 +129,7 @@ namespace KeyTools.Lessons.Entities
             // 
             // staticViewsLabel
             // 
-            this.staticViewsLabel.Location = new System.Drawing.Point(-1, 161);
+            this.staticViewsLabel.Location = new System.Drawing.Point(2, 190);
             this.staticViewsLabel.Name = "staticViewsLabel";
             this.staticViewsLabel.Size = new System.Drawing.Size(119, 23);
             this.staticViewsLabel.TabIndex = 61;
@@ -135,7 +138,7 @@ namespace KeyTools.Lessons.Entities
             // forksLabel
             // 
             this.forksLabel.AutoSize = true;
-            this.forksLabel.Location = new System.Drawing.Point(124, 138);
+            this.forksLabel.Location = new System.Drawing.Point(127, 167);
             this.forksLabel.Name = "forksLabel";
             this.forksLabel.Size = new System.Drawing.Size(36, 15);
             this.forksLabel.TabIndex = 60;
@@ -143,7 +146,7 @@ namespace KeyTools.Lessons.Entities
             // 
             // staticForksLabel
             // 
-            this.staticForksLabel.Location = new System.Drawing.Point(-1, 138);
+            this.staticForksLabel.Location = new System.Drawing.Point(2, 167);
             this.staticForksLabel.Name = "staticForksLabel";
             this.staticForksLabel.Size = new System.Drawing.Size(119, 23);
             this.staticForksLabel.TabIndex = 59;
@@ -152,7 +155,7 @@ namespace KeyTools.Lessons.Entities
             // originLabel
             // 
             this.originLabel.AutoSize = true;
-            this.originLabel.Location = new System.Drawing.Point(124, 115);
+            this.originLabel.Location = new System.Drawing.Point(127, 144);
             this.originLabel.Name = "originLabel";
             this.originLabel.Size = new System.Drawing.Size(36, 15);
             this.originLabel.TabIndex = 58;
@@ -160,7 +163,7 @@ namespace KeyTools.Lessons.Entities
             // 
             // staticOriginLabel
             // 
-            this.staticOriginLabel.Location = new System.Drawing.Point(-1, 115);
+            this.staticOriginLabel.Location = new System.Drawing.Point(2, 144);
             this.staticOriginLabel.Name = "staticOriginLabel";
             this.staticOriginLabel.Size = new System.Drawing.Size(119, 23);
             this.staticOriginLabel.TabIndex = 57;
@@ -169,7 +172,7 @@ namespace KeyTools.Lessons.Entities
             // personalLabel
             // 
             this.personalLabel.AutoSize = true;
-            this.personalLabel.Location = new System.Drawing.Point(124, 92);
+            this.personalLabel.Location = new System.Drawing.Point(127, 121);
             this.personalLabel.Name = "personalLabel";
             this.personalLabel.Size = new System.Drawing.Size(36, 15);
             this.personalLabel.TabIndex = 56;
@@ -177,7 +180,7 @@ namespace KeyTools.Lessons.Entities
             // 
             // staticPersonalLabel
             // 
-            this.staticPersonalLabel.Location = new System.Drawing.Point(-1, 92);
+            this.staticPersonalLabel.Location = new System.Drawing.Point(2, 121);
             this.staticPersonalLabel.Name = "staticPersonalLabel";
             this.staticPersonalLabel.Size = new System.Drawing.Size(119, 23);
             this.staticPersonalLabel.TabIndex = 55;
@@ -186,7 +189,7 @@ namespace KeyTools.Lessons.Entities
             // schoolLabel
             // 
             this.schoolLabel.AutoSize = true;
-            this.schoolLabel.Location = new System.Drawing.Point(124, 46);
+            this.schoolLabel.Location = new System.Drawing.Point(127, 75);
             this.schoolLabel.Name = "schoolLabel";
             this.schoolLabel.Size = new System.Drawing.Size(36, 15);
             this.schoolLabel.TabIndex = 54;
@@ -194,7 +197,7 @@ namespace KeyTools.Lessons.Entities
             // 
             // staticSchoolLabel
             // 
-            this.staticSchoolLabel.Location = new System.Drawing.Point(-1, 46);
+            this.staticSchoolLabel.Location = new System.Drawing.Point(2, 75);
             this.staticSchoolLabel.Name = "staticSchoolLabel";
             this.staticSchoolLabel.Size = new System.Drawing.Size(119, 23);
             this.staticSchoolLabel.TabIndex = 53;
@@ -203,7 +206,7 @@ namespace KeyTools.Lessons.Entities
             // authorLabel
             // 
             this.authorLabel.AutoSize = true;
-            this.authorLabel.Location = new System.Drawing.Point(124, 23);
+            this.authorLabel.Location = new System.Drawing.Point(127, 52);
             this.authorLabel.Name = "authorLabel";
             this.authorLabel.Size = new System.Drawing.Size(36, 15);
             this.authorLabel.TabIndex = 52;
@@ -211,7 +214,7 @@ namespace KeyTools.Lessons.Entities
             // 
             // staticAuthorLabel
             // 
-            this.staticAuthorLabel.Location = new System.Drawing.Point(-1, 23);
+            this.staticAuthorLabel.Location = new System.Drawing.Point(2, 52);
             this.staticAuthorLabel.Name = "staticAuthorLabel";
             this.staticAuthorLabel.Size = new System.Drawing.Size(119, 23);
             this.staticAuthorLabel.TabIndex = 51;
@@ -220,7 +223,7 @@ namespace KeyTools.Lessons.Entities
             // lessonLabel
             // 
             this.lessonLabel.AutoSize = true;
-            this.lessonLabel.Location = new System.Drawing.Point(125, 0);
+            this.lessonLabel.Location = new System.Drawing.Point(128, 29);
             this.lessonLabel.Name = "lessonLabel";
             this.lessonLabel.Size = new System.Drawing.Size(36, 15);
             this.lessonLabel.TabIndex = 50;
@@ -228,7 +231,7 @@ namespace KeyTools.Lessons.Entities
             // 
             // staticLessonLabel
             // 
-            this.staticLessonLabel.Location = new System.Drawing.Point(0, 0);
+            this.staticLessonLabel.Location = new System.Drawing.Point(3, 29);
             this.staticLessonLabel.Name = "staticLessonLabel";
             this.staticLessonLabel.Size = new System.Drawing.Size(119, 23);
             this.staticLessonLabel.TabIndex = 49;
@@ -236,36 +239,58 @@ namespace KeyTools.Lessons.Entities
             // 
             // changePersonalStateIcon
             // 
-            this.changePersonalStateIcon.AutoSize = true;
-            this.changePersonalStateIcon.Location = new System.Drawing.Point(225, 280);
-            this.changePersonalStateIcon.Name = "changePersonalStateIcon";
-            this.changePersonalStateIcon.Size = new System.Drawing.Size(36, 15);
-            this.changePersonalStateIcon.TabIndex = 47;
-            this.changePersonalStateIcon.Text = "None";
+            this.personalStateIcon.AutoSize = true;
+            this.personalStateIcon.Location = new System.Drawing.Point(195, 259);
+            this.personalStateIcon.Name = "changePersonalStateIcon";
+            this.personalStateIcon.Size = new System.Drawing.Size(36, 15);
+            this.personalStateIcon.TabIndex = 47;
+            this.personalStateIcon.Text = "None";
             // 
             // publishButton
             // 
-            this.publishButton.Location = new System.Drawing.Point(-1, 276);
+            this.publishButton.Location = new System.Drawing.Point(3, 255);
             this.publishButton.Name = "publishButton";
-            this.publishButton.Size = new System.Drawing.Size(107, 23);
+            this.publishButton.Size = new System.Drawing.Size(89, 23);
             this.publishButton.TabIndex = 46;
             this.publishButton.Text = "Publish";
             this.publishButton.UseVisualStyleBackColor = true;
+            this.publishButton.Click += OnPublishClick;
             // 
             // changePersonalStateLink
             // 
-            this.changePersonalStateLink.AutoSize = true;
-            this.changePersonalStateLink.Location = new System.Drawing.Point(281, 280);
-            this.changePersonalStateLink.Name = "changePersonalStateLink";
-            this.changePersonalStateLink.Size = new System.Drawing.Size(56, 15);
-            this.changePersonalStateLink.TabIndex = 48;
-            this.changePersonalStateLink.TabStop = true;
-            this.changePersonalStateLink.Text = "Open log";
+            this.personalStateLink.AutoSize = true;
+            this.personalStateLink.Location = new System.Drawing.Point(237, 259);
+            this.personalStateLink.Name = "changePersonalStateLink";
+            this.personalStateLink.Size = new System.Drawing.Size(56, 15);
+            this.personalStateLink.TabIndex = 48;
+            this.personalStateLink.TabStop = true;
+            this.personalStateLink.Text = "Open log";
             // 
-            // ModeratorLessonView
+            // lessonIdLabel
+            // 
+            this.lessonIdLabel.AutoSize = true;
+            this.lessonIdLabel.Location = new System.Drawing.Point(3, 6);
+            this.lessonIdLabel.Name = "lessonIdLabel";
+            this.lessonIdLabel.Size = new System.Drawing.Size(89, 15);
+            this.lessonIdLabel.TabIndex = 71;
+            this.lessonIdLabel.Text = "Current lesson :";
+            // 
+            // lessonsComboBox
+            // 
+            this.lessonsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.lessonsComboBox.Location = new System.Drawing.Point(98, 3);
+            this.lessonsComboBox.Name = "lessonsComboBox";
+            this.lessonsComboBox.Size = new System.Drawing.Size(163, 23);
+            this.lessonsComboBox.TabIndex = 70;
+            this.lessonsComboBox.Tag = "";
+            this.lessonsComboBox.SelectedIndexChanged += OnSelectedLessonChanged;
+            // 
+            // LessonInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lessonIdLabel);
+            this.Controls.Add(this.lessonsComboBox);
             this.Controls.Add(this.updatedLabel);
             this.Controls.Add(this.staticUpdatedLabel);
             this.Controls.Add(this.rejectButton);
@@ -287,11 +312,11 @@ namespace KeyTools.Lessons.Entities
             this.Controls.Add(this.staticAuthorLabel);
             this.Controls.Add(this.lessonLabel);
             this.Controls.Add(this.staticLessonLabel);
-            this.Controls.Add(this.changePersonalStateIcon);
+            this.Controls.Add(this.personalStateIcon);
             this.Controls.Add(this.publishButton);
-            this.Controls.Add(this.changePersonalStateLink);
-            this.Name = "ModeratorLessonView";
-            this.Size = new System.Drawing.Size(340, 298);
+            this.Controls.Add(this.personalStateLink);
+            this.Name = "LessonInfo";
+            this.Size = new System.Drawing.Size(299, 283);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,8 +345,10 @@ namespace KeyTools.Lessons.Entities
         private System.Windows.Forms.Label staticAuthorLabel;
         private System.Windows.Forms.Label lessonLabel;
         private System.Windows.Forms.Label staticLessonLabel;
-        private System.Windows.Forms.Label changePersonalStateIcon;
+        private System.Windows.Forms.Label personalStateIcon;
         private System.Windows.Forms.Button publishButton;
-        private System.Windows.Forms.LinkLabel changePersonalStateLink;
+        private System.Windows.Forms.LinkLabel personalStateLink;
+        private System.Windows.Forms.Label lessonIdLabel;
+        private System.Windows.Forms.ComboBox lessonsComboBox;
     }
 }

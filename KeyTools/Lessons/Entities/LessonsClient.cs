@@ -85,7 +85,7 @@ namespace KeyTools.Lessons.Entities
             return new LessonsData(Call(new LessonsSearchRequest(label)));
         }
 
-        public JObject ChangeLessonPublishedState(RejectLesson data)
+        public JObject UpdateLessonPublishState(RejectLesson data)
         {
             return (JObject) JsonConvert.DeserializeObject(Call(new PublishStateLessonRequest(data)));
         }

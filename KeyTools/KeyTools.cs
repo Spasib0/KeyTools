@@ -61,6 +61,12 @@ namespace KeyTools
             serversList.SelectedIndex = 0;
         }
 
+        public static void SetIcon(Label icon, bool state)
+        {
+            icon.Text = state ? "OK" : "FAIL";
+            icon.ForeColor = state ? Color.Green : Color.Red;
+        }
+
         private void UpdateAuth()
         {
             SetButtonState(authorizationButton, !TokenAvalible, authIcon);
@@ -79,12 +85,6 @@ namespace KeyTools
             }
         }
         
-        private void SetStatusIcon(bool state)
-        {
-            statusIcon.Text = state ? "OK" : "FAIL";
-            statusIcon.ForeColor = state ? Color.Green : Color.Red;
-        }
-
         private void SetErrorLabels(bool state, string text)
         {
             errorText.Visible = state;
@@ -139,7 +139,7 @@ namespace KeyTools
 
             bool isOk = value == "ok";
 
-            SetStatusIcon(isOk);
+            SetIcon(statusIcon, isOk);
             SetErrorLabels(!isOk, text);
         }
 

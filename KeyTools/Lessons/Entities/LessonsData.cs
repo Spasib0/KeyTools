@@ -15,17 +15,17 @@ namespace KeyTools.Lessons.Entities
         
         public LessonsData(string response)
         {
-            var objData = (JArray)JsonConvert.DeserializeObject(response);
-            _lessons = objData == null
-                ? TryParseLesson(response)
-                : objData.Select(lessonResponse => new LessonResponseData(lessonResponse)).ToList();
-        }
-
-        private List<LessonResponseData> TryParseLesson(string response)
-        {
-            var lesson = new LessonResponseData(((JToken)JsonConvert.DeserializeObject(response)).Value<JToken>("data"));
-
-            return lesson == null ? new List<LessonResponseData>() : new List<LessonResponseData>{ lesson };
+            if (response.Contains("data"))
+            {
+                _lessons = new List<LessonResponseData> { new LessonResponseData(response) };
+            }
+            else
+            {
+                var objData = (JArray)JsonConvert.DeserializeObject(response);
+                _lessons = objData == null
+                    ? new List<LessonResponseData>()
+                    : objData.Select(lessonResponse => new LessonResponseData(lessonResponse)).ToList();
+            }
         }
     }
 }

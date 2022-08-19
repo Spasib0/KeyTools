@@ -5,7 +5,6 @@ using KeyTools.Lessons.Requests;
 using KeyTools.Lessons.Tests;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -14,6 +13,8 @@ namespace KeyTools.Lessons
     public partial class LessonsTests : UserControl
     {
         public static LessonsClient Client;
+
+        private Action<Label, bool> SetIcon => KeyTools.SetIcon;
 
         private LessonsClient _client;
         private LessonsData keyLessons;
@@ -27,7 +28,6 @@ namespace KeyTools.Lessons
         private CanDeleteLesson canDeleteLessonsTest;
         private CanCreateNewLesson canCreateNewLessonTest;
         private LessonsSearch lessonsSearch;
-        
 
         private List<LessonForDelete> lessonsForDelete;
 
@@ -108,7 +108,7 @@ namespace KeyTools.Lessons
             var forkId = ForkGetTest.Test(lessonsSearch.Avalible().Lessons.FirstOrDefault(lesson => !lesson.personal));
             var isPassed = forkId != "-1";
 
-            SetTestIcon(forkGetIcon, isPassed);
+            SetIcon(forkGetIcon, isPassed);
 
             if (isPassed)
             {
@@ -123,7 +123,7 @@ namespace KeyTools.Lessons
             var forkId = ForkPostTest.Test(lessonsSearch.Avalible().Lessons.FirstOrDefault(lesson => !lesson.personal));
             var isPassed = forkId != "-1";
 
-            SetTestIcon(forkPostIcon, isPassed);
+            SetIcon(forkPostIcon, isPassed);
 
             if (isPassed)
             {
@@ -135,7 +135,7 @@ namespace KeyTools.Lessons
 
         private void TestDeleteLessons()
         {
-            SetTestIcon(canDeleteLessonsIcon, canDeleteLessonsTest.Test(lessonsForDelete, RemoveLessonForDelete));
+            SetIcon(canDeleteLessonsIcon, canDeleteLessonsTest.Test(lessonsForDelete, RemoveLessonForDelete));
         }
 
         private void TestCanCreateNewLesson()
@@ -148,7 +148,7 @@ namespace KeyTools.Lessons
                 AddLessonForDelete(lessonId, "Created new lesson");
             }
 
-            SetTestIcon(canCreateNewLessonIcon, isPassed);
+            SetIcon(canCreateNewLessonIcon, isPassed);
         }
 
         private void CheckAuthorLessons()
@@ -180,25 +180,19 @@ namespace KeyTools.Lessons
         //todo в какой-то другой класс можно
         private void SetHasContentLinksInfo(bool state)
         {
-            SetTestIcon(keyLesonsTestIcon, state);
+            SetIcon(keyLesonsTestIcon, state);
             keyLessonsTestLogLink.Visible = !state;
         }
 
         private void SetUpdateLessonInfo(bool state)
         {
-            SetTestIcon(updateLessonTestIcon, state);
+            SetIcon(updateLessonTestIcon, state);
             updateLessonLink.Visible = !state;
         }
 
         private void SetAuthorsLessonsInfoLink(bool state)
         {
             updateLessonLink.Enabled = state;
-        }
-
-        private void SetTestIcon(Label label, bool state)
-        {
-            label.Text = state ? "OK" : "FAIL";
-            label.ForeColor = state ? Color.Green : Color.Red;
         }
 
         private void SetModeratorControl(bool state)
