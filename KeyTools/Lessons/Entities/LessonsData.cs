@@ -19,6 +19,10 @@ namespace KeyTools.Lessons.Entities
             {
                 _lessons = new List<LessonResponseData> { new LessonResponseData(response) };
             }
+            else if (response.Contains("Not Found") || response.Contains("NotFound"))
+            {
+                _lessons = new List<LessonResponseData>();
+            }
             else
             {
                 var objData = (JArray)JsonConvert.DeserializeObject(response);

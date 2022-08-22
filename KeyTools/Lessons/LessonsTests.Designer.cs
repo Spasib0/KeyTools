@@ -33,8 +33,8 @@ namespace KeyTools.Lessons
             this.testKeyLessons = new System.Windows.Forms.Button();
             this.userTestsGroupBox = new System.Windows.Forms.GroupBox();
             this.searchLessonsGroupBox = new System.Windows.Forms.GroupBox();
-            this.lessonsSearchLink = new System.Windows.Forms.LinkLabel();
-            this.lessonsSearchButton = new System.Windows.Forms.Button();
+            this.searchLessonsLink = new System.Windows.Forms.LinkLabel();
+            this.searchLessonsButton = new System.Windows.Forms.Button();
             this.lessonsSearchTextBox = new System.Windows.Forms.TextBox();
             this.keyLessonsInfosGroupBox = new System.Windows.Forms.GroupBox();
             this.keyLessonsLink = new System.Windows.Forms.LinkLabel();
@@ -94,8 +94,8 @@ namespace KeyTools.Lessons
             // 
             // searchLessonsGroupBox
             // 
-            this.searchLessonsGroupBox.Controls.Add(this.lessonsSearchLink);
-            this.searchLessonsGroupBox.Controls.Add(this.lessonsSearchButton);
+            this.searchLessonsGroupBox.Controls.Add(this.searchLessonsLink);
+            this.searchLessonsGroupBox.Controls.Add(this.searchLessonsButton);
             this.searchLessonsGroupBox.Controls.Add(this.lessonsSearchTextBox);
             this.searchLessonsGroupBox.Location = new System.Drawing.Point(7, 294);
             this.searchLessonsGroupBox.Name = "searchLessonsGroupBox";
@@ -106,23 +106,24 @@ namespace KeyTools.Lessons
             // 
             // lessonsSearchLink
             // 
-            this.lessonsSearchLink.AutoSize = true;
-            this.lessonsSearchLink.Enabled = false;
-            this.lessonsSearchLink.Location = new System.Drawing.Point(195, 26);
-            this.lessonsSearchLink.Name = "lessonsSearchLink";
-            this.lessonsSearchLink.Size = new System.Drawing.Size(36, 15);
-            this.lessonsSearchLink.TabIndex = 20;
-            this.lessonsSearchLink.TabStop = true;
-            this.lessonsSearchLink.Text = "None";
+            this.searchLessonsLink.AutoSize = true;
+            this.searchLessonsLink.Enabled = false;
+            this.searchLessonsLink.Location = new System.Drawing.Point(195, 26);
+            this.searchLessonsLink.Name = "lessonsSearchLink";
+            this.searchLessonsLink.Size = new System.Drawing.Size(36, 15);
+            this.searchLessonsLink.TabIndex = 20;
+            this.searchLessonsLink.TabStop = true;
+            this.searchLessonsLink.Text = "None";
             // 
-            // lessonsSearchButton
+            // searchLessonsButton
             // 
-            this.lessonsSearchButton.Location = new System.Drawing.Point(114, 23);
-            this.lessonsSearchButton.Name = "lessonsSearchButton";
-            this.lessonsSearchButton.Size = new System.Drawing.Size(75, 23);
-            this.lessonsSearchButton.TabIndex = 1;
-            this.lessonsSearchButton.Text = "Search";
-            this.lessonsSearchButton.UseVisualStyleBackColor = true;
+            this.searchLessonsButton.Location = new System.Drawing.Point(114, 23);
+            this.searchLessonsButton.Name = "searchLessonsButton";
+            this.searchLessonsButton.Size = new System.Drawing.Size(75, 23);
+            this.searchLessonsButton.TabIndex = 1;
+            this.searchLessonsButton.Text = "Search";
+            this.searchLessonsButton.UseVisualStyleBackColor = true;
+            this.searchLessonsButton.Click += OnSearchLessonsClick;
             // 
             // lessonsSearchTextBox
             // 
@@ -442,9 +443,9 @@ namespace KeyTools.Lessons
         private System.Windows.Forms.Label canCreateNewLessonIcon;
         private System.Windows.Forms.Label createNewLessonLabel;
         private System.Windows.Forms.GroupBox searchLessonsGroupBox;
-        private System.Windows.Forms.Button lessonsSearchButton;
+        private System.Windows.Forms.Button searchLessonsButton;
         private System.Windows.Forms.TextBox lessonsSearchTextBox;
-        private System.Windows.Forms.LinkLabel lessonsSearchLink;
+        private System.Windows.Forms.LinkLabel searchLessonsLink;
         private ModeratorControl moderatorControl;
     }
 }

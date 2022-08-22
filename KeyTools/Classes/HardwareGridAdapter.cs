@@ -64,6 +64,7 @@ namespace KeyTools.Classes
         public void Clear()
         {
             gridView.Rows.Clear();
+            gridView.RowStateChanged -= GridView_RowStateChanged;
             hardwares = null;
         }
 
@@ -81,7 +82,7 @@ namespace KeyTools.Classes
 
         private void GridView_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            if (e.StateChanged == DataGridViewElementStates.Selected && e.Row.Index > 0 && gridView.SelectedRows.Count > 0)
+            if (e.StateChanged == DataGridViewElementStates.Selected && gridView.SelectedRows.Count > 0)
             {
                 SelectHardware(e.Row.Index);
             }

@@ -8,7 +8,7 @@ namespace KeyTools.Lessons.Tests
 {
     internal class PersonalState : LinkedLog
     {
-        private const string LOG_NAME = "ChangePersonalState";
+        private const string LOG_NAME = "PersonalState";
         private Func<RejectLesson, JObject> updateState => LessonsTests.Client.UpdateLessonPublishState;
 
         public PersonalState(LinkLabel logLink) : base (logLink, LOG_NAME) { }
@@ -17,7 +17,10 @@ namespace KeyTools.Lessons.Tests
         {
             var toSend = new RejectLesson(id, state, reason, null);
             var res = updateState(toSend);
-            return false;
+            var isOk = res.ContainsKey("value") && res["value"].ToString() == "ok";
+            Logger.Add($"{(isOk ? "success" : "fail")} set state - {state} to lesson {id}");
+            Logger.Save();
+            return isOk;
         }
 
         public bool Publish(LessonResponseData lesson)
@@ -27,7 +30,7 @@ namespace KeyTools.Lessons.Tests
 
         public bool Reject(LessonResponseData lesson)
         {
-            return Send(lesson.id, false, RejectReason.Reject());
+            return Send(lesson.id, true, RejectReason.Reject());
         }
     }
 }

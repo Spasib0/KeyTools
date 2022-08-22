@@ -34,8 +34,9 @@ namespace KeyTools.Lessons.Entities
             this.lessonsCountLabel = new System.Windows.Forms.Label();
             this.updateLessonsButton = new System.Windows.Forms.Button();
             this.filterTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.filterTextBox = new System.Windows.Forms.TextBox();
+            this.idTextBox = new System.Windows.Forms.TextBox();
             this.lessonInfoGroup = new System.Windows.Forms.GroupBox();
+            this.lessonInfo = new LessonInfo(lessons);
             this.lessonInfoGroup.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,24 +61,25 @@ namespace KeyTools.Lessons.Entities
             // 
             // filterTypeComboBox
             // 
-            
             this.filterTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filterTypeComboBox.Location = new System.Drawing.Point(0, 0);
             this.filterTypeComboBox.Name = "filterTypeComboBox";
             this.filterTypeComboBox.Size = new System.Drawing.Size(163, 23);
             this.filterTypeComboBox.TabIndex = 32;
             this.filterTypeComboBox.Tag = "";
+            this.filterTypeComboBox.SelectedIndexChanged += OnFilterTypeChanged;
             // 
-            // filterTextBox
+            // idTextBox
             // 
-            this.filterTextBox.Location = new System.Drawing.Point(170, 0);
-            this.filterTextBox.Name = "filterTextBox";
-            this.filterTextBox.Size = new System.Drawing.Size(100, 23);
-            this.filterTextBox.TabIndex = 33;
+            this.idTextBox.Location = new System.Drawing.Point(170, 0);
+            this.idTextBox.Name = "idTextBox";
+            this.idTextBox.Size = new System.Drawing.Size(100, 23);
+            this.idTextBox.TabIndex = 33;
+            this.idTextBox.KeyPress += OnIdTextBoxKeyPress;
             // 
             // lessonInfoGroup
             // 
-            this.lessonInfoGroup.Controls.Add(this.lessonsInfo);
+            this.lessonInfoGroup.Controls.Add(this.lessonInfo);
             this.lessonInfoGroup.Location = new System.Drawing.Point(3, 58);
             this.lessonInfoGroup.Name = "lessonInfoGroup";
             this.lessonInfoGroup.Size = new System.Drawing.Size(377, 327);
@@ -85,19 +87,19 @@ namespace KeyTools.Lessons.Entities
             this.lessonInfoGroup.TabStop = false;
             this.lessonInfoGroup.Text = "Avalible lessons";
             // 
-            // lessonsInfo
+            // lessonInfo1
             // 
-            this.lessonsInfo.Location = new System.Drawing.Point(6, 22);
-            this.lessonsInfo.Name = "lessonsInfo";
-            this.lessonsInfo.Size = new System.Drawing.Size(365, 299);
-            this.lessonsInfo.TabIndex = 0;
+            this.lessonInfo.Location = new System.Drawing.Point(7, 23);
+            this.lessonInfo.Name = "lessonInfo1";
+            this.lessonInfo.Size = new System.Drawing.Size(299, 283);
+            this.lessonInfo.TabIndex = 0;
             // 
             // ModeratorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lessonInfoGroup);
-            this.Controls.Add(this.filterTextBox);
+            this.Controls.Add(this.idTextBox);
             this.Controls.Add(this.filterTypeComboBox);
             this.Controls.Add(this.lessonsCountLabel);
             this.Controls.Add(this.updateLessonsButton);
@@ -113,8 +115,8 @@ namespace KeyTools.Lessons.Entities
         private System.Windows.Forms.Label lessonsCountLabel;
         private System.Windows.Forms.Button updateLessonsButton;
         private System.Windows.Forms.ComboBox filterTypeComboBox;
-        private System.Windows.Forms.TextBox filterTextBox;
+        private System.Windows.Forms.TextBox idTextBox;
         private System.Windows.Forms.GroupBox lessonInfoGroup;
-        private LessonInfo lessonsInfo;
+        private LessonInfo lessonInfo;
     }
 }

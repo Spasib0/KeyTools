@@ -22,7 +22,6 @@ namespace KeyTools.Lessons
         private CanUpdateLessons updateLessonTest;
         private AuthorLessons authorLessonsInfo;
         private KeyLessons keyLessonsInfo;
-        private HasPublishedLessons hasPublishedLessonsTest;
         private ForkGet ForkGetTest;
         private ForkPost ForkPostTest;
         private CanDeleteLesson canDeleteLessonsTest;
@@ -43,7 +42,6 @@ namespace KeyTools.Lessons
         {
             hasContentLinksTest = new HasContentLinks(keyLessonsTestLogLink);
             updateLessonTest = new CanUpdateLessons(updateLessonLink);
-            hasPublishedLessonsTest = new HasPublishedLessons(forkPostLink);
             ForkGetTest = new ForkGet(forkGetLink);
             ForkPostTest = new ForkPost(forkPostLink);
             canDeleteLessonsTest = new CanDeleteLesson(canDeleteLessonLink);
@@ -58,7 +56,7 @@ namespace KeyTools.Lessons
 
         private void InitSearch()
         {
-            lessonsSearch = new LessonsSearch(lessonsSearchLink);
+            lessonsSearch = new LessonsSearch(searchLessonsLink);
         }
 
         public void SetClient(KeyToolsClient client)

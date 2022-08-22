@@ -39,10 +39,7 @@ namespace KeyTools.Dialogs
 
             if (saveCheckBox.Checked = !string.IsNullOrEmpty(login))
             {
-                ////////////////////////////////////////
-                passwordField.Text = "r69706970";
-                authButton.Select();
-                //passwordField.Select();
+                passwordField.Select();
             }
         }
 

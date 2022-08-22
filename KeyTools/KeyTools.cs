@@ -94,10 +94,18 @@ namespace KeyTools
         private void OnAuth(string token)
         {
             _tokens[CurrentServer] = token;
-            //////////////////////////////////////////////
-            keyField.Text = "Moderator";
-            updateDevicesButton.Select();
-            //////////////////////////////////////////////
+
+            keyField.Text = savedData["savedKey"];
+
+            if (string.IsNullOrEmpty(Key))
+            {
+                keyField.Select();
+            } 
+            else
+            {
+                updateDevicesButton.Select();
+            }
+
             UpdateAuth();
         }
 
@@ -189,6 +197,7 @@ namespace KeyTools
                 _currentData.UpdateDevices(userData.user.hardwares);
 
                 SwitchUpdateDeviceButton(false);
+                savedData["savedKey"] = Key;
             }
         }
 
